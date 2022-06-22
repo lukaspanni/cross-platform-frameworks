@@ -1,0 +1,58 @@
+\documentclass[12pt, oneside, titlepage]{book}
+\usepackage{Document}
+
+
+\newcommand{\Author}{Lukas Panni}
+\newcommand{\Type}{Paper}
+
+\newcommand{\Title}{EMPTY}
+
+\hypersetup{
+  pdfauthor={\Author},
+  pdftitle={\Title},
+  pdfsubject={\Type}
+}
+
+\begin{document}
+
+\pagestyle{plain}
+
+\begin{titlepage}
+\begin{center}
+\vspace*{-2cm}
+{\Huge \Title}\\[1cm]
+{\Huge\scshape \Type}\\[1cm]
+{\large\bfseries \Author}\\[1cm]
+\vfill
+\end{center}
+\end{titlepage}
+
+\input{abstract.tex}
+
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+%   \lstlistoflistings
+
+\chapter*{Abbreviations}
+\addcontentsline{toc}{chapter}{Abbreviations}
+\input{acronyms.tex}
+\clearpage
+
+% Actual Contents
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/test-chapter.tex}
+
+% bibliography and appendix
+\bibliographystyle{ieeetr}
+\bibliography{sources}
+
+\appendix
+\input{appendix.tex}
+
+\end{document}
