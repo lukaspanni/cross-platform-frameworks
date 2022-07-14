@@ -26,7 +26,10 @@
 *.pdf
 *.lol
 *.synctex.gz
-Thesis.bcf
-Thesis.run.xml
+Document.bcf
+Document.run.xml
 **__latexindent_temp.tex
 sources/Document.synctex(busy)
+
+
+Literatur/
