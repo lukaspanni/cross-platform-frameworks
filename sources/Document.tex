@@ -3,9 +3,15 @@
 
 
 \newcommand{\Author}{Lukas Panni}
-\newcommand{\Type}{project report}
+\newcommand{\Type}{Projektarbeit 2}
+\newcommand{\Matrikelnummer}{82644}
+\newcommand{\Studiengang}{Informatik (M.Sc.)}
+\newcommand{\Title}{Plattformübergreifende Frameworks für die Entwicklung mobiler Anwendungen}
+\newcommand{\LogoHKA}{{\includegraphics[width=4cm]{logo-h-ka}}}
+\newcommand{\LogoHKADeckblatt}{{\includegraphics[height=1.25cm]{logo-h-ka}}}
+\newcommand{\SupervisingProfessor}{Prof. Dr. rer. nat. Thomas Fuchß }
+\newcommand{\Abgabedatum}{\today}
 
-\newcommand{\Title}{Evaluation and Comparison of popular cross-platform frameworks for mobile application development}
 
 \hypersetup{
   pdfauthor={\Author},
@@ -18,16 +24,27 @@
 \pagestyle{plain}
 
 \begin{titlepage}
-\begin{center}
-\vspace*{-2cm}
-{\Huge \Title}\\[1cm]
-{\Huge\scshape \Type}\\[1cm]
-{\large\bfseries \Author}\\[1cm]
-\vfill
-\end{center}
+  \begin{center}
+    \vspace*{-2cm}
+    \hfill\LogoHKADeckblatt\\[2cm]
+    {\Huge \Title}\\[1cm]
+    {\Huge\scshape \Type}\\[1cm]
+    {\large im Studiengang \Studiengang}\\[0.5cm]
+    {\large an der}\\[0.5cm]
+    {\large Hochschule Karlsruhe}\\[0.5cm]
+    {\large von}\\[0.5cm]
+    {\large\bfseries \Author}\\[1cm]
+    {\large bei}\\[0.5cm]
+    {\large\bfseries \SupervisingProfessor}\\[1cm]
+    \vfill
+  \end{center}
+  \begin{tabular}{l@{\hspace{2cm}}l}
+    Matrikelnummer  & \Matrikelnummer	\\
+    Datum           & \Abgabedatum   
+    \end{tabular}
 \end{titlepage}
 
-\input{abstract.tex}
+% \input{abstract.tex}
 
 \pagenumbering{Roman}
 \setcounter{page}{1}
@@ -37,8 +54,8 @@
 \listoftables
 %   \lstlistoflistings
 
-\chapter*{Abbreviations}
-\addcontentsline{toc}{chapter}{Abbreviations}
+\chapter*{Abkürzungen}
+\addcontentsline{toc}{chapter}{Abkürzungen}
 \input{acronyms.tex}
 \clearpage
 

@@ -1,10 +1,7 @@
-% Language settings
 \usepackage[ngerman]{babel}
-% \usepackage[american]{babel}
-\usepackage[babel, german=guillemets]{csquotes}
-
+\usepackage[babel, autostyle=true, autopunct=true]{csquotes}
 \usepackage[utf8]{inputenc}
-\usepackage[scaled]{helvet}
+\usepackage[lining]{ebgaramond}
 \usepackage[T1]{fontenc}
 \usepackage[hidelinks]{hyperref}
 \usepackage{inconsolata}
@@ -28,9 +25,16 @@
 \usepackage[printonlyused]{acronym}
 \usepackage{etoolbox}
 \usepackage{float}
+\usepackage{mathtools}
+\usepackage{xfrac}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{afterpage}
 
 
-\renewcommand\familydefault{\sfdefault}
+%\renewcommand\familydefault{\sfdefault}
 
 \titleformat{\chapter}{\Huge\bfseries}{\thechapter.}{20pt}{\Huge\bfseries}
 \titlespacing*{\chapter}{0pt}{0pt}{30pt}
