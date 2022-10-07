@@ -1,22 +1,37 @@
 \chapter{Einleitung}
 \label{ch:Einleitung}
 
+
+Smartphones beherrschen den Alltag.
+Alleine Deutschland gibt es laut Statista \cite{Statista_SmartphonesDeutschland} im September 2022 über 60 Millionen Smartphone Nutzer.
+Bis 2023 soll die Zahl der Nutzer auf über 68 Millionen steigen.
+Wichtiger Faktor der Smartphone-Nutzung sind die vielen verschiedenen Apps.
+Im Jahr 2021 wurden über 230 Milliarden App-Downloads weltweit durchgeführt \cite{Statista_AppDownloads}.
+Über bezahlte Apps oder Abo-Modelle lassen sich große Umsätze generieren, wie unter anderem eine Auswertung von SensorTower \cite{SensorTower_AppUmsatz} zeigt, welche den mit In-App Käufen erzielten Umsatz 2021 mit über 130 Milliarden US-Dollar angibt.
+
+Dementsprechend haben viele Unternehmen ein großes Interesse daran, Apps für verschiedene Zwecke anzubieten.
+Dabei ist es wichtig, die Entwicklung möglichst effizient und kostengünstig zu gestalten um die Kosten für die Entwicklung und Wartung der Apps zu minimieren.
 % TODO: Relevanz von Video anhand der populärsten Apps.
+% Anwendungszwecke von Video (z.B. AR, Social Media, QR-Scanner, Gaming)
 
 \section{Motivation}
 \label{sec:Motivation}
 
 Auf dem Markt mobiler Betriebssysteme dominieren aktuell die beiden Systeme Android und iOS.
 Alle alternativen Betriebssysteme für mobile Geräte zusammen erreichen im September 2022 weltweit weniger als 1 \% Marktanteil \cite{mobile_market_share}.
-Die Entwicklung von Anwendungen für Mobilgeräte, bezeichnet als Apps, muss sich dementsprechend vorrangig auf diese beiden Systeme konzentrieren.
+Die Entwicklung von Anwendungen (Apps) für Mobilgeräte muss sich dementsprechend vorrangig auf diese beiden Systeme konzentrieren.
 Um möglichst viele Nutzer zu erreichen, sollten mobile Anwendungen für beide Betriebssysteme gleichermaßen bereitgestellt werden.
 Für die Programmierung von Anwendungen sehen allerdings beide Systeme eine andere Programmiersprache und die Verwendung spezieller \acp{API} vor.
 In der Folge müssen zwei eigenständige, sogenannte native Apps entwickelt werden.
 Komponenten oder Klassen von einer Plattform wiederzuverwenden ist durch die Unterschiede in den verwendeten Programmiersprachen nicht möglich.
 
-In den letzten Jahren haben sich zusätzlich zum nativen Ansatz verschiedene weitere Ansätze etabliert, mobile Anwendungen sowohl für Android als auch iOS zu entwickeln.
+In den letzten Jahren haben sich, zusätzlich zum nativen Ansatz, verschiedene weitere Ansätze etabliert, mobile Anwendungen sowohl für Android als auch iOS zu entwickeln.
 Diese Ansätze haben jeweils das Ziel, die Wiederverwendung von Komponenten und Code über die Plattformgrenzen hinweg zu fördern.
 Die Art und Weise, wie dieses Ziel erreicht werden soll unterscheidet sich jedoch zwischen den Ansätzen und zwischen verschiedenen konkreten Frameworks und Tools.
 
-In ... werden die verschiedenen grundsätzlichen Ansätze der Entwicklung mobiler Anwendungen anhand der Taxonomie von Nunkesser ... vorgestellt.
-Ausgewählte Frameworks für die Plattformübergreifende Entwicklung werden in ... näher erklärt und in ... im Rahmen einer Beispielanwendung für Videoaufnahmen ausführlich untersucht.
+Für das Verständnis der nachfolgenden Kapitel notwendige Grundlagen werden in \autoref{ch:Grundlagen} erläutert.
+Zunächst wird auf den Use Case einer Videoaufzeichnung eingegangen, und dabei sowohl die Relevanz des Use Cases als auch die Grundlagen der digitalen Videoaufzeichnung eingegangen.
+Anschließend werden in \autoref{sec:Entwicklungsansaetze} mithilfe der von Nunkesser \cite{Nunkesser_Taxonomy_Apps} erarbeiteten Taxonomie, verschiedene Ansätze zur Entwicklung mobiler Anwendungen vorgestellt.
+Darauf aufbauend werden in \autoref{ch:Frameworks} die Populärsten Frameworks für die Entwicklung mobiler Anwendungen identifiziert und nachfolgend genauer erläutert.
+Abschließend erfolgt die experimentelle Evaluation der Frameworks für den Use Case der Videoaufzeichnung in \autoref{ch:Evaluation}.
+\autoref{ch:Fazit} fasst die Ergebnisse dieser Arbeit zusammen und gibt einen Ausblick auf mögliche weitere Untersuchungen und weitere Entwicklungen im Bereich mobiler Cross-Plattform-Entwicklung.
