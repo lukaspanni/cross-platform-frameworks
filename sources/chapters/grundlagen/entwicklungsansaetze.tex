@@ -28,7 +28,7 @@ Trotzdem können viele Anwendungsfälle aufgrund von schlechter Performance oder
 
 
 Sowohl hybride als auch Web-Apps ermöglichen die Wiederverwendung von Code zwischen den verschiedenen Plattformen.
-Demnach können beide unter dem Überbegriff Cross-Plattform-Apps zusammengefasst werden.
+Demnach können beide unter dem Überbegriff Cross-Plattform Apps zusammengefasst werden.
 Allerdings bieten Web-Apps nur sehr geringen Zugriff auf die Hardware des Geräts und können daher nicht alle Anwendungsfälle abdecken und nicht über die App-Stores der Betriebssysteme verteilt werden.
 Deshalb wird bei der Betrachtung von Frameworks für die Plattformübergreifende Entwicklung nicht auf Frameworks für die reine Web-Entwicklung eingegangen.
 Stattdessen wird der Fokus auf Frameworks gelegt, die den Zugriff auf Gerätefunktionen ermöglichen und als installierbare App auch über die App-Stores der Betriebssysteme verteilt werden können.
@@ -37,8 +37,7 @@ Inzwischen gibt es eine Vielzahl von Frameworks, welche diese Kriterien erfülle
 Deshalb führt Nunkesser in \cite{Nunkesser_Taxonomy_Apps} eine feinere Unterteilung der Entwicklungsansätze auf Basis der verwendeten Tools und Technologien ein.
 Die Unterteilung in sechs Kategorien und ihre wichtigsten Merkmale ist in der Tabelle in \ref{tab:Nunkesser_App_Categories} dargestellt.
 Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattformübergreifende Wiederverwendung von Code unterstützt.
-%TODO: fix table
-\begin{table}[h]
+\begin{table}[H]
     \begin{tabularx}{\textwidth}{ lXr }
         \textbf{Kategorie}      & \textbf{Kennzeichen}  & \textbf{Plattformübergreifende} \\ & & \textbf{Code-Wiederverwendung}                                                   \\
         \toprule[0.1em]
@@ -46,7 +45,7 @@ Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattfor
         \hline
         Web-Apps                & Verwendung von Web-Technologien, Interpretation im Browser des Zielgeräts                                                                                                                         & \cmark        \\
         \hline
-        Hybrid Web Apps         & Verwendung von Web-Technologien, eingebettet in eine Endemic App, Kombination von kompilierten und interpretierten Teilen                                                                         & \cmark        \\
+        Hybrid Web-Apps         & Verwendung von Web-Technologien, eingebettet in eine Endemic App, Kombination von kompilierten und interpretierten Teilen                                                                         & \cmark        \\
         \hline
         Hybrid Bridged Apps     & Erweiterung von Hybrid Web-Apps um \ac{UI} Elemente von Endemic Apps, Kombination von kompilierten und interpretierten Teilen                                                                     & \cmark        \\
         \hline
@@ -60,36 +59,70 @@ Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattfor
 
 Eine wichtige Neuerung ist die Einführung der neuen Kategorie der \textit{Foreign Language Apps}, welche keiner anderen Kategorie untergeordnet werden können.
 Populäre Frameworks wie Xamarin und Flutter gehören zu dieser Kategorie und ermöglichen die Entwicklung mit C\# respektive Dart, welche weder von Android noch von iOS für die Entwicklung von Apps vorgesehen sind \cite{Xamarin_Einfuehrung} \cite{Fentaw_Thesis_Flutter}.
-Weiterhin differenziert er den Hybrid Ansatz weiter und führt die Endemic Apps als neue Bezeichnung für den nativen Ansatz ein. 
-% TODO: weiter auf Endemic exdemic eingehen
+Weiterhin differenziert er den Hybrid Ansatz weiter und führt die Endemic Apps, abgeleitet aus dem griechischen, als neue Bezeichnung für den nativen Ansatz ein.
+Alle nicht den Endemic Apps zugeordneten Ansätze nennt er als Gegensatz zu Endemic Apps, Ecdemic Apps.
+Außerdem führt er Pandemic Apps als Überbegriff für die Apps, die auf Sprachen setzen die auf beiden Systemen verfügbar sind, wie zum Beispiel C/C++ oder JavaScript \cite{Nunkesser_Taxonomy_Apps}.
+Pandemic und Ecdemic dienen vor allem als Überbegriffe zur Sammlung verwandter Ansätze, werden im Folgenden allerdings nicht weiter verwendet.
+Nunkessers Taxonomie bietet allerdings auch Bezeichnungen für die einzelnen Ansätze, die das Grundkonzept des jeweiligen Ansatzes einfach verständlich machen.
+Deshalb werden die von ihm eingeführten Bezeichnungen im Folgenden verwendet.
+Die hierarchische Taxonomie Nunkessers ist in \autoref{fig:Nunkesser_Hierarchy} dargestellt.
 
-Für den Zweck dieser Arbeit wird in den folgenden Abschnitten vorwiegend die übergreifende Kategorie Cross-Plattform-Apps verwendet.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Nunkesser_Hierarchy.png}
+    \caption{Hierarchische Taxonomie der Entwicklungsansätze mobiler Apps \cite{Nunkesser_Taxonomy_Apps}.}
+    \label{fig:Native_vs_CrossPlatform}
+\end{figure}
+
+Für den Zweck dieser Arbeit wird in den folgenden Abschnitten vorwiegend die übergreifende Kategorie der der Cross-Plattform Apps verwendet.
 Diese umfasst die \textit{Hybrid Web Apps}, \textit{Hybrid Bridged Apps} und Foreign Language Apps.
-Demnach wird im Folgenden zwischen Native-Apps beziehungsweise Endemic Apps, Web-Apps und Cross-Plattform-Apps unterschieden.
+Demnach wird im Folgenden zwischen Native-Apps beziehungsweise Endemic Apps, Web-Apps und Cross-Plattform Apps unterschieden.
 Bei der Erläuterung der verschiedenen Frameworks wird dennoch eine Einordnung des jeweiligen Frameworks in eine Kategorie, wie von Nunkesser definiert, vorgenommen.
 So können Vergleiche nicht nur zwischen einzelnen Frameworks, sondern auch zwischen verschiedenen Kategorien durchgeführt werden.
 Die von Nunkesser als \textit{System Language Apps} bezeichnete Kategorie wird im Rahmen dieser Arbeit nicht zur Cross-Plattform Kategorie zugeordnet.
-Bei System Language Apps erfolgt eine starke Bindung an das jeweilige \ac{SDK}, was die Wiederverwendung von Code sehr schwierig macht. %TODO: Belege!
-Außerdem ist die Bedeutung dieses Ansatzes für die Entwicklung mobiler Anwendungen in der Praxis vergleichsweise gering \cite{Nunkesser_Taxonomy_Apps}.
+Bei System Language Apps erfolgt eine starke Bindung an das jeweilige \ac{SDK}, was die Wiederverwendung von Code sehr schwierig macht.
+Bei geeigneter Architektur der App ist es hier jedoch möglich, Teile des Codes Systemübergreifend zu verwenden.
+Für die Untersuchung von Frameworks für die Plattformübergreifende Entwicklung spielt dieser Ansatz aufgrund fehlender populärer Frameworks keine Rolle.
+Außerdem ist die Bedeutung dieses Ansatzes für die Entwicklung mobiler Anwendungen in der Praxis allgemein vergleichsweise gering \cite{Nunkesser_Taxonomy_Apps}.
+
+Obwohl sich die Ansätze der verschiedenen Kategorien, die hier als Cross-Plattform zusammengefasst werden, stark voneinander unterscheiden, weisen sie dennoch genügend Gemeinsamkeiten auf, die diese Zusammenfassung rechtfertigen.
+Im Folgenden soll die Bezeichnung Cross-Plattform, jeweils als ein Ansatz verstanden werden, der die Wiederverwendung von Code, insbesondere zwischen den beiden mobilen Plattformen Android und iOS, fördert.
+Gefordert wird zusätzlich die Möglichkeit, auf native Gerätefunktionen, wie Gerätesensoren oder die Kamera, zuzugreifen.
+Es wird für die Kategorisierung nicht gefordert, dass der komplette Code wiederverwendet werden kann.
 
 
-Obwohl sich die Ansätze der verschiedenen Kategorien, die hier als Cross-Plattform zusammengefasst werden, stark voneinander unterscheiden, weisen sie dennoch Gemeinsamkeiten auf, die diese Zusammenfassung rechtfertigen.
-Alle Ansätze der Kategorie Cross-Plattform haben den Vorteil eines reduzierten Entwicklungsaufwands durch die einfache Wiederverwendung von Code.
-Je nach verwendetem Framework kann der Anteil des geteilten Codes bis zu 100 \% betragen \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks}. 
-Damit lassen sich die Entwicklungskosten im Vergleich zu nativen Apps durch Cross-Plattform Entwicklung teils deutlich senken.
-Matt Kremer, Enterprise Product Manager für das Ionic-Framework, gibt an, dass sowohl Zeitaufwände für initiale Entwicklung und spätere Weiterentwicklung als auch die Personalkosten pro Woche geringer sind als bei einer nativen Entwicklung.
-In einem Beispiel demonstriert er, wie die Kosten eines Ionic-Projekts unter 30 \% der Kosten eines äquivalenten nativen Projekts betragen können \cite{Kremer_IonicROI}.
-Weiterhin sind im Vergleich zu noch günstigeren Web-Apps Zugriffe auf Geräte-\acp{API} besser möglich, was in vielen Fällen ein nicht zu unterschätzender Vorteil ist.
-Trotzdem können meist nicht alle nativ zur Verfügung stehenden Schnittstellen verwendet werden \cite{Pinto_Native_to_Cross_Platform}.
-Ein gemeinsamer Nachteil aller Cross-Plattform Entwicklungsansätze ist die durchschnittlich geringere Performance im Vergleich zu nativen Anwendungen \cite{Pinto_Native_to_Cross_Platform, Que_Comparison_Hybrid_Native}.
-Allerdings gilt hier zu beachten, dass es durchaus große Unterschiede zwischen einzelnen Frameworks und zwischen den verschiedenen Kategorien geben kann.
+\subsection{Vorteile von Cross-Plattform Entwicklung}
+\label{sec:CrossPlattform_Vorteile}
 
-% Die Tabelle in \autoref{fig:Native_vs_CrossPlatform} stellt Vor- und Nachteile von nativen und Cross-Plattform-Apps kurz gegenüber.
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{Native_vs_CrossPlatform.png}
-%     \caption{Gegenüberstellung Entwicklungsansätze Native und Cross-Plattform \cite{Manchanda_CrossPlatformFrameworks}}
-%     \label{fig:Native_vs_CrossPlatform}
-% \end{figure}
+Trotz der Unterschiede der verschiedenen Cross-Pattform Ansätze und einzelnen Frameworks, welche im Verlauf dieser Arbeit noch aufgezeigt werden, können einige gemeinsame Vor- und Nachteile des Cross-Plattform Ansatzes identifiziert werden.
+Die wichtigsten Vorteile und auch Nachteile der Cross-Plattform Entwicklung im Vergleich zur nativen Entwicklung sind in \autoref{fig:Native_vs_CrossPlatform} tabellarisch aufgeführt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Native_vs_CrossPlatform.png}
+    \caption{Gegenüberstellung Entwicklungsansätze Native und Cross-Plattform \cite{Manchanda_CrossPlatformFrameworks}.}
+    \label{fig:Native_vs_CrossPlatform}
+\end{figure}
 
-%TODO: weiter ausführen
+Alle Ansätze der teilen sich den Vorteil eines reduzierten Entwicklungsaufwands durch die einfache Wiederverwendung von Code.
+Je nach verwendetem Framework kann der Anteil des geteilten Codes bis zu 100 \% betragen.
+Allerdings ist es bei manchen Frameworks notwendig einzelne Funktionen in der jeweils nativen Programmiersprache zu implementieren.
+Allgemein kann jedoch der überwiegende Teil des Codes wiederverwendet werden \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks}.
+Damit lassen sich die Entwicklungskosten im Vergleich zu nativen Apps durch die Cross-Plattform Entwicklung teils deutlich senken.
+Matt Kremer, Enterprise Product Manager für das Ionic-Framework, gibt an, dass bei der Verwendung des Ionic-Frameworks sowohl Zeitaufwände für initiale Entwicklung und spätere Weiterentwicklung als auch die Personalkosten pro Woche geringer sind als bei einer nativen Entwicklung.
+In einem Beispiel demonstriert er, wie die Kosten eines Ionic-Projekts weniger als 30 \% der Kosten eines vergleichbaren nativen Projekts betragen können \cite{Kremer_IonicROI}.
+Hier ist jedoch zu bedenken, dass diese Angaben nicht durch eine unabhängige Quelle bestätigt wurden.
+Dennoch sind sowohl Framework-Entwickler \cite{Xamarin_Einfuehrung, Kremer_IonicROI} als auch unabhängige Literatur \cite{Pinto_Native_to_Cross_Platform, Que_Comparison_Hybrid_Native, Nawrocki_Comparison_Hybrid_Native_Frameworks} einig, dass eine Cross-Plattform Entwicklung Kostenvorteile mit sich bringt.
+
+Allgemeine Probleme gibt es beim Zugriff auf native \acp{API} der Geräte.
+Einige Frameworks bieten direkten Zugriff auf einige native \acp{API}, andere setzen für jeglichen Zugriff auf Plugin-Systeme \cite{Heitkoetter_CrossPlatform_Comparison, Sasidaran_Survey_NativeHybrid}.
+Meist können in einer Cross-Plattform App jedoch nicht alle nativ zur Verfügung stehenden Schnittstellen verwendet werden \cite{Pinto_Native_to_Cross_Platform}.
+
+Auch bei der Konsistenz der Benutzeroberflächen schneiden die Cross-Plattform Ansätze meist schlechter ab als die native Entwicklung \cite{Manchanda_CrossPlatformFrameworks}.
+Allerdings gibt es hier starke Unterschiede zwischen den Frameworks. 
+Zum Beispiel verwendet ReactNative jeweils native \ac{UI}-Elemente, sodass die Benutzeroberfläche dem Look-and-Feel der Plattform entspricht \cite{React_NativeComponents}.
+
+Ein gemeinsamer Nachteil aller Cross-Plattform Ansätze ist die durchschnittlich geringere Performance im Vergleich zu nativen Anwendungen \cite{Que_Comparison_Hybrid_Native, Pinto_Native_to_Cross_Platform}.
+Einzelne Frameworks können für bestimmte Anwendungszwecke besser geeignet sein und andere können bei Betrachtung anderer Performancemetriken besser abschneiden.
+Allgemein ist die Bewertung der Performance eines Frameworks immer vom Anwendungsfall und von der konkreten App abhängig.
+In der Literatur finden sich verschiedene Untersuchungen \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks,Biorn-Hansen_PerformanceOverhead_CrossPlatform,Jia_Performance}, welche sich mit der Performance von verschiedenen Cross-Plattform Frameworks beschäftigen. 
+In keiner dieser Arbeiten wird jedoch die Performance für den konkreten Anwendungsfall der Videoaufzeichnung ausführlich untersucht.
