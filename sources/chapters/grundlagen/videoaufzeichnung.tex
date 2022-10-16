@@ -1,8 +1,31 @@
 \section{Use Case: Videoaufzeichnung}
 \label{sec:Videoaufzeichnung}
 
-% Grundlagen Bilderzeugung digitale Kamera -> Licht, Sensor, Objektiv (Brennweiten)
-% Welche Parameter beeinflussen die Bildformation: Belichtungszeit, Empfindlichkeit (ISO), Blende
+Zunächst sollen im Folgenden die Grundlagen der digitalen Videoaufzeichnung und die dabei wichtigen Parameter erläutert werden.
+Eine digitale Videoaufzeichnung besteht im Wesentlichen aus einer Folge von Bildern und eventuell einer Tonspur.
+In dieser Arbeit liegt der Fokus auf der visuellen Komponente der Videoaufzeichnung.
+Digitalkameras, wie sie auch in Smartphones zu finden sind, verwenden zur Aufnahme der einzelnen Bilder einen oder mehrere \ac{CCD} oder \ac{CMOS} Sensoren.
+Diese Sensoren verwenden den Photoeffekt, um einfallende Lichtintensität in elektronische Signale umzuwandeln.
+Jeder Sensor besteht aus einem Raster kleiner, als Pixel bezeichnete, Sensorelemente.
+Die Lichtintensität an jedem einzelnen Pixel wird zu einem Digitalbild kombiniert \cite[S. 63ff.]{Szeliski_ComputerVision}.
+Um Farbbilder zu gewinnen wird heute meist ein Sensor mit einer Bayer-Matrix, einem Muster aus Farbfiltern, verwendet.
+So ist jeder Pixel nur für jeweils eine der Grundfarben Rot, Grün oder Blau zuständig.
+Die Farbwerte für jedes Pixel werden dann durch Berechnung anhand der umliegenden Pixel ermittelt \cite[S. 420ff.]{Schmidt_Videotechnik}.
+
+Das von einer digitalen Kamera aufgenommene Bild ist insbesondere von der Lichtintensität abhängig.
+Diese wird vor allem durch die Belichtungszeit und die Größe der Blendenöffnung bestimmt.
+Außerdem kann das Bild durch Variation der Sensorempfindlichkeit beeinflusst werden.
+Die Belichtungszeit ist die Zeit, die der Sensor dem einfallenden Licht ausgesetzt ist \cite[S. 390ff.]{Schmidt_Videotechnik}.
+Sensorempfindlichkeit bestimmt insbesondere die Verstärkung der elektronischen Signale und wird heute meist als \acs{ISO}-Wert, angelehnt an den zugrundeliegenden Standard der \acf{ISO}, angegeben \cite[S. 412ff.]{Schmidt_Videotechnik}.
+Die Blendenöffnung ist der Durchmesser der variablen Blende, welche die Öffnung bestimmt, durch die das Licht auf den Sensor fällt \cite[S. 444ff.]{Schmidt_Videotechnik}.
+Die Parameter Blendenöffnung, Belichtungszeit und Sensorempfindlichkeit werden auch als Belichtungsparameter bezeichnet.
+
+Neben den Parametern für die Belichtung wird das Bild auch durch die Brennweite des verwendeten Objektivs und den Fokus bestimmt.
+Durch Veränderung der Brennweite lässt sich der Bildausschnitt verändern und eine Vergrößerung beziehungsweise Verkleinerung von Objekten erreichen.
+Der Fokus bestimmt, welche Entfernung des Bildes scharf dargestellt wird und wird in Amateurkameras häufig automatisch eingestellt \cite[S. 445ff.]{Schmidt_Videotechnik}.
+
+
+
 % Zusätzliche Parameter (die man im (semi-) professionellen Bereich beeinflussen will): Weißabgleich, Fokus, Format
 % Zusätzlich für Video: Bildrate
 % Eventuell auh Speicherformat
