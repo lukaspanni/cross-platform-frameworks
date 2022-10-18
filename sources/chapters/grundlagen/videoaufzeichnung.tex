@@ -47,21 +47,57 @@ Bei Videoaufzeichnungen kommen weitere Parameter hinzu, welche eingestellt werde
 Die wichtigsten dieser Parameter sind die Bildrate, das Kompressionsverfahren und das Bildformat.
 Unabhängig vom Format und der Auflösung des Sensors bieten Kameras meist die Möglichkeit das Bildformat und damit die genutzte Fläche des Sensors und die Auflösung des resultierenden Videos zu beeinflussen \cite[S. 422]{Schmidt_Videotechnik}.
 Zum Beispiel werden verschiedene Formate für verschiedene Auswertungsmedien wie Kino oder TV bevorzugt.
-Die Bildrate gibt an, wie viele Bilder pro Sekunde aufgezeichnet werden und beeinflusst so vor allem die Bewegungsunschärfe.
+Die Bildrate, auch Framerate genannt, gibt an, wie viele Bilder pro Sekunde (\ac{FPS}) aufgezeichnet werden und ist damit von der Belichtungszeit abhängig.
+Allgemein muss $Bildrate * Belichtungszeit \leq 1$ gelten.
+Eine Bildrate von $60 fps$ mit einer Belichtungszeit von $1/30 s$ pro Bild ist beispielsweise nicht möglich, da mit dieser Belichtungszeit weniger als 60 Bilder pro Sekunde aufgenommen werden können.
+Die Bildrate beeinflusst vor allem die Bewegungsunschärfe.
 Bei schnellen Bewegungen wirken bewegte Objekte in Aufnahmen mit niedriger Bildrate unscharf.
 Die Bildrate wird allerdings häufig auch als kreatives Gestaltungsmittel eingesetzt, weshalb viele Filme trotz höherer Bewegungsunschärfe mit 24 Bildern pro Sekunde produziert werden \cite[S. 174f.]{Schmidt_Videotechnik}.
 
-Bei der Wahl von Kompressionsverfahren und Bitrate spielt sowohl der verfügbare Speicherplatz als auch die gewünschte Qualität eine Rolle.
-Allgemein geht bei niedrigerer Bitrate durch stärkere Kompression mehr Qualität auf Kosten des Speicherplatzes verloren.
+Bei der Wahl von Kompressionsverfahren, auch Codecs genannt, und Bitrate spielt sowohl der verfügbare Speicherplatz als auch die gewünschte Qualität eine Rolle.
+Generell gilt, dass bei niedrigerer Bitrate durch stärkere Kompression mehr Qualität auf Kosten des Speicherplatzes verloren geht.
 Allerdings sind Qualität und Speicherplatzverbrauch stark vom eingesetzten Kompressionsverfahren abhängig.
-Modernere Verfahren, wie H.265 oder AV1 erreichen bei gleicher Bitrate und gleichem Speicherbedarf eine höhere Qualität als ältere Verfahren wie H.264.
-Umgekehrt kann der für die gleiche Qualität benötigte Speicherplatz reduziert werden \cite[S. 253ff.]{Schmidt_Videotechnik}. 
+Moderne Verfahren, wie H.265 oder AV1 erreichen bei gleicher Bitrate und gleichem Speicherbedarf eine höhere Qualität als ältere Verfahren wie H.264.
+Umgekehrt kann der für die gleiche Qualität benötigte Speicherplatz reduziert werden.
+Dabei ist zu beachten, dass für proprietäre Kompressionsverfahren wie H.264 oder H.265 kostenpflichtige Lizenzen benötigt werden, welche meist an die verwendete Hardware gebunden sind.
+Offene Codecs, wie VP9 oder AV1, sind dagegen frei verfügbar und können auf allen Geräten verwendet werden \cite[S. 253ff.]{Schmidt_Videotechnik}.
+
 
 \subsection{Für Videoaufzeichnungsapp relevante Parameter}
 \label{sec:relevante_parameter}
 
-Auf Basis der zuvor beschriebenen Parameter werden hier diejenigen Parameter identifiziert, welche im Rahmen einer Videoaufzeichnungsapp relevant sind.
-Außerdem wird geklärt, welche der Parameter über die \acp{API} von iOS und Android einstellbar sind und damit prinzipiell gesteuert werden können.
-Inwiefern diese Parameter auch durch die jeweiligen Cross-Plattform Frameworks eingestellt werden können, wird im Laufe dieser Arbeit geklärt.
+\autoref{tab:parameter_support} gibt einen Überblick, welche Parameter sich grundsätzlich über die \acp{API} von Android und iOS einstellen lassen.
+Die meisten Parameter sind sowohl unter Android als auch unter iOS einstellbar.
+Die Wertebereiche sind allerdings stark vom konkreten System abhängig, da es nicht nur Einschränkungen durch das Betriebssystem, sondern auch durch die Hardware geben kann.
+Ausnahmen bei der Einstellbarkeit bilden die Blende und die Brennweite, welche nur bei wenigen Android-Modellen einstellbar sind \cite{Sony_VariableZoom,VariableAperture_Smartphones}.
+Ansonsten verwenden die meisten Geräte jeweils Objektive ohne variable Brennweite und Blende, sodass Softwareseitig keine Anpassungen möglich sind.
+Stattdessen können Brennweite und Blende durch die Wahl des Objektivs beeinflusst werden, da in den meisten Smartphones mehrere Sensoren verbaut sind, welche jeweils ein eigenes Objektiv mit unterschiedlicher Brennweite und Blende verwenden \cite[S. 499ff.]{Schmidt_Videotechnik}.
+Inwiefern die prinzipiell einstellbaren Parameter auch in den zu testenden Cross-Plattform Frameworks tatsächlich einstellbar sind, wird im Laufe dieser Arbeit näher untersucht.
 
-% Welche Parameter sind prinzipiell bei Smartphones anpassbar, welche nicht
+\begin{table}[H]
+    \begin{tabularx}{\textwidth}{ |l|l|X|X| }
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Parameter}} & \textbf{Unterstützung iOS} & \textbf{Unterstützung Android}  \\
+        \Xhline{0.5mm}
+        \multirow{4}{*}{\parbox[c]{3mm}{\rotatebox{90}{\textbf{Belichtung}\hspace*{0.75cm}}}} & Belichtungszeit & Einstellbar \cite{iOS_VideoSettings, iOS_Exposure} & Einstellbar \cite{Android_CaptureRequest} \\
+        \cline{2-4}
+        & Sensorempfindlichkeit (ISO) & Einstellbar \cite{iOS_VideoSettings, iOS_Exposure} & Einstellbar \cite{Android_CaptureRequest}  \\
+        \cline{2-4}
+        & Blende & Nur über verschiedene Objektive & Über verschiedene Objektive \\ & & & Einzelne Modelle mit variabler Blende \cite{VariableAperture_Smartphones} \\
+        \hline
+        \multirow{3}{*}{\parbox[c]{3mm}{\rotatebox{90}{\textbf{Objektiv}\hspace*{0.75cm}}}} & Brennweite & Nur über verschiedene Objektive & Über verschiedene Objektive \\ & & & Einzelne Modelle mit variablem optischem Zoom \cite{Sony_VariableZoom} \\
+        \cline{2-4}
+        & Fokus & Einstellbar \cite{iOS_Focus} & Einstellbar \cite{Android_CaptureRequest} \\
+        \hline
+        & Weißabgleich & Einstellbar \cite{iOS_WhiteBalance} & Einstellbar \cite{Android_CaptureRequest} \\
+        \cline{2-4}
+        & Bildrate & Einstellbar \cite{iOS_Format} & Einstellbar \cite{Android_CaptureRequest} \\
+        \cline{2-4}
+        & Bildformat & Einstellbar \cite{iOS_Format} & Einstellbar \cite{Android_CaptureRequest} \\
+        \cline{2-4}
+        & Kompressionsverfahren/Codec & Einstellbar \cite{iOS_VideoSettings} & Einstellbar \cite{Android_MediaCodec} \\
+        \hline
+    \end{tabularx}
+    \caption{Einstellbarkeit der Parameter für die Videoaufzeichnungen unter iOS und Android.}
+    \label{tab:parameter_support}
+\end{table}
