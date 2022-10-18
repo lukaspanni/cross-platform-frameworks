@@ -38,9 +38,11 @@ Deshalb führt Nunkesser in \cite{Nunkesser_Taxonomy_Apps} eine feinere Untertei
 Die Unterteilung in sechs Kategorien und ihre wichtigsten Merkmale ist in der Tabelle in \ref{tab:Nunkesser_App_Categories} dargestellt.
 Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattformübergreifende Wiederverwendung von Code unterstützt.
 \begin{table}[H]
-    \begin{tabularx}{\textwidth}{ lXr }
+    \begin{tabularx}{\textwidth}{ |l|X|r| }
+        \Xhline{0.5mm}
         \textbf{Kategorie}      & \textbf{Kennzeichen}  & \textbf{Plattformübergreifende} \\ & & \textbf{Code-Wiederverwendung}                                                   \\
-        \toprule[0.1em]
+        %\toprule[0.1em]
+        \hline
         Endemic Apps            & Verwendung Plattformspezifischer Tools, \acp{SDK} und Programmiersprachen bereitgestellt vom Betriebssystemhersteller, Kompilation, Teilweise \ac{JIT}-Kompilation möglich                        & \xmark        \\
         \hline
         Web-Apps                & Verwendung von Web-Technologien, Interpretation im Browser des Zielgeräts                                                                                                                         & \cmark        \\
@@ -52,13 +54,16 @@ Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattfor
         System Language Apps    & Verwendung von Low-Level Programmiersprachen wie C/C++ und Plattformspezifische Kompilation                                                                                                       & (\xmark)      \\
         \hline
         Foreign Language Apps   & Verwendung von Programmiersprachen, die vom Betriebssystemhersteller nicht für Endemic Apps vorgesehen sind, in der Regel Kompilation, Teilweise \ac{JIT}-Kompilation und Interpretation möglich   & \cmark       \\
+        \hline
     \end{tabularx}
     \caption{App-Kategorien und Entwicklungsansätze nach Nunkesser \cite{Nunkesser_Taxonomy_Apps}}
     \label{tab:Nunkesser_App_Categories}
 \end{table}
-
 Eine wichtige Neuerung ist die Einführung der neuen Kategorie der \textit{Foreign Language Apps}, welche keiner anderen Kategorie untergeordnet werden können.
-Populäre Frameworks wie Xamarin und Flutter gehören zu dieser Kategorie und ermöglichen die Entwicklung mit C\# respektive Dart, welche weder von Android noch von iOS für die Entwicklung von Apps vorgesehen sind \cite{Xamarin_Einfuehrung} \cite{Fentaw_Thesis_Flutter}.
+Anhand der Umsetzung der Unterstützung der plattformfremden Programmiersprache wird dieser Ansatz weiter unterteilt.
+Die plattformfremden Programmiersprachen werden entweder über Interpretation des Codes (\textit{Interpreted App}), Ausführung in einer virtuellen Maschine auf der Zielplattform (\textit{VM App}) oder Generierung von Code in der Plattformspezifischen Programmiersprache (\textit{Generated App}) unterstützt.
+Auch eine Mischung der Ansätze ist hierbei denkbar \cite{Nunkesser_Taxonomy_Apps}.
+Populäre Frameworks wie Xamarin und Flutter gehören zur Kategorie der Foreign Language Apps und ermöglichen die Entwicklung mit C\# respektive Dart, welche weder von Android noch von iOS für die Entwicklung von Apps vorgesehen sind \cite{Xamarin_Einfuehrung} \cite{Fentaw_Thesis_Flutter}.
 Weiterhin differenziert er den Hybrid Ansatz weiter und führt die Endemic Apps, abgeleitet aus dem griechischen, als neue Bezeichnung für den nativen Ansatz ein.
 Alle nicht den Endemic Apps zugeordneten Ansätze nennt er als Gegensatz zu Endemic Apps, Ecdemic Apps.
 Außerdem führt er Pandemic Apps als Überbegriff für die Apps, die auf Sprachen setzen die auf beiden Systemen verfügbar sind, wie zum Beispiel C/C++ oder JavaScript \cite{Nunkesser_Taxonomy_Apps}.
