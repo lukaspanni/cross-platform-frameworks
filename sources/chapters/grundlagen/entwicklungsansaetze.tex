@@ -35,13 +35,13 @@ Stattdessen wird der Fokus auf Frameworks gelegt, die den Zugriff auf Gerätefun
 
 Inzwischen gibt es eine Vielzahl von Frameworks, welche diese Kriterien erfüllen, aber nicht dem hybriden Ansatz zugeordnet werden können.
 Deshalb führt Nunkesser in \cite{Nunkesser_Taxonomy_Apps} eine feinere Unterteilung der Entwicklungsansätze auf Basis der verwendeten Tools und Technologien ein.
-Die Unterteilung in sechs Kategorien und ihre wichtigsten Merkmale ist in der Tabelle in \ref{tab:Nunkesser_App_Categories} dargestellt.
+Die Unterteilung in sechs Kategorien und ihre wichtigsten Merkmale ist in der Tabelle in \ref{tab:Taxonomy_Nunkesser} dargestellt.
 Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattformübergreifende Wiederverwendung von Code unterstützt.
 \begin{table}[H]
     \begin{tabularx}{\textwidth}{ |l|X|r| }
-        \Xhline{0.5mm}
+        \hline
         \textbf{Kategorie}      & \textbf{Kennzeichen}  & \textbf{Plattformübergreifende} \\ & & \textbf{Code-Wiederverwendung}                                                   \\
-        %\toprule[0.1em]
+        \Xhline{0.5mm}
         \hline
         Endemic Apps            & Verwendung Plattformspezifischer Tools, \acp{SDK} und Programmiersprachen bereitgestellt vom Betriebssystemhersteller, Kompilation, Teilweise \ac{JIT}-Kompilation möglich                        & \xmark        \\
         \hline
@@ -57,7 +57,7 @@ Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattfor
         \hline
     \end{tabularx}
     \caption{App-Kategorien und Entwicklungsansätze nach Nunkesser \cite{Nunkesser_Taxonomy_Apps}}
-    \label{tab:Nunkesser_App_Categories}
+    \label{tab:Taxonomy_Nunkesser}
 \end{table}
 Eine wichtige Neuerung ist die Einführung der neuen Kategorie der \textit{Foreign Language Apps}, welche keiner anderen Kategorie untergeordnet werden können.
 Anhand der Umsetzung der Unterstützung der plattformfremden Programmiersprache wird dieser Ansatz weiter unterteilt.
@@ -76,7 +76,7 @@ Die hierarchische Taxonomie Nunkessers ist in \autoref{fig:Nunkesser_Hierarchy} 
     \centering
     \includegraphics[width=0.9\textwidth]{Nunkesser_Hierarchy.png}
     \caption{Hierarchische Taxonomie der Entwicklungsansätze mobiler Apps \cite{Nunkesser_Taxonomy_Apps}.}
-    \label{fig:Native_vs_CrossPlatform}
+    \label{fig:Taxonomy_Nunkesser}
 \end{figure}
 
 Für den Zweck dieser Arbeit wird in den folgenden Abschnitten vorwiegend die übergreifende Kategorie der der Cross-Plattform Apps verwendet.
