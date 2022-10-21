@@ -23,10 +23,10 @@
 *.mtc
 *.mtc1
 *.out
-*.pdf
 *.lol
 *.synctex.gz
 Document.bcf
+Document.pdf
 Document.run.xml
 **__latexindent_temp.tex
 sources/Document.synctex(busy)
