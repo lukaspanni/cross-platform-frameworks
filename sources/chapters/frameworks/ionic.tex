@@ -2,13 +2,14 @@
 % Implementierung vermutlich dann mit Capacitor, weil von Ionic so empfohlen
 
 
-\section{Ionic / Cordova / Capacitor}
+\section{Ionic mit Cordova beziehungsweise Capacitor}
 \label{sec:Frameworks_Ionic}
 
 Das Ionic-Framework ist kein Cross-Plattform Framework, sondern ein UI-Toolkit.
 Damit nterstützt Ionic die Cross-Plattform Entwicklung nur indirekt, indem insbesondere die Erstellung der Oberflächen vereinfacht wird.
 Wie \autoref{fig:ionic_architecture} zeigt, ist Ionic auf ein unterlagertes Cross-Plattform Framework angewiesen, wenn Cross-Plattform Apps entwickelt werden sollen.
 Hierfür unterstützt Ionic Apache Cordova und das vom Ionic-Team entwickelte Capacitor, wobei die Verwendung des moderneren Capacitor empfohlen wird.
+Da Capacitor von Ionic als Weiterentwicklung von Cordova angesehen wird, wird in \autoref{sec:Cordova_Capacitor} auch kurz auf Capacitor eingegangen, obwohl es nicht als eines der populärsten Frameworks gilt.
 Ionic lässt sich allerdings auch in reinen Webanwendungen nutzen \cite{Ionic_Docs}.
 \begin{figure}[h]
     \centering
@@ -25,13 +26,14 @@ Für zahlende Kunden bietet Ionic persönliche Beratung und Support, ein eigenes
 
 
 \subsection{Apache Cordova und Capacitor}
+\label{sec:Cordova_Capacitor}
 Die beiden unterstützen Cross-Plattform Frameworks Cordova und Capacitor sind sich im Allgemeinen sehr ähnlich.
 Beide ermöglichen es, Webanwendungen in native Anwendungen einzubetten und über ein Plugin-System auf native \acp{API} zuzugreifen \cite{Ionic_Cordova_vs_Capacitor}.
 
 
 Apache Cordova ist das deutlich ältere Framework und wird als Open-Source-Projekt von der Apache Software Foundation verwaltet.
 Ursprünglich wurde Cordova von Nitobi, einer später von Adobe aufgekauften Firma, als kommerzielles Produkt entwickelt.
-Eine Open-Source Version wurde 2011 an die Apache Software Foundation übergeben \cite{Steyer_Cordova}. %TODO quelle checken
+Eine Open-Source Version wurde 2011 an die Apache Software Foundation übergeben \cite{Steyer_Cordova}.
 Die kommerzielle Version des Frameworks wurde bis 2020 von Adobe als \textit{Adobe PhoneGap} vertrieben \cite{Adobe_PhoneGap_EOL}.
 Aufgrund ihrer großen Ähnlichkeit wird in der Literatur meist nicht zwischen Adobe PhoneGap und der Open-Source Variante Apache Cordova unterschieden und beide Bezeichnungen werden teilweise synonym verwendet \cite{Steyer_Cordova,Manchanda_CrossPlatformFrameworks,Rieger_CrossPlatform_EvaluationFramework}. %TODO eventuell raus
 
@@ -69,39 +71,25 @@ Damit steigt der Entwicklungsaufwand enorm, was den Vorteil der Widerverwendung 
 Damit der große Vorteil der Cross-Plattform Entwicklung erhalten bleibt, sollten so wenige spezifische Plugins entwickelt werden müssen wie möglich \cite{Cordova_Development_Tips}.
 
 
-Capacitor und Ionic werden vom gleichen Anbieter entwickelt und vertrieben.
-Die Unterstützung von Capacitor ist in Ionic Projekten deshalb deutlich besser als die Unterstützung von Cordova \cite{Ionic_Cordova_vs_Capacitor}.
-%TODO: capacitor Abschnitt
+Capacitor wurde 2018 von Ionic als modernere Alternative zu Cordova vorgestellt.
+Wie Cordova, setzt Capacitor auf die Ausführung von Web-Apps in einer WebView innerhalb einer plattformspezifischen Wrapper-App.
+Das Framework soll einige Schwachstellen von Cordova beheben und ist bei neuen Ionic-basierten Projekten die empfohlene Alternative zu Cordova.
+Um den Umstieg von Cordova auf Capacitor zu erleichtern, können alle Cordova-Plugins direkt in Capacitor-Projekte eingebunden werden.
+Für viele häufig verwendete Funktionen, stellt Ionic eigene Plugins für Capacitor zur Verfügung, deren Wartung und Support das Unternehmen übernimmt.
+Zudem erlaubt Capacitor durch ein geändertes Build-Konzept eine einfachere Integration von nativem Code, ohne den Einsatz von Plugins \cite{Ionic_Cordova_vs_Capacitor}.
+In Cordova-Projekten werden die nativen Projekte für die Wrapper-Anwendungen beim Build erzeugt und der Web-Code in diese eingebettet.
+Bei Capacitor-Projekten werden die nativen Projekte für die Wrapper-Anwendungen bereits zu Beginn erstellt und sollen in die Versionsverwaltung aufgenommen werden.
+Dadurch kann nativer Code direkt in die jeweiligen nativen Projekte integriert werden und wird nicht beim nächsten Build überschrieben.
+Allerdings wird der Verwaltungsaufwand durch die separaten Projekte für die Wrapper-Anwendungen erhöht \cite{Liebel_Cordova_Capacitor}.
 
 
-
-In \autoref{fig:ionic_architecture} ist gezeigt, dass Ionic sowohl auf Cordova als auch auf Capacitor aufsetzen kann.
-Capacitor soll moderner sein als Cordova und verspricht eine bessere Unterstützung von \acp{PWA} und reinen Web-Apps.
-Allerdings ist der Build-Prozess im Vergleich zu Cordova etwas aufwändiger, da die nativen Wrapper als separate Projekte verwaltet werden müssen \cite{Ionic_Cordova_vs_Capacitor}.
-Grundsätzlich sind sich Cordova und Capacitor sehr ähnlich.
-Durch die Kombination mit dem Ionic-Framework gibt es nahezu keine Unterschiede bei der App-Entwicklung, weshalb im Rahmen dieser Arbeit nicht auf weitere Unterschiede eingegangen werden soll.
-\newline
-\newline
-Das Problem einer geringen Performance, das bereits in \autoref{sec:Frameorks_Cordova} erwähnt wurde, besteht vermutlich ebenfalls, da Ionic auf Cordova aufbaut.
-In \cite{Biorn-Hansen_PerformanceOverhead_CrossPlatform} wird der Performance-Overhead von verschiedenen Cross-Plattform Frameworks bei typischen Aufgaben untersucht.
-Hier wird deutlich, dass alle untersuchten Cross-Plattform Frameworks, darunter auch Ionic, wie erwartet eine schlechtere Performance aufweisen als eine native Anwendung.
-Die untersuchten Szenarien beschränken sich auf Zugriffe auf Dateisystem, Kontaktlisten, Standort und Beschleunigungssensor.
-Da die Anwendung, die im Rahmen dieser Arbeit entwickelt werden soll, keine dieser Funktionen benötigt und auch in anderen Quellen keine aussagekräftigen Tests der Netzwerk-Performance von Ionic-basierten Anwendungen vorhanden sind, können an dieser Stelle keine Aussagen über die zu erwartende Performance getroffen werden.
+Die Performance von Ionic und Cordova-basierten Anwendungen gilt allgemein als niedrig.
+Bei reinen Cordova-Anwendungen wird zusätzlich die Konsistenz der \ac{UI} häufig kritisiert.
+Beides ist auf die Einbettung von Web-Apps in native Wrapper-Anwendungen zurückzuführen.
+Durch die Interpretation von JavaScript-Code innerhalb der WebView und den aufwändigen Zugriff auf native Funktionen über das komplexe Plugin-System, liegt die Performance von Cordova-Anwendungen deutlich unter der von nativen Anwendungen und häufig auch unter der von anderen Frameworks \cite{Rieger_CrossPlatform_EvaluationFramework,Manchanda_CrossPlatformFrameworks,Heitkoetter_CrossPlatform_Comparison,Biorn-Hansen_PerformanceOverhead_CrossPlatform}.
 
 
-
-%TODO::
-Das Cordova Framework ist schon lange verfügbar und unter Entwicklern etabliert.
-Inzwischen hat sich deshalb eine große Community entwickelt.
-Dadurch sind viele Ressourcen, wie spezielle Plugins, Anleitungen und ähnliches verfügbar, was die Entwicklung mit Cordova erleichtern kann.
-Darüber hinaus sorgt der Einsatz von weit verbreiteten Web-Technologien wie zum Beispiel JavaScript für geringe Einstiegshürden \cite{Manchanda_CrossPlatformFrameworks,Singh_Cordova_vs_Native,Sasidaran_Survey_NativeHybrid}.
-Durch die weite Verbreitung von JavaScript gibt es viele JavaScript-Bibliotheken und Tools, die in Verbindung mit dem Cordova Framework genutzt werden können.
-Geringe Performance, vor allem durch die Interpretation von JavaScript-Code innerhalb der WebView und schlechte Unterstützung für Benutzerschnittstellen, die zur nativen \ac{UI} passen, sind Beispiele für häufig genannte Probleme bei Cordova \cite{Rieger_CrossPlatform_EvaluationFramework,Manchanda_CrossPlatformFrameworks,Heitkoetter_CrossPlatform_Comparison,Biorn-Hansen_PerformanceOverhead_CrossPlatform}.
-
-%TODO: anpassen, vieles gilt auch für capacitor
-
-
-Die Stack Overflow Umfrage 2022 \cite{Stackoverflow_2022} zeigt, dass das modernere Capacitor Framework weniger verbreitet ist als Cordova.
-Allerdings ist Capacitor deutlich beliebter.
+Capacitor ist trotz geringerer Verbreitung deutlich beliebter als Cordova \cite{Stackoverflow_2022,Appfigures_TopSDKs}.
 Von allen Entwicklern, die bereits mit Capacitor gearbeitet haben, geben 62,35 \% an, das Framework auch weiterhin einsetzen zu wollen.
 Nur 28,85 \% wollen Cordova weiter verwenden.
+Damit schneidet Cordova von allen betrachteten Cross-Plattform Frameworks am schlechtesten ab.

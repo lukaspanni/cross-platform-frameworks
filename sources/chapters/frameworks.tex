@@ -2,26 +2,41 @@
 \label{ch:Frameworks}
 
 Im Folgenden sollen die vier populärsten Frameworks für die Cross-Plattform Entwicklung näher betrachtet werden.
-Dabei liegt der Fokus auf der Funktionsweise der Frameworks und der Einordnung in eine der Kategorien nach Nunkesser, welche in \autoref{sec:Entwicklungsansaetze} vorgestellt wurden.
+Dabei liegt der Fokus auf der Funktionsweise der Frameworks, der Einordnung in eine der Kategorien nach Nunkesser, welche in \autoref{sec:Entwicklungsansaetze} vorgestellt wurden und eine kurze Bewertung der zu erwartenden Performance basierend auf existierenden Untersuchungen.
 Bevor auf einzelne Frameworks eingegangen werden kann, müssen zunächst die aktuell populärsten Frameworks identifiziert werden.
-Dazu werden insbesondere die Stack Overflow Developer Surveys \cite{Stackoverflow_2021} \cite{Stackoverflow_2022} der letzten zwei Jahre herangezogen, welche Entwickler unter anderem zu ihren bevorzugten und im professionellen Bereich eingesetzten Frameworks befragen.
+Dazu werden insbesondere die Stack Overflow Developer Surveys der letzten zwei Jahre \cite{Stackoverflow_2021} \cite{Stackoverflow_2022} herangezogen, welche Entwickler unter anderem zu ihren bevorzugten und im professionellen Bereich eingesetzten Frameworks befragen.
 Diese Frameworks müssen im nächsten Schritt auf ihre Cross-Plattformfähigkeit hin untersucht werden.
+Daneben kommen die Daten von Appfigures zu den am häufigsten in den App-Stores vertretenen Frameworks \cite{Appfigures_TopSDKs} zum Einsatz.
 Weiterhin wird auf die Umfrage \cite{Statista_UsedCrossPlatformFrameworks} zurückgegriffen, welche die am häufigsten eingesetzten Cross-Plattfom Frameworks zwischen 2019 und 2021 ermittelt hat.
 In dieser Umfrage gab etwa ein Drittel der befragten Entwickler im Bereich der mobilen App-Entwicklung an, ein Cross-Plattform Framework zu verwenden.
 Im Jahr 2021 verwendeten 42 \% von diesen Entwicklern Flutter, was es zum am häufigsten genutzten Framework macht.
-ReactNative kommt in dieser Umfrage auf 38 \%, Cordova auf 16 \% und Ionic ebenfalls auf 16 \% \cite{Statista_UsedCrossPlatformFrameworks}.
+ReactNative kommt in dieser Umfrage auf 38 \%, Cordova auf 16 \% und Ionic ebenfalls auf 16 \%
 Das Problem hierbei ist, dass Ionic kein Cross-Plattform Framework ist, sondern selbst auf die Cross-Plattform Frameworks Cordova oder Capacitor aufsetzt \cite{Ionic_Docs}.
-Deshalb müssen Ionic und Cordova in dieser Umfrage zusammengefasst werden und werden gemeinsam betrachtet.
-Das demnach am vierthäufigsten eingesetzte Framework ist Xamarin mit 11 \% \cite{Statista_UsedCrossPlatformFrameworks}.
-In der Stack Overflow Developer Survey von 2021 \cite{Stackoverflow_2021} sind Cordova und Xamarin nicht aufgeführt.
-Da diese Umfrage sich nicht nur auf Entwickler mobiler Anwendungen fokussiert, sind hier die Anteile der eingesetzten Frameworks deutlich kleiner.
-Zur Bestimmung der populärsten Frameworks sind diese Daten dennoch verwendbar.
-Die einzigen vorkommenden Cross-Plattform Frameworks sind ReactNative (16,48 \%), Flutter (13,35 \%) und Cordova (8,67 \%), welche damit auch die populärsten sind.
-2022 sind in der Stack Overflow Developer Survey \cite{Stackoverflow_2022} Flutter (13,62 \%), ReactNative (12,56 \%), Ionic (5,97 \%) und Xamarin (5,54 \%), die vier am häufigsten eingesetzten Frameworks.
-Damit kommen alle herangezogenen Umfragen auf die gleiche Menge der populärsten Cross-Plattform Frameworks.
-Die genaue Rangfolge ist in dieser ARbeit nicht relevant, aber auch hier stimmen die Umfragen im Wesentlichen überein.
+Deshalb müssen Ionic und Cordova zusammengefasst werden und werden dementsprechend gemeinsam betrachtet.
+Das am vierthäufigsten eingesetzte Framework ist damit Xamarin mit 11 \% \cite{Statista_UsedCrossPlatformFrameworks}.
 
-In den folgenden Abschnitten werden die vier Frameworks Flutter, ReactNative, Ionic (mit Cordova) und Xamarin näher betrachtet.
+In der Stack Overflow Developer Survey von 2021 \cite{Stackoverflow_2021} sind nur ReactNative (16,48 \%), Flutter (13,35 \%) und Cordova (8,67 \%) als Cross-Plattform Frameworks erwähnt, welche damit auch die populärsten sind.
+Da diese Umfrage sich nicht nur auf Entwickler mobiler Anwendungen fokussiert, sind hier die Anteile der eingesetzten Frameworks deutlich kleiner.
+2022 sind in der Stack Overflow Developer Survey \cite{Stackoverflow_2022} Flutter (13,62 \%), ReactNative (12,56 \%), Ionic (5,97 \%) und Xamarin (5,54 \%), die vier am häufigsten eingesetzten Frameworks.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{top_sdks}
+  \caption{Die am häufigsten in den App-Stores vertretenen \acp{SDK} \cite{Appfigures_TopSDKs}.}
+  \label{fig:top_sdks}  
+\end{figure}
+
+\autoref{fig:top_sdks} zeigt die \acp{SDK}, welche in den jeweiligen App-Stores am meisten zum Einsatz kommen.
+Neben Cross-Plattform Frameworks, sind hier auch die nativen \acp{SDKs} aufgeführt.
+Laut Appfigures \cite{Appfigures_TopSDKs} ist Cordova sowohl in Apples App-Store als auch im Google Play-Store das am häufigsten verwendete Framework.
+Danach folgen in beiden App-Stores ReactNative, Flutter und Ionic in leicht unterschiedlicher Reihenfolge.
+Auch hier gilt, dass Ionic nicht als eigenständiges Frameworks angesehen werden kann, sondern nur in Verbindung von Cordova oder Capacitor betrachtet werden kann.
+Demnach wäre Unity das am vierthäufigsten eingesetzte Framework.
+Aufgrund des starken Fokus auf Spieleentwicklung \cite{Unity} wird Unity in dieser Arbeit allerdings nicht als typisches Cross-Plattform Framework angesehen.
+Den nächsten Platz belegt auch in den Daten von Appfigures Xamarin.
+
+Damit kommen alle herangezogenen Daten zu den am häufigsten eingesetzten Frameworks zu dem Ergebnis, dass Flutter, ReactNative, Cordova und Xamarin die vier populärsten Frameworks sind.
+Da der Einsatz von Ionic weit verbreitet ist, wird auch kurz auf Ionic in Kombination mit Cordova eingegangen.
 
 \input{chapters/frameworks/flutter.tex}
 \input{chapters/frameworks/reactnative.tex}
