@@ -2,12 +2,42 @@
 \label{sec:Frameorks_ReactNative}
 
 Das von Meta, ehemals Facebook, entwickelte ReactNative Framework ermöglicht die Cross-Plattform Entwicklung mit Webtechnologien.
-Dabei kommt die JavaScript Bibliothek React zum Einsatz, welche die Entwicklung von Web-\acp{UI} vereinfacht.
-% Plattformunterstützung, Verbreitung
+Dabei kommt die verbreitete \ac{UI}-Bibliothek React zum Einsatz, um die Benutzeroberfläche zu erstellen.
+Als Zielplattformen werden neben Android und iOS unter anderem Windows und macOS unterstützt \cite{ReactNative}.
+Ein großer Vorteil des Frameworks ist die Verwendung von React für die Umsetzung der \ac{UI}.
+Da viele Webentwickler mit React vertraut sind, fällt die Einarbeitung in ReactNative leicht, was zu einer großen Verbreitung des Frameworks führt \cite{Appfigures_TopSDKs,Stackoverflow_2022}.
+Außerdem lässt sich ReactNative vergleichsweise einfach in bestehende native Projekte integrieren, was die inkrementelle Migration von Projekten ermöglicht.
+Diese Integrationsmöglichkeit führt auch dazu, dass neben den Apps von Meta, weitere populäre Apps wie die Microsoft Office Apps, Pinterest und WordPress teile ihrer Funktionalität mit ReactNative umsetzen \cite{ReactNative_Showcase}.
+
 
 Obwohl ReactNative wie Cordova und Capacitor auf Webtechnologien, insbesondere JavaScript, basiert, wählt das Framework einen anderen Ansatz, um die Cross-Plattform Entwicklung zu ermöglichen.
-ReactNative verzichtet auf den Einsatz einer WebView und nutzt stattdessen die nativen \ac{UI}-Komponenten der jeweiligen Plattformen.
-Der JavaScript Code wird nicht, wie bei Foreign Language Apps nach Nunkesser \cite{Nunkesser_Taxonomy_Apps}, in nativ ausführbaren Code übersetzt, sondern in einer JavaScript-Runtime außerhalb eines Browsers ausgeführt.
-Somit lässt sich ReactNative weder den Hybrid Web Apps noch den Foreign Language Apps zuordnen.
-%TODO: umformulieren
-Stattdessen handelt es sich um eine Hybrid Bridged App, da die nativen \ac{UI}-Komponenten über eine Bridge mit dem JavaScript Code kommunizieren.
+Mit Ionic können Cordova und Capacitor Apps ebenfalls React als \ac{UI}-Bibliothek verwenden.
+Dabei ist die Oberfläche komplett als Webanwendung implementiert und wird in einer WebView der jeweiligen Plattform dargestellt.
+ReactNative verzichtet hingegen auf den Einsatz einer WebView und nutzt stattdessen die nativen \ac{UI}-Komponenten der jeweiligen Plattformen.
+Der JavaScript Code wird nicht, wie bei Foreign Language Apps nach Nunkesser \cite{Nunkesser_Taxonomy_Apps}, in nativ ausführbaren Code übersetzt, sondern in einer JavaScript-Runtime ausgeführt.
+Somit lässt sich ReactNative weder komplett den Hybrid Web Apps noch den Foreign Language Apps zuordnen.
+Stattdessen handelt es sich um Hybrid Bridged Apps, da Webtechnologien und native \ac{UI}-Elemente in einer App kombiniert werden.
+
+
+Aktuell wird die Architektur von ReactNative auf einen neuen Ansatz umgestellt, der Probleme der bisherigen Architektur beheben soll.
+Da jedoch noch beide Ansätze unterstützt werden, wird hier sowohl auf die bisherige als auch auf die neue Architektur eingegangen.
+
+Die bisherige Architektur setzt sich aus zwei Komponenten zusammen, welche über die sogenannte ReactNative Bridge miteinander kommunizieren.
+Die Bridge trennt dabei den JavaScript Code von der nativen Umgebung.
+Der JavaScript-Code wird in einem eigenen Thread innerhalb der JavaScriptCore Ausführungsumgebung, einem Teil der Open-Source Browser Engine WebKit, ausgeführt.
+Dieser Thread wird auch als JavaScript-Thread oder kurze JS-Thread bezeichnet.
+Unter iOS ist die WebKit Engine die einzige erlaubte Browser Engine und dementsprechend standardmäßig auf allen iOS Geräten installiert und kann von ReactNative-Apps genutzt werden.
+Android liefert die JavaScriptCore nicht mit, weshalb ReactNative-Apps für Android JavaScriptCore mitliefern müssen und demnach größer ausfallen \cite{Dragomir_ReactNative,Nawrocki_Comparison_Hybrid_Native_Frameworks}.
+Die \ac{UI} wird von der nativen Umgebung, dem sogenannten nativen Thread, gerendert.
+Die Bridge übernimmt im Wesentlichen die Kommunikation zwischen den beiden Thread.
+Render-Anweisungen werden vom JS-Thread an den nativen Thread gesendet und umgekehrt werden Eingaben und Events vom nativen Thread an den JS-Thread übermittelt.
+Die Kommunikation erfolgt über Nachrichten, welche im \ac{JSON} Format serialisiert übertragen werden \cite{Dragomir_ReactNative}.
+
+% TODO: Performance problem dieser architektur und Weg zur neuen -> \cite{Cook_ReactNativeBridge}
+
+
+
+%TODO: Architektur
+
+
+%TODO: Beliebtheit, mögliche Performanceprobleme
