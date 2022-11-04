@@ -35,13 +35,13 @@ Stattdessen wird der Fokus auf Frameworks gelegt, die den Zugriff auf Gerätefun
 
 Inzwischen gibt es eine Vielzahl von Frameworks, welche diese Kriterien erfüllen, aber nicht dem hybriden Ansatz zugeordnet werden können.
 Deshalb führt Nunkesser in \cite{Nunkesser_Taxonomy_Apps} eine feinere Unterteilung der Entwicklungsansätze auf Basis der verwendeten Tools und Technologien ein.
-Die Unterteilung in sechs Kategorien und ihre wichtigsten Merkmale ist in der Tabelle in \ref{tab:Nunkesser_App_Categories} dargestellt.
+Die Unterteilung in sechs Kategorien und ihre wichtigsten Merkmale ist in der Tabelle in \ref{tab:Taxonomy_Nunkesser} dargestellt.
 Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattformübergreifende Wiederverwendung von Code unterstützt.
 \begin{table}[H]
     \begin{tabularx}{\textwidth}{ |l|X|r| }
-        \Xhline{0.5mm}
+        \hline
         \textbf{Kategorie}      & \textbf{Kennzeichen}  & \textbf{Plattformübergreifende} \\ & & \textbf{Code-Wiederverwendung}                                                   \\
-        %\toprule[0.1em]
+        \Xhline{0.5mm}
         \hline
         Endemic Apps            & Verwendung Plattformspezifischer Tools, \acp{SDK} und Programmiersprachen bereitgestellt vom Betriebssystemhersteller, Kompilation, Teilweise \ac{JIT}-Kompilation möglich                        & \xmark        \\
         \hline
@@ -57,13 +57,13 @@ Außerdem ist in der letzten Spalte angegeben, ob die App-Kategorie die plattfor
         \hline
     \end{tabularx}
     \caption{App-Kategorien und Entwicklungsansätze nach Nunkesser \cite{Nunkesser_Taxonomy_Apps}}
-    \label{tab:Nunkesser_App_Categories}
+    \label{tab:Taxonomy_Nunkesser}
 \end{table}
 Eine wichtige Neuerung ist die Einführung der neuen Kategorie der \textit{Foreign Language Apps}, welche keiner anderen Kategorie untergeordnet werden können.
 Anhand der Umsetzung der Unterstützung der plattformfremden Programmiersprache wird dieser Ansatz weiter unterteilt.
 Die plattformfremden Programmiersprachen werden entweder über Interpretation des Codes (\textit{Interpreted App}), Ausführung in einer virtuellen Maschine auf der Zielplattform (\textit{VM App}) oder Generierung von Code in der Plattformspezifischen Programmiersprache (\textit{Generated App}) unterstützt.
 Auch eine Mischung der Ansätze ist hierbei denkbar \cite{Nunkesser_Taxonomy_Apps}.
-Populäre Frameworks wie Xamarin und Flutter gehören zur Kategorie der Foreign Language Apps und ermöglichen die Entwicklung mit C\# respektive Dart, welche weder von Android noch von iOS für die Entwicklung von Apps vorgesehen sind \cite{Xamarin_Einfuehrung} \cite{Fentaw_Thesis_Flutter}.
+Populäre Frameworks wie Xamarin und Flutter gehören zur Kategorie der Foreign Language Apps und ermöglichen die Entwicklung mit C\# respektive Dart, welche weder von Android noch von iOS für die Entwicklung von Apps vorgesehen sind \cite{Xamarin_Homepage} \cite{Fentaw_Thesis_Flutter}.
 Weiterhin differenziert er den Hybrid Ansatz weiter und führt die Endemic Apps, abgeleitet aus dem griechischen, als neue Bezeichnung für den nativen Ansatz ein.
 Alle nicht den Endemic Apps zugeordneten Ansätze nennt er als Gegensatz zu Endemic Apps, Ecdemic Apps.
 Außerdem führt er Pandemic Apps als Überbegriff für die Apps, die auf Sprachen setzen die auf beiden Systemen verfügbar sind, wie zum Beispiel C/C++ oder JavaScript \cite{Nunkesser_Taxonomy_Apps}.
@@ -76,12 +76,12 @@ Die hierarchische Taxonomie Nunkessers ist in \autoref{fig:Nunkesser_Hierarchy} 
     \centering
     \includegraphics[width=0.9\textwidth]{Nunkesser_Hierarchy.png}
     \caption{Hierarchische Taxonomie der Entwicklungsansätze mobiler Apps \cite{Nunkesser_Taxonomy_Apps}.}
-    \label{fig:Native_vs_CrossPlatform}
+    \label{fig:Nunkesser_Hierarchy}
 \end{figure}
 
 Für den Zweck dieser Arbeit wird in den folgenden Abschnitten vorwiegend die übergreifende Kategorie der der Cross-Plattform Apps verwendet.
 Diese umfasst die \textit{Hybrid Web Apps}, \textit{Hybrid Bridged Apps} und Foreign Language Apps.
-Demnach wird im Folgenden zwischen Native-Apps beziehungsweise Endemic Apps, Web-Apps und Cross-Plattform Apps unterschieden.
+Demnach wird im Folgenden zwischen nativen Apps beziehungsweise Endemic Apps, Web-Apps und Cross-Plattform Apps unterschieden.
 Bei der Erläuterung der verschiedenen Frameworks wird dennoch eine Einordnung des jeweiligen Frameworks in eine Kategorie, wie von Nunkesser definiert, vorgenommen.
 So können Vergleiche nicht nur zwischen einzelnen Frameworks, sondern auch zwischen verschiedenen Kategorien durchgeführt werden.
 Die von Nunkesser als \textit{System Language Apps} bezeichnete Kategorie wird im Rahmen dieser Arbeit nicht zur Cross-Plattform Kategorie zugeordnet.
@@ -116,7 +116,7 @@ Damit lassen sich die Entwicklungskosten im Vergleich zu nativen Apps durch die 
 Matt Kremer, Enterprise Product Manager für das Ionic-Framework, gibt an, dass bei der Verwendung des Ionic-Frameworks sowohl Zeitaufwände für initiale Entwicklung und spätere Weiterentwicklung als auch die Personalkosten pro Woche geringer sind als bei einer nativen Entwicklung.
 In einem Beispiel demonstriert er, wie die Kosten eines Ionic-Projekts weniger als 30 \% der Kosten eines vergleichbaren nativen Projekts betragen können \cite{Kremer_IonicROI}.
 Hier ist jedoch zu bedenken, dass diese Angaben nicht durch eine unabhängige Quelle bestätigt wurden.
-Dennoch sind sowohl Framework-Entwickler \cite{Xamarin_Einfuehrung, Kremer_IonicROI} als auch unabhängige Literatur \cite{Pinto_Native_to_Cross_Platform, Que_Comparison_Hybrid_Native, Nawrocki_Comparison_Hybrid_Native_Frameworks} einig, dass eine Cross-Plattform Entwicklung Kostenvorteile mit sich bringt.
+Dennoch sind sowohl Framework-Entwickler \cite{Xamarin_Homepage, Kremer_IonicROI} als auch unabhängige Literatur \cite{Pinto_Native_to_Cross_Platform, Que_Comparison_Hybrid_Native, Nawrocki_Comparison_Hybrid_Native_Frameworks} einig, dass eine Cross-Plattform Entwicklung Kostenvorteile mit sich bringt.
 
 Allgemeine Probleme gibt es beim Zugriff auf native \acp{API} der Geräte.
 Einige Frameworks bieten direkten Zugriff auf einige native \acp{API}, andere setzen für jeglichen Zugriff auf Plugin-Systeme \cite{Heitkoetter_CrossPlatform_Comparison, Sasidaran_Survey_NativeHybrid}.
@@ -124,7 +124,7 @@ Meist können in einer Cross-Plattform App jedoch nicht alle nativ zur Verfügun
 
 Auch bei der Konsistenz der Benutzeroberflächen schneiden die Cross-Plattform Ansätze meist schlechter ab als die native Entwicklung \cite{Manchanda_CrossPlatformFrameworks}.
 Allerdings gibt es hier starke Unterschiede zwischen den Frameworks. 
-Zum Beispiel verwendet ReactNative jeweils native \ac{UI}-Elemente, sodass die Benutzeroberfläche dem Look-and-Feel der Plattform entspricht \cite{React_NativeComponents}.
+Zum Beispiel verwendet React Native jeweils native \ac{UI}-Elemente, sodass die Benutzeroberfläche dem Look-and-Feel der Plattform entspricht \cite{React_NativeComponents}.
 
 Ein gemeinsamer Nachteil aller Cross-Plattform Ansätze ist die durchschnittlich geringere Performance im Vergleich zu nativen Anwendungen \cite{Que_Comparison_Hybrid_Native, Pinto_Native_to_Cross_Platform}.
 Einzelne Frameworks können für bestimmte Anwendungszwecke besser geeignet sein und andere können bei Betrachtung anderer Performancemetriken besser abschneiden.
