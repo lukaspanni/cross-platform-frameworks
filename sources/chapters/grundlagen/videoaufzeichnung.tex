@@ -3,22 +3,17 @@
 
 Zunächst sollen im Folgenden die Grundlagen der digitalen Videoaufzeichnung und die dabei wichtigen Parameter erläutert werden.
 Eine digitale Videoaufzeichnung besteht im Wesentlichen aus einer Folge von Bildern und eventuell einer Tonspur.
-In dieser Arbeit liegt der Fokus auf der visuellen Komponente der Videoaufzeichnung.
+In dieser Arbeit soll der Fokus auf der visuellen Komponente liegen.
 Digitalkameras, wie sie auch in Smartphones zu finden sind, verwenden zur Aufnahme der einzelnen Bilder einen oder mehrere \ac{CCD} oder \ac{CMOS} Sensoren.
-Diese Sensoren verwenden den Photoeffekt, um einfallende Lichtintensität in elektronische Signale umzuwandeln.
-Jeder Sensor besteht aus einem Raster kleiner, als Pixel bezeichnete, Sensorelemente.
-Die Lichtintensität an jedem einzelnen Pixel wird zu einem Digitalbild kombiniert \cite[S. 63ff.]{Szeliski_ComputerVision}.
+Jeder Sensor besteht aus einem Raster kleiner, als Pixel bezeichnete, Sensorelemente, welche die einfallende Lichtintensität messen und diese zu einem Digitalbild kombinieren können \cite[S. 63ff.]{Szeliski_ComputerVision}.
 Um Farbbilder zu gewinnen wird heute meist ein Sensor mit einer Bayer-Matrix, einem Muster aus Farbfiltern, verwendet.
 So ist jeder Pixel nur für jeweils eine der Grundfarben Rot, Grün oder Blau zuständig \cite[S. 420ff.]{Schmidt_Videotechnik}.
-Um ein nutzbares Bild zu erhalten, ist nach der Gewinnung der Signalpegel der einzelnen Pixel ein mehrstufiger Prozess notwendig.
-Zum Beispiel muss zunächst Analog-Digital-Umwandlung durchgeführt werden, um die Signale in binäre Zahlen umzuwandeln, die dann weiterverarbeitet werden können.
-Bei Verwendung eines Sensors mit einer Bayer-Matrix müssen die Farbwerte für jeden einzelnen Pixel beim Demosaicing aus angrenzenden Pixeln berechnet werden.
-Außerdem werden oft verschiedene Prozesse verwendet, um die Qualität der resultierenden Bilder zu verbessern \cite[S. 63ff.]{Szeliski_ComputerVision}.
+Um ein nutzbares Bild zu erhalten, ist nach der Gewinnung der Signalpegel der einzelnen Pixel ein mehrstufiger Prozess analoger und digitaler Signalverarbeitung notwendig \cite[S. 63ff.]{Szeliski_ComputerVision}.
 In \autoref{fig:ImagePipeline} ist der übliche Weg vom einfallenden Licht bis zu einem nutzbaren Digitalbild dargestellt. 
-Der Prozess für die Videoaufzeichnung läuft allgemein sehr ähnlich ab.
+Bei der Videoaufzeichnung läuft der Prozess ähnlich ab, nur werden Bildfolgen aufgenommen und Verarbeitungen teilweise auf diesen durchgeführt.
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{ImagePipeline}
+    \includegraphics[width=0.85\textwidth]{ImagePipeline}
     \caption{Überblick über den Prozess der Entstehung eines Digitalbildes \cite[S. 64ff.]{Szeliski_ComputerVision}.}
     \label{fig:ImagePipeline}
 \end{figure}
@@ -38,41 +33,35 @@ Der Fokus bestimmt, welche Entfernung des Bildes scharf dargestellt wird und wir
 Die Kameras in heutigen Smartphones sind üblicherweise mit mehreren Sensoren ausgestattet, die jeweils über ein eigenes Objektiv mit unterschiedlichen Brennweiten verfügen \cite[S. 499ff.]{Schmidt_Videotechnik}.
 
 Auch der Weißabgleich beeinflusst das Aussehen des resultierenden Bildes.
-Der Weißabgleich bestimmt die Farbtemperatur des Bildes und hat insbesondere die Aufgabe unabhängig von der Lichtquelle einen gleichmäßigen Farbeindruck zu erreichen.
-In Smartphone-Kameras wird er zusammen mit den meisten anderen Parametern automatisch gesetzt.
-Im professionellen Bereich ist es aber oft wünschenswert einen bestimmten Wert einzustellen \cite[S. 434ff.]{Schmidt_Videotechnik}.
+Der Weißabgleich bestimmt die Farbtemperatur des Bildes und hat die Aufgabe unabhängig von der Lichtquelle einen gleichmäßigen Farbeindruck zu erreichen.
+Häufig wird der Weißabgleich automatisch eingestellt, es kann jedoch auch wünschenswert sein einen Wert vorzugeben \cite[S. 434ff.]{Schmidt_Videotechnik}.
 
-
-Bei Videoaufzeichnungen kommen weitere Parameter hinzu, welche eingestellt werden können, um das finale Video beeinflussen.
-Die wichtigsten dieser Parameter sind die Bildrate, das Kompressionsverfahren und das Bildformat.
+Die wichtigsten dieser Parameter, welche bei Videoaufzeichnungen zusätzlich relevant sind, sind die Bildrate, das Kompressionsverfahren und das Bildformat.
 Unabhängig vom Format und der Auflösung des Sensors bieten Kameras meist die Möglichkeit das Bildformat und damit die genutzte Fläche des Sensors und die Auflösung des resultierenden Videos zu beeinflussen \cite[S. 422]{Schmidt_Videotechnik}.
 Zum Beispiel werden verschiedene Formate für verschiedene Auswertungsmedien wie Kino oder TV bevorzugt.
 Die Bildrate, auch Framerate genannt, gibt an, wie viele Bilder pro Sekunde (\ac{FPS}) aufgezeichnet werden und ist damit von der Belichtungszeit abhängig.
 Allgemein muss $Bildrate * Belichtungszeit \leq 1$ gelten.
 Eine Bildrate von $60 fps$ mit einer Belichtungszeit von $1/30 s$ pro Bild ist beispielsweise nicht möglich, da mit dieser Belichtungszeit weniger als 60 Bilder pro Sekunde aufgenommen werden können.
-Die Bildrate beeinflusst vor allem die Bewegungsunschärfe.
 Bei schnellen Bewegungen wirken bewegte Objekte in Aufnahmen mit niedriger Bildrate unscharf.
-Die Bildrate wird allerdings häufig auch als kreatives Gestaltungsmittel eingesetzt, weshalb viele Filme trotz höherer Bewegungsunschärfe mit 24 Bildern pro Sekunde produziert werden \cite[S. 174f.]{Schmidt_Videotechnik}.
+Die Bildrate wird allerdings häufig auch als kreatives Gestaltungsmittel eingesetzt \cite[S. 174f.]{Schmidt_Videotechnik}.
 
-Bei der Wahl von Kompressionsverfahren, auch Codecs genannt, und Bitrate spielt sowohl der verfügbare Speicherplatz als auch die gewünschte Qualität eine Rolle.
-Generell gilt, dass bei niedrigerer Bitrate durch stärkere Kompression mehr Qualität auf Kosten des Speicherplatzes verloren geht.
-Allerdings sind Qualität und Speicherplatzverbrauch stark vom eingesetzten Kompressionsverfahren abhängig.
-Moderne Verfahren, wie H.265 oder AV1 erreichen bei gleicher Bitrate und gleichem Speicherbedarf eine höhere Qualität als ältere Verfahren wie H.264.
+Bei der Wahl von Kompressionsverfahren, auch Codecs genannt, und Bitrate bei der Komprimierung spielt sowohl der verfügbare Speicherplatz als auch die gewünschte Qualität eine Rolle.
+Generell gilt, dass bei niedrigerer Bitrate durch stärkere Kompression ein kleinerer Speicherbedarf auf Kosten der Qualität entsteht.
+Moderne Verfahren, wie H.265 oder AV1 erreichen jedoch bei gleicher Bitrate oft eine höhere Qualität als ältere Verfahren wie H.264.
 Umgekehrt kann der für die gleiche Qualität benötigte Speicherplatz reduziert werden.
 Dabei ist zu beachten, dass für proprietäre Kompressionsverfahren wie H.264 oder H.265 kostenpflichtige Lizenzen benötigt werden, welche meist an die verwendete Hardware gebunden sind.
 Offene Codecs, wie VP9 oder AV1, sind dagegen frei verfügbar und können auf allen Geräten verwendet werden \cite[S. 253ff.]{Schmidt_Videotechnik}.
 
 
-\subsection{Für Videoaufzeichnungsapp relevante Parameter}
+\subsection{Für Videoaufzeichnung relevante Parameter}
 \label{sec:relevante_parameter}
 
 \autoref{tab:parameter_support} gibt einen Überblick, welche Parameter sich grundsätzlich über die \acp{API} von Android und iOS einstellen lassen.
-Die meisten Parameter sind sowohl unter Android als auch unter iOS einstellbar.
-Die Wertebereiche sind allerdings stark vom konkreten System abhängig, da es nicht nur Einschränkungen durch das Betriebssystem, sondern auch durch die Hardware geben kann.
+Die Wertebereiche sind stark vom konkreten Smartphone abhängig, da es nicht nur Einschränkungen durch das Betriebssystem, sondern auch durch die Hardware geben kann.
+Insbesondere proprietäre Codecs sind nicht überall in gleichem Maße verfügbar.
 Ausnahmen bei der Einstellbarkeit bilden die Blende und die Brennweite, welche nur bei wenigen Android-Modellen einstellbar sind \cite{Sony_VariableZoom,VariableAperture_Smartphones}.
-Ansonsten verwenden die meisten Geräte jeweils Objektive ohne variable Brennweite und Blende, sodass Softwareseitig keine Anpassungen möglich sind.
-Stattdessen können Brennweite und Blende durch die Wahl des Objektivs beeinflusst werden, da in den meisten Smartphones mehrere Sensoren verbaut sind, welche jeweils ein eigenes Objektiv mit unterschiedlicher Brennweite und Blende verwenden \cite[S. 499ff.]{Schmidt_Videotechnik}.
-Inwiefern die prinzipiell einstellbaren Parameter auch in den zu testenden Cross-Plattform Frameworks tatsächlich einstellbar sind, wird im Laufe dieser Arbeit näher untersucht.
+Ansonsten verwenden die meisten Geräte jeweils Objektive ohne variable Brennweite und Blende, sodass diese Parameter nur durch die Wahl des Objektivs angepasst werden können, da die meisten Smartphones mehrere Sensoren mit jeweils eigenem Objektiv verbauen \cite[S. 499ff.]{Schmidt_Videotechnik}.
+Inwiefern die prinzipiell einstellbaren Parameter in den zu testenden Cross-Plattform Frameworks tatsächlich einstellbar sind, wird im Laufe dieser Arbeit näher untersucht.
 
 \begin{table}[H]
     \begin{tabularx}{\textwidth}{ |l|l|X|X| }
