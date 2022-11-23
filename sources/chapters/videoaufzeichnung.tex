@@ -1,7 +1,7 @@
-\section{Use Case: Videoaufzeichnung}
-\label{sec:Videoaufzeichnung}
+\chapter{Use Case: Videoaufzeichnung}
+\label{ch:Videoaufzeichnung}
 
-Zunächst sollen im Folgenden die Grundlagen der digitalen Videoaufzeichnung und die dabei wichtigen Parameter erläutert werden.
+Zunächst werden im Folgenden die Grundlagen der digitalen Videoaufzeichnung und die dabei wichtigen Parameter erläutert.
 Eine digitale Videoaufzeichnung besteht im Wesentlichen aus einer Folge von Bildern und eventuell einer Tonspur.
 In dieser Arbeit soll der Fokus auf der visuellen Komponente liegen.
 Digitalkameras, wie sie auch in Smartphones zu finden sind, verwenden zur Aufnahme der einzelnen Bilder einen oder mehrere \ac{CCD} oder \ac{CMOS} Sensoren.
@@ -53,7 +53,7 @@ Dabei ist zu beachten, dass für proprietäre Kompressionsverfahren wie H.264 od
 Offene Codecs, wie VP9 oder AV1, sind dagegen frei verfügbar und können auf allen Geräten verwendet werden \cite[S. 253ff.]{Schmidt_Videotechnik}.
 
 
-\subsection{Für Videoaufzeichnung relevante Parameter}
+\section{Für Videoaufzeichnung relevante Parameter}
 \label{sec:relevante_parameter}
 
 \autoref{tab:parameter_support} gibt einen Überblick, welche Parameter sich grundsätzlich über die \acp{API} von Android und iOS einstellen lassen.
@@ -61,8 +61,9 @@ Die Wertebereiche sind stark vom konkreten Smartphone abhängig, da es nicht nur
 Insbesondere proprietäre Codecs sind nicht überall in gleichem Maße verfügbar.
 Ausnahmen bei der Einstellbarkeit bilden die Blende und die Brennweite, welche nur bei wenigen Android-Modellen einstellbar sind \cite{Sony_VariableZoom,VariableAperture_Smartphones}.
 Ansonsten verwenden die meisten Geräte jeweils Objektive ohne variable Brennweite und Blende, sodass diese Parameter nur durch die Wahl des Objektivs angepasst werden können, da die meisten Smartphones mehrere Sensoren mit jeweils eigenem Objektiv verbauen \cite[S. 499ff.]{Schmidt_Videotechnik}.
-Inwiefern die prinzipiell einstellbaren Parameter in den zu testenden Cross-Plattform Frameworks tatsächlich einstellbar sind, wird im Laufe dieser Arbeit näher untersucht.
+Inwiefern die prinzipiell einstellbaren Parameter, in den zu testenden Cross-Plattform Frameworks tatsächlich einstellbar sind, wird im Laufe dieser Arbeit näher untersucht.
 
+%TODO: Eventuell Kategorie der Parameter weglassen, Blende ist auch Teil der Objektivparameter
 \begin{table}[H]
     \begin{tabularx}{\textwidth}{ |l|l|X|X| }
         \hline
