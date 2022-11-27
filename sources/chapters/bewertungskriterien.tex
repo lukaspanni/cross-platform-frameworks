@@ -1,15 +1,55 @@
 \chapter{Bewertungskriterien}
 \label{ch:Bewertungskriterien}
 
+Bevor die Evaluation der Frameworks für die Umsetzung des Anwendungsfalls der Videoaufzeichnung in \autoref{ch:Evaluation} erfolgen kann, müssen zunächst die Anforderungen an die prototypische Anwendung sowie die Kriterien für die Bewertung der Frameworks definiert werden. 
+Außerdem muss definiert werden, wie die Implementierung erfolgen soll.
 
-nur Betrachtung von verfügbaren Abstraktionen der Frameworks / Open-Source Plugins, keine Betrachtung des direkten Zugriffs auf native APIs
+\section{Anforderungen an den Prototypen und die Implementierung}
+\label{sec:anforderungen}
+Um den Use Case der Videoaufzeichnung bewerten zu können, müssen folgende Anforderungen erfüllt werden:
+\begin{itemize}
+  \item Der Prototyp muss die Aufzeichnung von Video (mit Audio) ermöglichen.
+  \item Der Prototyp muss die Speicherung von Videoaufzeichnungen im lokalen, für den Nutzer zugreifbaren Speicher, ermöglichen.
+  \item Der Prototyp soll die Wiedergabe von aufgezeichnetem Video ermöglichen.
+  \item Der Prototyp soll die Einstellung der in \autoref{tab:parameter_support} als einstellbar eingestuften Parameter ermöglichen.
+\end{itemize}
 
-- ist der Zugriff auf Videoaufzeichnung überhaupt möglich?
-- welche Parameter (aus 2.) können gesetzt werden?
-  - können diese frei gesetzt werden, oder gibt es Einschränkungen?
+Können mit „muss“ gekennzeichnete Anforderungen mit einem bestimmten Framework nicht erfüllt werden, so ist das Framework als nicht geeignet für die Umsetzung des Anwendungsfalls zu bewerten.
+Die Anforderungen, die mit „soll“ gekennzeichnet sind, sind für die Basisfunktionalität nicht zwingend erforderlich, für einen sinnvollen Einsatz des Frameworks für die Videoaufzeichnung jedoch wünschenswert.
 
-Was soll der Prototyp können:
-  - Aufzeichnung von Video und Audio
-    - Einstellung aller einstellbaren Parameter
-  - Abspielen der Aufzeichnung
-  - Speichern der Aufzeichnung in zugreifberer Form
+Bei der Implementierung sollen nur die Abstraktionen der jeweiligen Frameworks oder verfügbare Open-Source Komponenten verwendet werden.
+Insbesondere soll keine Funktionalität mit denen für die Plattformen nativen Programmiersprachen umgesetzt werden.
+Dies würde den Vorteil einer Plattformübergreifenden Entwicklung aufheben und den Vergleich der Frameworks einschränken.
+In diesem Fall könnte nur der Mechanismus zum Aufruf von nativem Code der jeweiligen Frameworks verglichen werden, was nicht Fokus der vorliegenden Arbeit ist.
+Weiterhin soll keine Unterscheidung zwischen den Plattformen Android und iOS notwendig sein.
+Der Code für den Aufruf der Videoaufzeichnungs-Funktionalität soll plattformübergreifend genutzt werden können.
+
+
+\section{Bewertungskriterien}
+
+Zur Bewertung des Prototyps soll zunächst die Umsetzung der Anforderungen aus \autoref{sec:anforderungen} herangezogen werden.
+Dabei muss zumindest die Grundfunktionalität der Videoaufzeichnung erfüllt werden.
+Bei den einstellbaren Parametern ist der größte Unterschied zwischen den Frameworks zu erwarten, weshalb die Einstellbarkeit besonders betrachtet werden soll.
+In diesem Zusammenhang soll nicht nur untersucht werden, welche Parameter sich einstellen lassen, sondern auch die erlaubten Wertebereiche und mögliche Einschränkungen.
+
+
+Zudem sollen allgemeine Kriterien bewertet werden.
+Dazu werden die Größe und Startzeit der Anwendung und die Prozessor- und Speicherauslastung während der Aufzeichnung betrachtet.
+Darüber hinaus soll die Zeit gemessen werden, die benötigt wird, ein Video von zehn Sekunden Länge aufzuzeichnen und abzuspeichern.
+Gleichzeitig wird dabei der Energieverbrauch der Anwendung mit den jeweiligen Tools der Plattformen gemessen.
+Diese Kriterien entsprechen im Wesentlichen den Kriterien, welche von Nawrocki \textit{et al.} \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks} für die Bewertung von React Native, Xamarin und Flutter im Kontext zweier generischer Testanwendungen verwendet werden.
+Auch Bi{\o}rn-Hansen \textit{et al.} \cite{Biorn-Hansen_PerformanceOverhead_CrossPlatform} verwenden vorrangig diese Kriterien.
+Lediglich der Energieverbrauch wird in beiden Arbeiten nicht betrachtet.
+
+Durch die unterschiedliche Funktionsweise der Frameworks, sind bei der Größe der Anwendung größere Unterschiede zu erwarten.
+Bewertet werden soll dabei jeweils eine für die Auslieferung optimiert Version der Anwendung.
+
+Die Startzeit der Anwendung ist insbesondere für die Nutzbarkeit der Anwendung von Bedeutung und soll aus einem Mittelwert mehrerer Messungen ermittelt werden.
+Dazu werden jeweils die vom Betriebssystem bereitgestellten Funktionen zum kompletten Beenden der Anwendung verwendet, sodass Kaltstartzeiten gemessen werden können.
+
+Prozessor- und Speicherauslastung während einer Videoaufzeichnung sollen eventuelle Abweichungen zwischen den Frameworks im Hinblick auf Auslastung der verfügbaren Ressourcen aufzeigen.
+Dazu wird die Auslastung der CPU und des Arbeitsspeichers mit den Tools der Betriebssystemhersteller gemessen.
+
+Insbesondere für batteriebetriebene Geräte wie Smartphones ist der Energieverbrauch von Bedeutung.
+Daher soll der Energieverbrauch während der Videoaufzeichnung mit den Tools der jeweiligen Plattform gemessen werden.
+Wenn ein Framework bei gleichem Funktionsumfang der Videoaufzeichnung einen geringeren Energieverbrauch aufweist, kann dies ein essenzieller Vorteil sein.
