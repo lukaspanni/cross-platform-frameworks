@@ -19,10 +19,9 @@ Die Anforderungen, die mit „soll“ gekennzeichnet sind, sind für die Basisfu
 
 Bei der Implementierung sollen nur die Abstraktionen der jeweiligen Frameworks oder verfügbare Open-Source Komponenten verwendet werden.
 Insbesondere soll keine Funktionalität mit denen für die Plattformen nativen Programmiersprachen umgesetzt werden.
-Dies würde den Vorteil einer Plattformübergreifenden Entwicklung aufheben und den Vergleich der Frameworks einschränken.
+Dies würde den Vorteil einer Plattformübergreifenden Entwicklung aufheben und die Vergleichbarkeit der Frameworks einschränken.
 In diesem Fall könnte nur der Mechanismus zum Aufruf von nativem Code der jeweiligen Frameworks verglichen werden, was nicht Fokus der vorliegenden Arbeit ist.
-Weiterhin soll keine Unterscheidung zwischen den Plattformen Android und iOS notwendig sein.
-Der Code für den Aufruf der Videoaufzeichnungs-Funktionalität soll plattformübergreifend genutzt werden können.
+Weiterhin soll im Code für die Videoaufzeichnung möglichst keine Unterscheidung zwischen den Plattformen Android und iOS notwendig sein.
 
 
 \section{Bewertungskriterien}
@@ -36,20 +35,17 @@ In diesem Zusammenhang soll nicht nur untersucht werden, welche Parameter sich e
 Zudem sollen allgemeine Kriterien bewertet werden.
 Dazu werden die Größe und Startzeit der Anwendung und die Prozessor- und Speicherauslastung während der Aufzeichnung betrachtet.
 Darüber hinaus soll die Zeit gemessen werden, die benötigt wird, ein Video von zehn Sekunden Länge aufzuzeichnen und abzuspeichern.
-Gleichzeitig wird dabei der Energieverbrauch der Anwendung mit den jeweiligen Tools der Plattformen gemessen.
 Diese Kriterien entsprechen im Wesentlichen den Kriterien, welche von Nawrocki \textit{et al.} \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks} für die Bewertung von React Native, Xamarin und Flutter im Kontext zweier generischer Testanwendungen verwendet werden.
 Auch Bi{\o}rn-Hansen \textit{et al.} \cite{Biorn-Hansen_PerformanceOverhead_CrossPlatform} verwenden vorrangig diese Kriterien.
-Lediglich der Energieverbrauch wird in beiden Arbeiten nicht betrachtet.
 
 Durch die unterschiedliche Funktionsweise der Frameworks, sind bei der Größe der Anwendung größere Unterschiede zu erwarten.
-Bewertet werden soll dabei jeweils eine für die Auslieferung optimiert Version der Anwendung.
+Bewertet werden soll dabei jeweils eine für die Auslieferung optimiert Version der Anwendung in den Formaten \ac{IPA} für iOS und \ac{AAB} für Android.
 
 Die Startzeit der Anwendung ist insbesondere für die Nutzbarkeit der Anwendung von Bedeutung und soll aus einem Mittelwert mehrerer Messungen ermittelt werden.
 Dazu werden jeweils die vom Betriebssystem bereitgestellten Funktionen zum kompletten Beenden der Anwendung verwendet, sodass Kaltstartzeiten gemessen werden können.
+Unter Android wird zur Messung der Zeiten auf die vom Betriebssystem bereitgestellten Metriken \ac{TTID} und \ac{TTFD} zurückgegriffen.
+Da unter iOS keine vergleichbaren Metriken bereitgestellt werden, muss die Zeit zwischen klicken auf das App-Symbol und der Anzeige der kompletten Anwendung gemessen werden.
+Dazu wird der Bildschirm des Testgeräts mit einer Bildrate von 120 Bildern pro Sekunde aufgezeichnet und anhand der Aufnahmen die Zeit berechnet.
 
 Prozessor- und Speicherauslastung während einer Videoaufzeichnung sollen eventuelle Abweichungen zwischen den Frameworks im Hinblick auf Auslastung der verfügbaren Ressourcen aufzeigen.
 Dazu wird die Auslastung der CPU und des Arbeitsspeichers mit den Tools der Betriebssystemhersteller gemessen.
-
-Insbesondere für batteriebetriebene Geräte wie Smartphones ist der Energieverbrauch von Bedeutung.
-Daher soll der Energieverbrauch während der Videoaufzeichnung mit den Tools der jeweiligen Plattform gemessen werden.
-Wenn ein Framework bei gleichem Funktionsumfang der Videoaufzeichnung einen geringeren Energieverbrauch aufweist, kann dies ein essenzieller Vorteil sein.
