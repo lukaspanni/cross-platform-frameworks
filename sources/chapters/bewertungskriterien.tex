@@ -33,19 +33,21 @@ In diesem Zusammenhang soll nicht nur untersucht werden, welche Parameter sich e
 
 
 Zudem sollen allgemeine Kriterien bewertet werden.
-Dazu werden die Größe und Startzeit der Anwendung und die Prozessor- und Speicherauslastung während der Aufzeichnung betrachtet.
-Darüber hinaus soll die Zeit gemessen werden, die benötigt wird, ein Video von zehn Sekunden Länge aufzuzeichnen und abzuspeichern.
-Diese Kriterien entsprechen im Wesentlichen den Kriterien, welche von Nawrocki \textit{et al.} \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks} für die Bewertung von React Native, Xamarin und Flutter im Kontext zweier generischer Testanwendungen verwendet werden.
-Auch Bi{\o}rn-Hansen \textit{et al.} \cite{Biorn-Hansen_PerformanceOverhead_CrossPlatform} verwenden vorrangig diese Kriterien.
-
+Dazu werden die Größe und Startzeit der Anwendung herangezogen.
 Durch die unterschiedliche Funktionsweise der Frameworks, sind bei der Größe der Anwendung größere Unterschiede zu erwarten.
 Bewertet werden soll dabei jeweils eine für die Auslieferung optimiert Version der Anwendung in den Formaten \ac{IPA} für iOS und \ac{AAB} für Android.
 
 Die Startzeit der Anwendung ist insbesondere für die Nutzbarkeit der Anwendung von Bedeutung und soll aus einem Mittelwert mehrerer Messungen ermittelt werden.
 Dazu werden jeweils die vom Betriebssystem bereitgestellten Funktionen zum kompletten Beenden der Anwendung verwendet, sodass Kaltstartzeiten gemessen werden können.
-Unter Android wird zur Messung der Zeiten auf die vom Betriebssystem bereitgestellten Metriken \ac{TTID} und \ac{TTFD} zurückgegriffen.
+Dabei ist die Zeit interessant, die benötigt wird, bis die Anwendung vollständig funktionsfähig ist.
+Unter Android wird zur Messung der Zeiten auf die vom Betriebssystem bereitgestellte Metrik \ac{TTID} zurückgegriffen.
+\ac{TTID} gibt die Zeit an, die benötigt wird, bis die Anwendung das erste Mal sichtbar ist, je nach Framework ist die volle Funktionsfähigkeit damit jedoch noch nicht erreicht.
+Sollte dieser Fall eintreten, wird zusätzlich eine entsprechende alternative Messmethode eingesetzt.
+
 Da unter iOS keine vergleichbaren Metriken bereitgestellt werden, muss die Zeit zwischen klicken auf das App-Symbol und der Anzeige der kompletten Anwendung gemessen werden.
 Dazu wird der Bildschirm des Testgeräts mit einer Bildrate von 120 Bildern pro Sekunde aufgezeichnet und anhand der Aufnahmen die Zeit berechnet.
 
-Prozessor- und Speicherauslastung während einer Videoaufzeichnung sollen eventuelle Abweichungen zwischen den Frameworks im Hinblick auf Auslastung der verfügbaren Ressourcen aufzeigen.
-Dazu wird die Auslastung der CPU und des Arbeitsspeichers mit den Tools der Betriebssystemhersteller gemessen.
+
+Darüber hinaus soll die Zeit gemessen werden, die benötigt wird, ein Video von zehn Sekunden Länge aufzuzeichnen und abzuspeichern, falls das Framework dies automatisiert unterstützt.
+So kann der allgemeine Overhead beim Zugriff auf die Kamera und den Gerätespeicher erfasst werden.
+Außerdem ergeben sich so Rückschlüsse auf die Benutzbarkeit der Anwendung.

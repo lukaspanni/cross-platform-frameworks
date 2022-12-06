@@ -2,14 +2,21 @@
 \label{ch:Evaluation}
 
 Die folgenden Abschnitte beschreiben jeweils die Implementierung des Prototyps zur Videoaufzeichnung und die Ergebnisse der Evaluation anhand der in \autoref{ch:Bewertungskriterien} aufgeführten Kriterien.
-Dabei wird erläutert, wie die einzelnen Komponenten des Prototyps implementiert werden und welche Plugins oder Bibliotheken eingesetzt werden müssen, um die geforderte Funktionalität umzusetzen.
-Bei der Speicherung der Videos ist aufgefallen, dass kein Framework plattformübergreifende Speicherpfade unterstützt.
+Dabei wird erläutert, wie die einzelnen Komponenten des Prototyps implementiert werden und welche zusätzlichen Komponenten eingesetzt werden müssen, um die geforderte Funktionalität umzusetzen.
+Die Frameworks verwenden verschiedene Bezeichnungen für eingebundene Komponenten von Drittanbietern.
+Zur einheitlichen Beschreibung werden diese in den folgenden Abschnitten jeweils als Plugins bezeichnet. 
+
+Insgesamt ist festzustellen, dass die Grundfunktionalität der Videoaufzeichnung mit allen untersuchten Frameworks mit vorhandenen Plugins umgesetzt werden kann.
+Welche Komponenten verwendet wurden, welche Probleme aufgetreten sind und welche Einstellmöglichkeiten für die Parameter bestehen ist in den Abschnitten \ref{sec:Evaluation_Flutter} bis \ref{sec:Evaluation_ReactNative} beschrieben.
+Auch der Zugriff auf den Gerätespeicher zur Speicherung der Videos ist in allen Frameworks möglich.
+Dabei ist jedoch aufgefallen, dass kein Framework plattformübergreifende Speicherpfade unterstützt.
 Stattdessen muss für jede Plattform ein passender Pfad, angepasst an die jeweilige Dateisystemstruktur, erzeugt werden.
+Erste Unterschiede zeigen sich bei der Wiedergabe aufgezeichneter Videos.
+Diese ist in Ionic mit Cordova mit allen getesteten Plugins nicht möglich.
 
-
-%TODO: weiter Unterteilen -> Implementierung und Erfüllung der Anforderungen, dann Evaluation anhand der allgemeinen Parameter
-\section{Flutter}
-\label{sec:Evaulation_Flutter}
+\section{Implementierung und Evaluation der Grundfunktionalität}
+\subsection{Implementierung mit Flutter}
+\label{sec:Evaluation_Flutter}
 
 Für den Zugriff auf Kamerafunktionen steht ein offizielles Dart Package beziehungsweise Plugin zur Verfügung \cite{Dart_Camera}.
 Über dieses Plugin ist die Aufzeichnung von Videos unter Android und iOS möglich und einige Parameter können angepasst werden.
@@ -26,8 +33,8 @@ Weißabgleich, Videocodec und Bildrate lassen sich ebenfalls nicht einstellen.
 Außerdem konnte nicht jeder verfügbare Sensor des Android-Testsmartphones ausgewählt werden.
 
 
-\section{Ionic mit Cordova}
-\label{sec:Evaulation_Ionic}
+\subsection{Implementierung mit Ionic und Cordova}
+\label{sec:Evaluation_Ionic}
 
 Allgemein erlaubt Cordova den Zugriff auf native Funktionen, wie die Videoaufzeichnung nur über Plugins.
 Erste Quelle für bestehende Plugins ist bei Verwendung von Ionic als UI-Toolkit die Sammlung offiziell unterstützter und getesteter Plugins, die unter \url{https://ionicframework.com/docs/native/} bereitsteht.
@@ -46,8 +53,8 @@ Um die optionalen Anforderungen umzusetzen, müssten spezifische Plugins impleme
 Dementsprechend ist die Implementierung einer Videoaufzeichnungsanwendung mit Ionic und Cordova nur stark eingeschränkt möglich.
 
 
-\section{Xamarin}
-\label{sec:Evaulation_Xamarin}
+\subsection{Implementierung mit Xamarin}
+\label{sec:Evaluation_Xamarin}
 
 Da Xamarin prinzipiell die Nutzung der nativen \acp{API} unterstützt, sind theoretisch alle Kamerafunktionen nutzbar.
 Allerdings sollen im Rahmen dieser Arbeit nur die vorhandenen plattformübergreifenden Abstraktionen des Frameworks genutzt werden.
@@ -63,8 +70,8 @@ Auch die Wiedergabe der Videos ist ohne Einschränkungen möglich.
 Die optionale Einstellbarkeit der Parameter kann hingegen nicht umgesetzt werden.
 
 
-\section{React Native}
-\label{sec:Evaulation_ReactNative}
+\subsection{Implementierung mit React Native}
+\label{sec:Evaluation_ReactNative}
 
 Für die Videoaufzeichnung mit React Native konnten zwei geeignete Native Modules beziehungsweise Plugins identifiziert werden.
 Da das Plugin \textit{react-native-vision-camera} \cite{Vision_Canmera} bei der Einstellung von Parametern mehr Flexibilität bietet als das Pluguin \textit{expo-camera} \cite{Expo_Camera}, wird für die prototypische Implementierung dieses Plugin verwendet.
@@ -79,3 +86,28 @@ Abhängig vom Format kann die Bildrate für Videoaufnahmen in einem, im Format a
 Weiterhin kann der Fokus in ähnlicher Art und Weise wie bei Flutter gesetzt werden.
 Unter iOS ist zudem die Wahl eines der unterstützten Videocodecs möglich.
 Die Belichtungsparameter ISO und Belichtungszeit können jedoch nicht eingestellt werden.
+
+
+\subsection{Vergleich allgemeiner Kriterien}
+
+
+\begin{figure}[ht]
+  \centering 
+  \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{app_size.pdf}
+  \caption{Vergleich der Größe eines Release-Builds abhängig von Framework und Betriebssystem.}
+  \label{fig:app_size}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering 
+  \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{launch_time.pdf}
+  \caption{Vergleich der Zeit bis zur vollständigen Funktionsfähigkeit des Prototyps abhängig von Framework und Betriebssystem.}
+  \label{fig:launch_time}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering 
+  \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{testcase.pdf}
+  \caption{Vergleich der für die Aufzeichnung und Speicherung von zehn Sekunden Video zusätzlich benötigten Zeit abhängig von Framework und Betriebssystem.}
+  \label{fig:testcase}
+\end{figure}
