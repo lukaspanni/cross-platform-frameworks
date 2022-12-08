@@ -40,7 +40,9 @@ Zum Erhalt der \ac{UI}-Konsistenz werden zum Beispiel die beiden Bibliotheken Ma
 Durch die Abstraktionen des Frameworks sind einige native Funktionen direkt oder über offizielle Bibliotheken verfügbar \cite{Dart_Overview}.
 Darüber hinaus bietet Flutter auch die Möglichkeit, beliebigen Code in der nativen Sprache der jeweiligen Plattform aufzurufen.
 Damit lassen sich alle \acp{API} der Betriebssysteme nutzen.
-Für häufig eingesetzte Funktionen stehen hierfür Open-Source Plugins bereit, sodass nicht jede Funktionalität neu entwickelt werden muss \cite{Flutter_Architektur}.
+Dabei erfolgt die Kommunikation zwischen Dart und der nativen Implementierung über sogenannte \textit{Platform Channels}, welche den Austausch von Nachrichten ermöglichen.
+Standardmäßig werden alle Nachrichten in ein binäres Format serialisiert und asynchron übertragen \cite{Flutter_PlatfromChannels}.
+Für häufig eingesetzte Funktionen stehen Open-Source Plugins bereit, sodass nicht jede Funktionalität neu entwickelt werden muss \cite{Flutter_Architektur}.
 Werden spezielle Funktionen benötigt, müssen jedoch eigene Plugins entwickelt werden.
 
 
