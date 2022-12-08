@@ -28,7 +28,7 @@ Diese ist in Ionic mit Cordova mit allen getesteten Plugins nicht möglich.
 Für den Zugriff auf Kamerafunktionen steht ein offizielles Dart Package beziehungsweise Plugin zur Verfügung \cite{Dart_Camera}.
 Über dieses Plugin ist die Aufzeichnung von Videos unter Android und iOS möglich und einige Parameter können angepasst werden.
 Für die Speicherung ist kein zusätzliches Plugin notwendig, der Zugriff auf Gerätespeicher ist in Flutter bereits integriert.
-Zur Wiedergabe der Videos wird das offizielle Video-Player-Plugin verwendet \cite{Dart_VideoPlayer}.
+Zur Wiedergabe der Videos wird das offizielle Video-Player-Plugin verwendet \cite{Dart_Video}.
 
 Die erforderlichen Anforderungen, sowie die Wiedergabe von Videos, können somit mit Flutter vollständig umgesetzt werden.
 Allerdings gibt es einige Einschränkungen bei den einstellbaren Parametern.
@@ -131,7 +131,7 @@ Bei React Native muss jeweils eine JavaScript Engine mitgeliefert werden, in die
 Beides führt zu im Vergleich zu anderen Frameworks größeren App-Bundles.
 
 Unter iOS fällt auf, dass die mit React Native erstellte App mit 157,6 MB deutlich größer ist als alle mit den anderen Frameworks erstellten Anwendungen.
-Dieses Problem ist auf die Verwendung der Hermes Engine zurückzuführen und wurde bereits mehrfach beobachtet \cite{Hermes_appsize,hermes_appsize2}.
+Dieses Problem ist auf die Verwendung der Hermes Engine zurückzuführen und wurde bereits mehrfach beobachtet \cite{Hermes_appsize,Hermes_appsize_2}.
 Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet reduziert sich die App-Größe auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
 Da die Hermes Engine standardmäßig aktiviert ist, wird diese Variante für die Evaluation verwendet.
 Außerdem ist anzumerken, dass die \ac{IPA}-Größe nicht repräsentativ für die Größe der App ist, welche über den App-Store verteilt wird.
