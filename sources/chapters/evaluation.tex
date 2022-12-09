@@ -79,10 +79,13 @@ Die optionale Einstellbarkeit der Parameter kann hingegen nicht umgesetzt werden
 
 \subsection{Implementierung mit React Native}
 \label{sec:evaluation_reactnative}
-%TODO: neue Architektur wurde verwendet
+
 Für die Videoaufzeichnung mit React Native konnten zwei geeignete Native Modules beziehungsweise Plugins identifiziert werden.
-Da das Plugin \textit{react-native-vision-camera} \cite{Vision_Canmera} bei der Einstellung von Parametern mehr Flexibilität bietet als das Pluguin \textit{expo-camera} \cite{Expo_Camera}, wird für die prototypische Implementierung dieses Plugin verwendet.
+Da das Plugin \textit{react-native-vision-camera} \cite{Vision_Camera} bei der Einstellung von Parametern mehr Flexibilität bietet als das Pluguin \textit{expo-camera} \cite{Expo_Camera}, wird für die prototypische Implementierung dieses Plugin verwendet.
 Für Speicherung und Wiedergabe der Videos müssen zusätzlich \textit{react-native-fs} \cite{ReactNative_FileSystem} respektive \textit{react-native-video} \cite{ReactNative_Video} eingebunden werden.
+Das Plugin \textit{react-native-vision-camera} ist auf die neue Architektur von React Native ausgelegt, welche bei neuen Projekten standardmäßig aktiviert ist.
+Ebenfalls standardmäßig aktiviert ist die Verwendung der JavaScript Engine Hermes.
+Diese Einstellungen werden für die Implementierung beibehalten.
 
 Die erforderlichen Anforderungen und die Wiedergabe von Videos können mit React Native ohne Einschränkungen umgesetzt werden.
 Bei der Einstellbarkeit der Parameter gibt es im Vergleich mit den anderen Frameworks zudem weniger Einschränkungen.
@@ -90,9 +93,13 @@ So ist eine freie Wahl des Sensors möglich, auf Basis derer die weiteren Einste
 Verschiedene Sensoren unterstützen dabei unterschiedliche Kombinationen von Einstellungen, welche als sogenannte Formate abgerufen werden können.
 Das Format definiert insbesondere die Auflösung und den Farbraum.
 Abhängig vom Format kann die Bildrate für Videoaufnahmen in einem, im Format angegebenen, Bereich eingestellt werden.
+Bei den Testgeräten war die Einstellung jeweils im Bereich von einem bis 60 Bildern pro Sekunde möglich.
 Weiterhin kann der Fokus in ähnlicher Art und Weise wie bei Flutter gesetzt werden.
 Unter iOS ist zudem die Wahl eines der unterstützten Videocodecs möglich.
-Die Belichtungsparameter ISO und Belichtungszeit können jedoch nicht eingestellt werden.
+Dabei sind verschiedene Einschränkungen aufgefallen.
+Beim Testgerät waren nur die Codecs \textit{H.264} und \textit{HEVC} und \textit{JPEG} verfügbar.
+Laut Dokumentation unterstützt das Plugin auch den Apple-eigenen Codec \textit{ProRes}, der aktuell allerdings nur auf den jeweiligen Pro-Modellen der iPhones 13 und 14 verfügbar ist \cite{Prores_iPhone13}.
+Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtungszeit einzustellen.
 
 
 \section{Vergleich allgemeiner Kriterien}
@@ -110,30 +117,36 @@ Deshalb ist es notwendig zusätzlich zu den absoluten Werten, auch die, auf die 
 \subsection{Größe eines Release-Builds}
 
 Die jeweiligen Größen der Release-Builds in Mega-Byte sind in \autoref{fig:app_size} dargestellt.
-Hier fällt zunächst auf, dass das verwendete Framework wie erwartet einen großen Einfluss auf die Größe des Release-Builds hat.
-Weiterhin sind Apps für iOS durchschnittlich größer als Apps für Android.
+Wie erwartet gibt es große Unterschiede abhängig vom verwendeten Framework.
+Weiterhin fällt auf, dass eine App für iOS durchschnittlich größer ist als dieselbe App für Android.
 \begin{figure}[ht]
   \centering 
   \includegraphics[trim=1.5cm 4.5cm 1.5cm 4.5cm, clip, width=0.9\textwidth]{app_size.pdf}
   \caption{Vergleich der Größe eines Release-Builds abhängig von Framework und Betriebssystem.}
   \label{fig:app_size}
 \end{figure}
+
 Unter Android sind die mit Ionic und Cordova und Xamarin erstellten Apps mit 5,9 MB und 10,9 MB die kleinsten.
 Dies kann auf die Verwendung der vom Betriebssystem bereitgestellten Videoaufzeichnungsanwendung zurückgeführt werden.
-Da diese Apps keine eigene Videoaufzeichnung implementieren müssen, sondern lediglich die vom Betriebssystem bereitgestellte Anwendung aufrufen, kann die Größe der App deutlich reduziert werden.
+Die Größe der App lässt sich reduzieren, indem die vom Betriebssystem bereitgestellte Anwendung aufgerufen wird, anstatt eine eigene Implementierung zu verwenden.
 Die gleiche Argumentation lässt sich auch auf die jeweiligen Implementierungen für iOS übertragen.
-Hier fällt die Xamarin-Anwendung jedoch aufgrund der \ac{AOT}-Kompilation, wie erwartet deutlich größer aus als unter Android.
+Auch unter iOS ist die mit Ionic und Cordova erstellte App die kleinste.
+Die Xamarin-Anwendung ist jedoch, wie durch die \ac{AOT}-Kompilation erwartet, unter iOS deutlich größer als unter Android.
 
 Die mit Flutter und React Native erstellten Apps sind unter Android mit 18,1 MB und 21,7 MB deutlich größer als die mit Ionic und Cordova und Xamarin implementierten Anwendungen.
-Dies lässt sich auf die Menge der mitgelieferten Abhängigkeiten zurückführen.
+Dies lässt sich vermutlich auf die größere Menge der mitgelieferten Abhängigkeiten zurückführen.
 Wie bei der Erläuterung der Frameworks in \autoref{sec:frameworks_flutter} beschrieben wird mit jeder Flutter-Anwendung eine Version der Skia Engine mitgeliefert.
 Bei React Native muss jeweils eine JavaScript Engine mitgeliefert werden, in diesem Fall wird die für React Native optimierte Engine Hermes verwendet.
 Beides führt zu im Vergleich zu anderen Frameworks größeren App-Bundles.
+Jedoch ist die Flutter-Anwendung unter iOS nur minimal größer als unter Android und damit sehr konsistent über die Betriebssysteme hinweg.
 
-Unter iOS fällt auf, dass die mit React Native erstellte App mit 157,6 MB deutlich größer ist als alle mit den anderen Frameworks erstellten Anwendungen.
-Dieses Problem ist auf die Verwendung der Hermes Engine zurückzuführen und wurde bereits mehrfach beobachtet \cite{Hermes_appsize,Hermes_appsize_2}.
-Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet reduziert sich die App-Größe auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
-Da die Hermes Engine standardmäßig aktiviert ist, wird diese Variante für die Evaluation verwendet.
+Die mit React Native erstellte App ist unter iOS mit 157,6 MB deutlich größer ist als alle anderen Anwendungen unabhängig vom Betriebssystem.
+Zwar ist die App unter Android ebenfalls größer als die anderen Anwendungen, jedoch ist der Unterschied deutlich geringer.
+Sehr große \ac{IPA}-Dateien wurden bei der Verwendung der Hermes Engine bereits mehrfach beobachtet \cite{Hermes_appsize,Hermes_appsize_2}.
+Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet reduziert sich die App-Größe deutlich auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
+Unter Android trägt die Hermes Engine stattdessen zu einer kleineren App-Größe bei.
+Ein Build mit der JavaScript Core Engine ist unter Android mit 51,9 MB deutlich größer als der Build mit der Hermes Engine mit 21,7 MB.
+Da die Hermes Engine bei neuen React Native Projekten standardmäßig aktiviert ist, wird diese Variante für die Evaluation verwendet.
 Außerdem ist anzumerken, dass die \ac{IPA}-Größe nicht repräsentativ für die Größe der App ist, welche über den App-Store verteilt wird.
 Dies liegt daran, dass die \ac{IPA}-Datei verschiedene Varianten des Codes für verschiedene Geräte enthält und die finale, optimierte Version der App erst beim Upload zum App-Store erstellt wird \cite{IPA_Size}.
 Da jedoch keine Methode bekannt ist, mit der die finale App-Größe bestimmt werden kann, ohne ein kostenpflichtiges Entwicklerkonto bei Apple zu besitzen, muss die \ac{IPA}-Größe zur Bewertung verwendet werden.
@@ -163,7 +176,7 @@ Hier fallen kaum Unterschiede zwischen den Plattformen auf.
 
 
 Für die Messung der Startzeit kann bei Flutter und Xamarin auf die \ac{TTID} zurückgegriffen werden, die bei diesen Frameworks der Zeit bis zur vollständigen Funktionsfähigkeit entspricht.
-Andererseits kann die \ac{TTID} bei React Native und Ionic mit Cordove nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gerendert wird.
+Andererseits kann die \ac{TTID} bei React Native und Ionic mit Cordova nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gerendert wird.
 Bei Ionic mit Cordova wird stattdessen die Zeit bis zum Event \texttt{Platform.ready} gemessen, welches ausgelöst wird, sobald die Plattform bereit, also initialisiert ist.
 Bei React Native wird die Zeit hingegen bis zum ersten Aufruf der Benutzerdefinierten \texttt{render}-Methode gemessen, da ab diesem Zeitpunkt beliebiger Code ausgeführt werden kann.
 Von allen untersuchten Frameworks starten Flutter und React-Native Anwendungen am schnellsten.
@@ -191,8 +204,8 @@ Zur besseren Vergleichbarkeit wäre es notwendig, die Startzeit auf beiden Platt
 Die automatisierte Aufzeichnung und Speicherung von Videos ist nur bei Flutter- und React Native-Anwendungen möglich.
 Sowohl bei Ionic mit Cordova als auch bei Xamarin kann die Aufzeichnung von Videos aufgrund der Verwendung der Standard-Videoaufzeichnungsanwendung nicht automatisiert werden.
 Die in \autoref{fig:testcase} aufgeführten Zeiten, stellen jeweils einen Mittelwert aus fünf Messungen dar.
-Für die Messung wurden die von den Frameworks bereitgestellten Funktionen zur Zeitmessung verwendet.
-Vom gemessenen Wert wird zusätzlich die Dauer des aufgezeichneten Videos abgezogen, da diese bei allen Frameworks gleich ist.
+Für die Messung wurden dabei die von den Frameworks bereitgestellten Funktionen zur Zeitmessung verwendet.
+Vom gemessenen Wert wird zusätzlich die Dauer des aufgezeichneten Videos abgezogen, da diese in allen Tests gleich gesetzt wurde.
 
 \begin{figure}[ht]
   \centering 
@@ -202,20 +215,22 @@ Vom gemessenen Wert wird zusätzlich die Dauer des aufgezeichneten Videos abgezo
 \end{figure}
 
 Direkt auffällig ist, dass die zusätzlich benötigte Zeit unter iOS deutlich geringer ausfällt als unter Android.
-Daraus lässt sich schließen, dass Aufzeichnung von Videos und Zugriff auf den Gerätespeicher unter iOS einen geringeren Overhead erzeugen als unter Android.
+Dies lässt sich vermutlich darauf zurückführen, dass Aufzeichnung von Videos und Zugriff auf den Gerätespeicher unter iOS einen geringeren Overhead erzeugen als unter Android.
 Allerdings müssen auch die Hardwareunterschiede betrachtet werden, sodass der direkte Vergleich nur bedingt aussagekräftig ist.
 
-Bei den normalisierten Werten in \autoref{fig:testcase_normalized} fällt auf, dass der Unterschied zwischen den Frameworks unter Android und iOS nahezu identisch ausfällt.
-In beiden Fällen ist der automatisierte Testfall in der React Native-Anwendung mehr als viermal schneller als in der Flutter-Anwendung.
-Daraus lässt sich schließen, dass der Hardwarezugriff in React Native deutlich effizienter ist als in Flutter.
-Das eingesetzte React Native Plugin verwendet die neue Architektur, wie in \autoref{sec:frameorks_reactnative} beschrieben.
-Plattformspezifische Host-Objects können direkt aus JavaScript aufgerufen werden, ohne dass eine Nachricht serialisiert und an eine native Implementierung übertragen werden muss.
-Im Vergleich verwenden sowohl die alte Architektur von React Native als auch die Architektur von Flutter eine Nachrichtenbasierte Kommunikation.
-Es wird deshalb angenommen, dass die Unterschiede zwischen Flutter und React Native zu großen Teilen auf die verwendete Architektur und das Kommunikationsmodell zurückzuführen sind.
-Da das für React Native eingesetzte Plugin auf die neue Architektur angewiesen ist, ist kein direkter Vergleich zwischen neuer und alter Architektur möglich.
+Die normalisierten Werte in \autoref{fig:testcase_normalized} zeigen, dass der Unterschied zwischen den Frameworks unter Android und iOS nahezu identisch ausfällt.
+In beiden Fällen ist der automatisierte Testfall in der React Native-Anwendung mehr als viermal schneller als in der mit Flutter implementierten Anwendung.
+Vermutlich ist die unterschiedliche Realisierung des Zugriffs auf nativen Code in den Frameworks verantwortlich für die beobachteten Performanceunterschiede.
 \begin{figure}[ht]
   \centering 
   \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{testcase_normalized.pdf}
   \caption{Vergleich der für die Aufzeichnung und Speicherung von zehn Sekunden Video zusätzlich benötigten Zeit, normalisiert auf die durchschnittliche Zeit.}
   \label{fig:testcase_normalized}
 \end{figure}
+
+Das eingesetzte React Native Plugin verwendet die neue, in \autoref{sec:frameorks_reactnative} beschriebene, Architektur.
+Damit können plattformspezifische Host-Objects direkt aus JavaScript aufgerufen werden, ohne dass eine Nachricht serialisiert und an eine native Implementierung übertragen werden muss.
+Im Vergleich verwenden sowohl die alte Architektur von React Native als auch die Architektur von Flutter eine Nachrichtenbasierte Kommunikation.
+Da das für React Native eingesetzte Plugin auf die neue Architektur angewiesen ist, ist kein direkter Vergleich zwischen neuer und alter Architektur möglich.
+Es wird angenommen, dass die verwendete Architektur und das Kommunikationsmodell beim Zugriff auf native Funktionen die Unterschiede zwischen Flutter und React Native erklären.
+Damit erlaubt React Native einen effizienteren Zugriff auf native Funktionalität, was nicht nur für Videoaufzeichnung, sondern auch für andere Funktionen gelten dürfte.
