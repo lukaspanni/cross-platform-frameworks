@@ -124,6 +124,36 @@ Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtung
 %   - Standard-Anwendung: keine Einstellmöglichkeiten der Parameter
 %   - Integration in App: Parameter einstellbar, abhängig vom Plugin
 % Tabelle mit einstellbaren Parametern für Flutter + React Native
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}{ |l|X|X| }
+      \hline
+      \textbf{Parameter} & \textbf{Flutter} & \textbf{React Native}  \\
+      \Xhline{0.5mm}
+      \textbf{Belichtungszeit} & \xmark & \xmark \\
+      \hline
+      \textbf{Sensorempfindlichkeit (ISO)} & \xmark & Wahl von Format mit unterschiedlichen Minimal- \& Maximalwerten \\
+      \hline
+      \textbf{Blende} & Über Sensor-Auswahl (Einschränkungen unter Android) & Über Sensor-Auswahl \\
+      \hline
+      \textbf{Brennweite} & Über Sensor-Auswahl (Einschränkungen unter Android) & Über Sensor-Auswahl \\
+      \hline
+      \textbf{Fokus} & Ausgangspunkt für Autofokussystem wählbar & Ausgangspunkt für Autofokussystem wählbar \\
+      \hline
+      \textbf{Weißabgleich} & \xmark & \xmark \\
+      \hline
+      \textbf{Bildrate} & \xmark & Bereich abhängig von Sensor und Format (Auflösung \& Farbraum) \\
+      \hline
+      \textbf{Bildformat} & Wahl aus maximal fünf Voreinstellungen & Wahl aus vom Gerät bereitgestellten Formaten (in Tests jeweils mehr Formate als Flutter) \\
+      \hline
+      \textbf{Kompressionsverfahren/Codec} & \xmark & nur unter iOS und abhängig von Auflösung \\
+      \hline
+  \end{tabularx}
+  \caption{Einstellbarkeit der Parameter durch die Plugins für Flutter und React Native.}
+  \label{tab:parameter_support_evaluation}
+\end{table}
+
+
+
 
 
 

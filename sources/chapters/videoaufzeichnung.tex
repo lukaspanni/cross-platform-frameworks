@@ -63,29 +63,28 @@ Ausnahmen bei der Einstellbarkeit bilden die Blende und die Brennweite, welche n
 Ansonsten verwenden die meisten Geräte jeweils Objektive ohne variable Brennweite und Blende, sodass diese Parameter nur durch die Wahl des Objektivs angepasst werden können, da die meisten Smartphones mehrere Sensoren mit jeweils eigenem Objektiv verbauen \cite[S. 499ff.]{Schmidt_Videotechnik}.
 Inwiefern die prinzipiell einstellbaren Parameter, in den zu testenden Cross-Plattform Frameworks tatsächlich einstellbar sind, wird im Laufe dieser Arbeit näher untersucht.
 
-%TODO: Eventuell Kategorie der Parameter weglassen, Blende ist auch Teil der Objektivparameter
 \begin{table}[H]
-    \begin{tabularx}{\textwidth}{ |l|l|X|X| }
+    \begin{tabularx}{\textwidth}{ |l|X|X| }
         \hline
-        \multicolumn{2}{|c|}{\textbf{Parameter}} & \textbf{Unterstützung iOS} & \textbf{Unterstützung Android}  \\
+        \textbf{Parameter} & \textbf{Unterstützung iOS} & \textbf{Unterstützung Android}  \\
         \Xhline{0.5mm}
-        \multirow{4}{*}{\parbox[c]{3mm}{\rotatebox{90}{\textbf{Belichtung}\hspace*{0.75cm}}}} & Belichtungszeit & Einstellbar \cite{iOS_VideoSettings, iOS_Exposure} & Einstellbar \cite{Android_CaptureRequest} \\
-        \cline{2-4}
-        & Sensorempfindlichkeit (ISO) & Einstellbar \cite{iOS_VideoSettings, iOS_Exposure} & Einstellbar \cite{Android_CaptureRequest}  \\
-        \cline{2-4}
-        & Blende & Nur über verschiedene Objektive & Über verschiedene Objektive \\ & & & Einzelne Modelle mit variabler Blende \cite{VariableAperture_Smartphones} \\
+        \textbf{Belichtungszeit} & Einstellbar \cite{iOS_VideoSettings, iOS_Exposure} & Einstellbar \cite{Android_CaptureRequest} \\
         \hline
-        \multirow{3}{*}{\parbox[c]{3mm}{\rotatebox{90}{\textbf{Objektiv}\hspace*{0.75cm}}}} & Brennweite & Nur über verschiedene Objektive & Über verschiedene Objektive \\ & & & Einzelne Modelle mit variablem optischem Zoom \cite{Sony_VariableZoom} \\
-        \cline{2-4}
-        & Fokus & Einstellbar \cite{iOS_Focus} & Einstellbar \cite{Android_CaptureRequest} \\
+        \textbf{Sensorempfindlichkeit (ISO)} & Einstellbar \cite{iOS_VideoSettings, iOS_Exposure} & Einstellbar \cite{Android_CaptureRequest}  \\
         \hline
-        & Weißabgleich & Einstellbar \cite{iOS_WhiteBalance} & Einstellbar \cite{Android_CaptureRequest} \\
-        \cline{2-4}
-        & Bildrate & Einstellbar \cite{iOS_Format} & Einstellbar \cite{Android_CaptureRequest} \\
-        \cline{2-4}
-        & Bildformat & Einstellbar \cite{iOS_Format} & Einstellbar \cite{Android_CaptureRequest} \\
-        \cline{2-4}
-        & Kompressionsverfahren/Codec & Einstellbar \cite{iOS_VideoSettings} & Einstellbar \cite{Android_MediaCodec} \\
+        \textbf{Blende} & Nur über verschiedene Objektive & Über verschiedene Objektive \\ & & Einzelne Modelle mit variabler Blende \cite{VariableAperture_Smartphones} \\
+        \hline
+        \textbf{Brennweite} & Nur über verschiedene Objektive & Über verschiedene Objektive \\ & & Einzelne Modelle mit variablem optischem Zoom \cite{Sony_VariableZoom} \\
+        \hline
+        \textbf{Fokus} & Einstellbar \cite{iOS_Focus} & Einstellbar \cite{Android_CaptureRequest} \\
+        \hline
+        \textbf{Weißabgleich} & Einstellbar \cite{iOS_WhiteBalance} & Einstellbar \cite{Android_CaptureRequest} \\
+        \hline
+        \textbf{Bildrate} & Einstellbar \cite{iOS_Format} & Einstellbar \cite{Android_CaptureRequest} \\
+        \hline
+        \textbf{Bildformat} & Einstellbar \cite{iOS_Format} & Einstellbar \cite{Android_CaptureRequest} \\
+        \hline
+        \textbf{Kompressionsverfahren/Codec} & Einstellbar \cite{iOS_VideoSettings} & Einstellbar \cite{Android_MediaCodec} \\
         \hline
     \end{tabularx}
     \caption{Einstellbarkeit der Parameter für die Videoaufzeichnungen unter iOS und Android.}
