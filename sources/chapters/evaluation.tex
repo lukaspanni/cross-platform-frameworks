@@ -119,11 +119,13 @@ Laut Dokumentation unterstützt das Plugin auch den Apple-eigenen Codec \textit{
 Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtungszeit einzustellen.
 
 \subsection{Zusammenfassung Evaluation Grundfunktionalität}
-%TODO: Bis auf Wiedergabe bei Ionic + Cordova alle geforderten Grundfunktionalitäten überall umsetzbar
-% zwei verschiedene Ansätze bei der Umsetzung der Videoaufzeichnung: Nutzung vom Betriebssystem bereitgestellte Standard-Anwendung und Integration in App
-%   - Standard-Anwendung: keine Einstellmöglichkeiten der Parameter
-%   - Integration in App: Parameter einstellbar, abhängig vom Plugin
-% Tabelle mit einstellbaren Parametern für Flutter + React Native
+
+Die geforderten Grundfunktionalitäten der Aufzeichnung und Speicherung können mit allen Frameworks umgesetzt werden.
+Die Wiedergabe ist mit Ausnahme von Ionic mit Cordova ebenfalls möglich.
+Bei der Einstellbarkeit der Parameter gibt es jedoch Unterschiede zwischen den Frameworks.
+Insbesondere sind bei Xamarin und Ionic mit Cordova aufgrund der Nutzung der Standardanwendung zur Videoaufzeichnung keine Einstellungen der Parameter möglich.
+Da Flutter und React Native die Standardanwendung nicht nutzen, sondern direkt die \acp{API} des Betriebssystems nutzen sind hier mehr Einstellungen möglich.
+\autoref{tab:parameter_support_evaluation} fasst die Einstellbarkeit der Parameter für Flutter und React Native zusammen.
 \begin{table}[H]
   \begin{tabularx}{\textwidth}{ |l|X|X| }
       \hline
@@ -161,7 +163,7 @@ Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtung
 \label{sec:evaluation_allgemein}
 
 Im Folgenden werden die Ergebnisse der Evaluierung der Frameworks hinsichtlich der allgemeinen Kriterien zusammengefasst.
-Dabei werden die Größe eines Release-Builds, die Zeit von Start der App bis zur vollständigen Funktionsfähigkeit und die zusätzlich benötigte Zeit für die Aufzeichnung und Speicherung eines Videos mit zehn Sekunden Länge betrachtet.
+Dabei werden die Größe eines Release-Builds, die Zeit von Start der App bis zur vollständigen Funktionsfähigkeit und die zusätzlich benötigte Zeit für den definierten Ende-zu-Ende-Test betrachtet.
 
 Da die Hardware der Testgeräte sehr unterschiedlich ist, sind die Ergebnisse nur eingeschränkt Plattformübergreifend vergleichbar.
 Zum Beispiel ist das Android-Testgerät mit der doppelten Menge Arbeitsspeicher ausgestattet, verwendet jedoch einen, in synthetischen Benchmarks, langsameren Prozessor \cite{Comparison_Phones}.
@@ -259,10 +261,10 @@ Für Xamarin-Anwendungen wurde aufgrund der \ac{JIT}-Kompilation unter Android e
 Mit 166 \% der durchschnittlichen Startzeit unter iOS und 152 \% der durchschnittlichen Startzeit unter Android fällt der Unterschied zwischen den beiden Plattformen jedoch weniger stark aus als angenommen.
 Ein Grund dafür konnte nicht identifiziert werden.
 
-\subsection{Automatisierte Aufzeichnung und Speicherung eines zehnsekündigen Videos}
+\subsection{Ende-zu-Ende-Test}
 
-Die automatisierte Aufzeichnung und Speicherung eines Videos ist nur bei Flutter- und React Native-Anwendungen möglich.
-Sowohl bei Ionic mit Cordova als auch bei Xamarin kann die Aufzeichnung von Videos aufgrund der Verwendung der Standard-Videoaufzeichnungsanwendung nicht automatisiert werden.
+Die automatisierte Aufzeichnung und Speicherung eines Videos für den Ende-zu-Ende-Test ist nur bei Flutter- und React Native-Anwendungen möglich.
+Sowohl bei Ionic mit Cordova als auch bei Xamarin kann die Aufzeichnung von Videos aufgrund der Verwendung der Standardanwendung zur Videoaufzeichnung nicht automatisiert werden.
 Die in \autoref{fig:testcase} aufgeführten Zeiten, stellen jeweils einen Mittelwert aus fünf Messungen dar.
 Für die Messung wurden dabei die von den Frameworks bereitgestellten Funktionen zur Zeitmessung verwendet.
 Vom gemessenen Wert wird zusätzlich die Dauer des aufgezeichneten Videos abgezogen, da diese in allen Tests gleich gesetzt wurde.
@@ -301,10 +303,20 @@ Durch den grundsätzlich unterschiedlichen Ansatz beim Zugriff auf native Funkti
 
 
 \subsection{Zusammenfassung Evaluation allgemeine Kriterien}
-% TODO: 
-% App-Größen: Flutter sehr gleichmäßig, React Native unter iOS durch Bug stark erhöht
-%   Xamarin wie erwartet durch AOT größer für iOS
-% Startzeit: allgemein unter Android deutlich kürzer, und besser messbar, Messung unter iOS nur mit großem Aufwand und höherer Subjektivität (wann ist App vollständig Funktionsfähig)
-%   Xamarin und Ionic mit Cordova deutlich langsamer als fast gleich schnelle Flutter und React Native
-% Videoaufzeichnung: React Native deutlich schneller als Flutter, vermutlich durch unterschiede beim Zugriff auf nativen Code -> React-Native für Anwendungen mit Zugriff auf native APIs besser geeignet 
-% -> allgemein scheint React Native sehr gut geeignet zu sein, einziges Problem ist der Speicherbedarf, der jedoch durch Verwendung von JavaScriptCore unter iOS deutlich reduziert werden kann (Android und iOS können auch verschiedene Engines nutzen!)
+
+Mit einer kurzen Startzeit, der besten Performance beim Ende-zu-Ende-Test und der größten Freiheit bei der Einstellung der Video-Parameter ist React Native als am besten geeignetes Framework für die Entwicklung einer Videoaufzeichnungsanwendung für Android und iOS zu bewerten.
+Zudem lässt sich das Problem der App-Größe unter iOS durch die Nutzung der JavaScriptCore Engine umgehen.
+Nur Flutter ist ebenfalls als empfehlenswert zu bewerten.
+Startzeiten sind sehr ähnlich zu React Native, allerdings fällt die Performance im Ende-zu-Ende-Test deutlich schlechter aus und weniger Parameter können eingestellt werden.
+Weiterhin ist die App-Größe unter iOS deutlich und unter Android geringfügig kleiner.
+Jedoch muss beachtet werden, dass die stark gestiegene App-Größe für React Native unter iOS als Fehler im Zusammenspiel mit der Hermes Engine zu betrachten ist.
+Dennoch kommt die Flutter-Anwendung mit weniger Plugins aus, da der Zugriff auf das Dateisystem bereits in Flutter integriert ist.
+Ionic mit Cordova und Xamarin eignen sich hingegen nur schlecht für die Umsetzung von Videoaufzeichnung.
+Nicht nur die komplett fehlende Einstellbarkeit der Parameter, sondern auch mehr als viermal langsamere Startzeiten, schränken die Eignung stark ein. 
+
+Diese Ergebnisse können als Begründung für die hohe Beliebtheit von Flutter und React Native im Vergleich zu Ionic mit Cordova und Xamarin dienen.
+Jedoch können die Ergebnisse umgekehrt auch in der hohen Beliebtheit begründet sein.
+Für den Zugriff auf die Kamerafunktionalität wurden jeweils zusätzliche Open-Source Plugins verwendet.
+Bei einer größeren Beliebtheit unter Entwicklern ist davon auszugehen, dass sich mehr Entwickler an der Entwicklung von Open-Source Plugins beteiligen.
+Damit steigt die Wahrscheinlichkeit, dass ein Plugin für die benötigte Funktionalität bereits existiert und die Qualität der Plugins sollte ebenfalls höher sein.
+Andererseits sorgt eine geringe Beliebtheit, wie bei Ionic mit Cordova oder Xamarin dafür, dass sich wahrscheinlich weniger Entwickler an der Entwicklung von Open-Source Plugins beteiligen, wodurch weniger gute Plugins zur Verfügung stehen.
