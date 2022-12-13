@@ -1,14 +1,15 @@
 \chapter{Bewertungskriterien}
 \label{ch:bewertungskriterien}
 
-Bevor die Evaluation der Frameworks für die Umsetzung des Anwendungsfalls der Videoaufzeichnung in \autoref{ch:evaluation} erfolgen kann, müssen zunächst die Anforderungen an die prototypische Anwendung sowie die Kriterien für die Bewertung der Frameworks definiert werden. 
+Bevor die Evaluation der Frameworks für die Umsetzung des Anwendungsfalls der Videoaufzeichnung in \autoref{ch:evaluation} erfolgen kann, müssen zunächst die Anforderungen an die prototypische Anwendung sowie die Kriterien für die Bewertung definiert werden. 
 Außerdem muss definiert werden, wie die Implementierung erfolgen soll.
 
 \section{Anforderungen an den Prototypen und die Implementierung}
 \label{sec:anforderungen}
-Um den Use Case der Videoaufzeichnung bewerten zu können, müssen folgende Anforderungen erfüllt werden:
+
+An den Prototypen werden folgende Anforderungen gestellt:
 \begin{itemize}
-  \item Der Prototyp muss die Aufzeichnung von Video (mit Audio) ermöglichen.
+  \item Der Prototyp muss die Aufzeichnung von Video ermöglichen.
   \item Der Prototyp muss die Speicherung von Videoaufzeichnungen im lokalen, für den Nutzer zugreifbaren Speicher, ermöglichen.
   \item Der Prototyp soll die Wiedergabe von aufgezeichnetem Video ermöglichen.
   \item Der Prototyp soll die Einstellung der in \autoref{tab:parameter_support} als einstellbar eingestuften Parameter ermöglichen.
@@ -16,39 +17,41 @@ Um den Use Case der Videoaufzeichnung bewerten zu können, müssen folgende Anfo
 
 Können mit „muss“ gekennzeichnete Anforderungen mit einem bestimmten Framework nicht erfüllt werden, so ist das Framework als nicht geeignet für die Umsetzung des Anwendungsfalls zu bewerten.
 Die Anforderungen, die mit „soll“ gekennzeichnet sind, sind für die Basisfunktionalität nicht zwingend erforderlich, für einen sinnvollen Einsatz des Frameworks für die Videoaufzeichnung jedoch wünschenswert.
+Können diese nicht umgesetzt werden, ist von der Nutzung des Frameworks für die Videoaufzeichnung jedoch abzuraten.
 
-Bei der Implementierung sollen nur die Abstraktionen der jeweiligen Frameworks oder verfügbare Open-Source Komponenten verwendet werden.
+Bei der Implementierung sollen nur die Abstraktionen der jeweiligen Frameworks oder frei verfügbare Open-Source Komponenten verwendet werden.
 Insbesondere soll keine Funktionalität mit denen für die Plattformen nativen Programmiersprachen umgesetzt werden.
 Dies würde den Vorteil einer Plattformübergreifenden Entwicklung aufheben und die Vergleichbarkeit der Frameworks einschränken.
-In diesem Fall könnte nur der Mechanismus zum Aufruf von nativem Code der jeweiligen Frameworks verglichen werden, was nicht Fokus der vorliegenden Arbeit ist.
 Weiterhin soll im Code für die Videoaufzeichnung möglichst keine Unterscheidung zwischen den Plattformen Android und iOS notwendig sein.
 
 
 \section{Kriterien}
 \label{sec:kriterien}
 
-Zur Bewertung des Prototyps soll zunächst die Umsetzung der Anforderungen aus \autoref{sec:anforderungen} herangezogen werden.
-Dabei muss zumindest die Grundfunktionalität der Videoaufzeichnung erfüllt werden.
-Bei den einstellbaren Parametern ist der größte Unterschied zwischen den Frameworks zu erwarten, weshalb die Einstellbarkeit besonders betrachtet werden soll.
+Zur Bewertung des Prototyps soll zunächst die Erfüllung der Anforderungen aus \autoref{sec:anforderungen} herangezogen werden.
+Dabei wird insbesondere die Einstellbarkeit der Parameter näher betrachtet, da hier die größten Unterschiede zwischen den Frameworks zu erwarten sind.
 In diesem Zusammenhang soll nicht nur untersucht werden, welche Parameter sich einstellen lassen, sondern auch die erlaubten Wertebereiche und mögliche Einschränkungen.
-
 
 Zudem sollen allgemeine Kriterien bewertet werden.
 Dazu werden die Größe und Startzeit der Anwendung herangezogen.
 Durch die unterschiedliche Funktionsweise der Frameworks, sind bei der Größe der Anwendung größere Unterschiede zu erwarten.
-Bewertet werden soll dabei jeweils eine für die Auslieferung optimiert Version der Anwendung in den Formaten \ac{IPA} für iOS und \ac{AAB} für Android.
+Bewertet werden soll dabei jeweils eine für die Auslieferung optimiert Version der Anwendung (Release-Build) in den Formaten \ac{IPA} für iOS und \ac{AAB} für Android.
 
-Die Startzeit der Anwendung ist insbesondere für die Nutzbarkeit der Anwendung von Bedeutung und soll aus einem Mittelwert mehrerer Messungen ermittelt werden.
-Dazu werden jeweils die vom Betriebssystem bereitgestellten Funktionen zum kompletten Beenden der Anwendung verwendet, sodass Kaltstartzeiten gemessen werden können.
-Dabei ist die Zeit interessant, die benötigt wird, bis die Anwendung vollständig funktionsfähig ist.
-Unter Android wird zur Messung der Zeiten auf die vom Betriebssystem bereitgestellte Metrik \ac{TTID} zurückgegriffen.
-\ac{TTID} gibt die Zeit an, die benötigt wird, bis die Anwendung das erste Mal sichtbar ist, je nach Framework ist die volle Funktionsfähigkeit damit jedoch noch nicht erreicht.
+Die Startzeit der Anwendung ist insbesondere für die Nutzbarkeit der Anwendung von Bedeutung und soll als Mittelwert mehrerer Messungen ermittelt werden.
+Da die Kaltstartzeiten gemessen werden sollen, werden jeweils die vom Betriebssystem bereitgestellten Funktionen zum kompletten Beenden der Anwendung verwendet, sodass die Anwendung komplett beendet ist bevor sie gestartet wird.
+Die Zeit wird jeweils ab der Startinteraktion des Nutzers bis zur vollständigen Anzeige der Anwendung gemessen.
+Zu diesem Zeitpunkt ist die Anwendung als vollständig funktionsfähig zu betrachten, da alle notwendigen Daten geladen sind und die Anwendung auf die Nutzung der Steuerelemente reagieren kann.
+Unter Android wird zur Messung der Zeiten auf die vom Betriebssystem bereitgestellte Metrik \ac{TTFD} zurückgegriffen.
+Die \ac{TTFD} gibt die Zeit an, die benötigt wird, bis die Anwendung komplett angezeigt wird und alle asynchron geladenen Daten verfügbar sind \cite{Android_LaunchTime}.
+Dazu muss im nativen Code der Anwendung die Methode \texttt{reportFullyDrawn} aufgerufen werden.
+Je nach Framework ist die Anwendung jedoch beim Aufruf der Methode nicht voll funktionsfähig, da der nicht native Anteil der App noch nicht initialisiert ist.
 Sollte dieser Fall eintreten, wird zusätzlich eine entsprechende alternative Messmethode eingesetzt.
 
 Da unter iOS keine vergleichbaren Metriken bereitgestellt werden, muss die Zeit zwischen klicken auf das App-Symbol und der Anzeige der kompletten Anwendung gemessen werden.
 Dazu wird der Bildschirm des Testgeräts mit einer Bildrate von 120 Bildern pro Sekunde aufgezeichnet und anhand der Aufnahmen die Zeit berechnet.
 
 
-Darüber hinaus soll die Zeit gemessen werden, die benötigt wird, ein Video von zehn Sekunden Länge aufzuzeichnen und abzuspeichern, falls das Framework dies automatisiert unterstützt.
-So kann der allgemeine Overhead beim Zugriff auf die Kamera und den Gerätespeicher erfasst werden.
-Außerdem ergeben sich so Rückschlüsse auf die Benutzbarkeit der Anwendung.
+Abschließend soll die Zeit gemessen werden, die benötigt wird, ein Video von zehn Sekunden Länge aufzuzeichnen und abzuspeichern, falls das Framework dies automatisiert unterstützt.
+Dieser Ende-zu-Ende-Test soll die Nutzung der Videoaufzeichnung möglichst realitätsnah abbilden.
+Somit sind Rückschlüsse über Performanceunterschiede der Frameworks im realen Einsatz möglich.
+Außerdem kann somit auch der allgemeine Overhead beim Zugriff auf die nativen Gerätefunktionen Kamera und Gerätespeicher bewertet werden.

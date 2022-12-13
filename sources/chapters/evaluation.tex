@@ -1,7 +1,7 @@
 \chapter{Implementierung und Evaluation}
 \label{ch:evaluation}
 
-Zunächst beschreibt \autoref{sec:implementierung} die Implementierung des Prototyps zur Videoaufzeichnung mit den entsprechenden Frameworks.
+Zunächst beschreibt \autoref{sec:implementierung} die Implementierung des Prototyps zur Videoaufzeichnung mit den entsprechenden Frameworks und die Bewertung der Grundfunktionalität des jeweiligen Prototyps.
 Alle Prototypen stehen unter \url{https://github.com/lukaspanni/cross-platform-evaluation} unter der MIT-Lizenz zur Verfügung.
 Dabei wird erläutert, wie die einzelnen Komponenten des Prototyps implementiert werden und welche zusätzlichen Komponenten eingesetzt werden müssen, um die geforderte Funktionalität umzusetzen.
 Die Frameworks verwenden verschiedene Bezeichnungen für eingebundene Komponenten von Drittanbietern.
@@ -9,35 +9,42 @@ Zur einheitlichen Beschreibung werden diese in den folgenden Abschnitten jeweils
 Außerdem wird jeweils beschrieben, inwiefern die geforderte Grundfunktionalität umgesetzt werden kann und welche Einschränkungen, zum Beispiel bei der Einstellung der Parameter, existieren.
 In \autoref{sec:evaluation_allgemein} werden anschließend die Ergebnisse der allgemeinen Evaluationen nach den, in \autoref{sec:kriterien} beschriebenen Kriterien, zusammengefasst.
 
+Für die Evaluierung werden die Prototypen jeweils auf einem Android- und einem iOS-Gerät getestet.
+Konkret werden ein Google Pixel 4a 5G mit Android 13 und ein iPhone XR mit iOS 16.1.1 verwendet. 
 
 \section{Implementierung und Evaluation der Grundfunktionalität}
 \label{sec:implementierung}
 
-Insgesamt ist festzustellen, dass die Grundfunktionalität der Videoaufzeichnung mit allen untersuchten Frameworks mit vorhandenen Plugins umgesetzt werden kann.
-Welche Komponenten verwendet wurden, welche Probleme aufgetreten sind und welche Einstellmöglichkeiten für die Parameter bestehen ist in den Abschnitten \ref{sec:evaluation_flutter} bis \ref{sec:evaluation_reactnative} beschrieben.
+Insgesamt ist festzustellen, dass die Grundfunktionalität der Aufzeichnung von Videos mit allen untersuchten Frameworks mit vorhandenen Plugins umgesetzt werden kann.
 Auch der Zugriff auf den Gerätespeicher zur Speicherung der Videos ist in allen Frameworks möglich.
 Dabei ist jedoch aufgefallen, dass kein Framework plattformübergreifende Speicherpfade unterstützt.
 Stattdessen muss für jede Plattform ein passender Pfad, angepasst an die jeweilige Dateisystemstruktur, erzeugt werden.
 Erste Unterschiede zeigen sich bei der Wiedergabe aufgezeichneter Videos.
 Diese ist in Ionic mit Cordova mit allen getesteten Plugins nicht möglich.
 
+Welche Komponenten verwendet wurden, welche Probleme aufgetreten sind und welche Einstellmöglichkeiten für die Parameter bestehen ist in den Abschnitten \ref{sec:evaluation_flutter} bis \ref{sec:evaluation_reactnative} beschrieben.
 
 \subsection{Implementierung mit Flutter}
 \label{sec:evaluation_flutter}
 
-Für den Zugriff auf Kamerafunktionen steht ein offizielles Dart Package beziehungsweise Plugin zur Verfügung \cite{Dart_Camera}.
+Flutter bringt verschiedene Abstraktionen für den Zugriff auf native Funktionen standardmäßig mit.
+Für den Zugriff auf Kamerafunktionen muss jedoch ein Plugin genutzt werden.
+Plugins für Flutter und Dart werden in einem öffentlichen Repository unter \url{https://pub.dev} zur Verfügung gestellt.
+Mit dem Plugin \textit{camera} \cite{Dart_Camera} ist ein vom Flutter-Team gepflegtes offizielles Plugin verfügbar. 
 Über dieses Plugin ist die Aufzeichnung von Videos unter Android und iOS möglich und einige Parameter können angepasst werden.
 Für die Speicherung ist kein zusätzliches Plugin notwendig, der Zugriff auf Gerätespeicher ist in Flutter bereits integriert.
 Zur Wiedergabe der Videos wird das offizielle Video-Player-Plugin verwendet \cite{Dart_Video}.
 
 Die erforderlichen Anforderungen, sowie die Wiedergabe von Videos, können somit mit Flutter vollständig umgesetzt werden.
 Allerdings gibt es einige Einschränkungen bei den einstellbaren Parametern.
-So sind weder Belichtungszeit noch ISO-Wert einstellbar, für die Belichtung kann nur ein bestimmtes Offset für ein allgemein helleres beziehungsweise dunkleres Video gesetzt werden.
+So sind weder Belichtungszeit noch ISO-Wert einstellbar, für die Belichtung kann nur ein Offset für die automatische Belichtungssteuerung gesetzt werden.
 Zudem kann die Aktualisierung der automatischen Belichtungssteuerung gestoppt werden, die letzte automatische Einstellung bleibt dabei erhalten.
-Der Fokus kann ebenfalls nicht komplett manuell gewählt werden, stattdessen kann ein Punkt auf dem Bildschirm ausgewählt werden, welcher vom Autofokussystem als Ausgangspunkt verwendet wird.
+Diese Funktion ist auch als \ac{AEL} bekannt.
+Der Fokus kann ebenfalls nicht komplett manuell gewählt werden, stattdessen lässt sich ein Punkt des Videos wählen, welcher vom Autofokussystem als Ausgangspunkt verwendet wird.
 Für das Bildformat stehen bis zu fünf verschiedene Voreinstellungen zur Verfügung, wobei die Verfügbarkeit vom verwendeten Gerät abhängt.
 Weißabgleich, Videocodec und Bildrate lassen sich ebenfalls nicht einstellen.
 Außerdem konnte nicht jeder verfügbare Sensor des Android-Testsmartphones ausgewählt werden.
+Da das iOS-Testgerät nur jeweils einen Sensor für die Front- und Rückkamera besitzt, konnte diese Einschränkung unter iOS nicht getestet werden.
 
 
 \subsection{Implementierung mit Ionic und Cordova}
@@ -50,8 +57,9 @@ Das naheliegende Plugin \textit{cordova-plugin-camera} erlaubt nur die Aufzeichn
 Das Plugin \textit{cordova-plugin-camera-preview} ermöglicht zwar die Aufzeichnung von Videos, jedoch ist diese Funktion nur auf Android-Geräten verfügbar \cite{Cordova_CameraPreview}.
 Lediglich das Plugin \textit{cordova-plugin-media-capture} erlaubt die Aufzeichnung von Videos auf allen Plattformen \cite{Cordova_MediaCapture}.
 Jedoch verwendet dieses Plugin eine vom Betriebssystem bereitgestellte Aufzeichnungsfunktion, sodass aus der App heraus nur das Videoaufzeichnungsfenster geöffnet werden kann.
-Dabei sind keinerlei Einstellungen der in \autoref{tab:parameter_support} aufgeführten Parameter möglich.
+Außerdem sind deshalb keinerlei Einstellungen der in \autoref{tab:parameter_support} aufgeführten Parameter möglich.
 Auch außerhalb der offiziellen Sammlung von verifizierten Plugins konnten keine Plugins identifiziert werden, welche die Einstellung einiger Parameter unterstützen.
+
 Die Speicherung aufgezeichneter Videos erfolgt ohne zu erkennende Einschränkungen über das offizielle Plugin \textit{cordova-plugin-file} \cite{Cordova_File}.
 Die Wiedergabe der Videos hingegen konnte weder über das HTML-Video Element noch durch ein Plugin realisiert werden. 
 
@@ -65,41 +73,58 @@ Dementsprechend ist die Implementierung einer Videoaufzeichnungsanwendung mit Io
 
 Da Xamarin prinzipiell die Nutzung der nativen \acp{API} unterstützt, sind theoretisch alle Kamerafunktionen nutzbar.
 Allerdings sollen im Rahmen dieser Arbeit nur die vorhandenen plattformübergreifenden Abstraktionen des Frameworks genutzt werden.
+Standardmäßig werden Open-Source Komponenten für .NET-Anwendungen über den Paketmanager NuGet verwaltet und im Repository \url{https://nuget.org} bereitgestellt.
+Dort sind auch die offiziellen Xamarin-Bibliotheken verfügbar.
 Die offizielle Bibliothek \textit{Xamarin.Essentials} ermöglicht neben der Nutzung weiterer nativer Funktionen auch den Zugriff auf verschiedene Kamerafunktionen.
-Zum Zugriff auf die Kamera steht eine stark vereinfachte \ac{API} über die statische Klasse \textit{MediaPicker} bereit \cite{Xamarin_MediaPicker}.
+Die Kamera kann über eine stark vereinfachte \ac{API} der statischen Klasse \textit{MediaPicker} genutzt werden \cite{Xamarin_MediaPicker}.
 Wie das, in der Implementierung mit Cordova eingesetzte Plugin, wird auch hier die Aufzeichnung von Videos über die vom Betriebssystem bereitgestellte Aufzeichnungsfunktion realisiert.
-Deshalb ist auch hier die Aufzeichnung von Videos zwar möglich, jedoch können keine Parameter aus der Anwendung heraus gesetzt werden.
+Deshalb ist auch bei Xamarin-Anwendungen die Aufzeichnung von Videos zwar möglich, jedoch können keine Parameter aus der Anwendung heraus angepasst werden.
 Der Zugriff auf den Gerätespeicher ist wie bei Flutter ohne zusätzliche Abhängigkeiten möglich.
 Die Wiedergabe der Videos ist über ein entsprechendes \ac{UI}-Element der offiziellen Bibliothek \textit{XamarinCommunityToolkit} \cite{Xamarin_CommunityToolkit} ohne Einschränkungen möglich.
 
-Mit Xamarin lassen sich ohne die direkte Verwendung nativer \acp{API} nur die erforderlichen Anforderungen uneingeschränkt erfüllen.
-Auch die Wiedergabe der Videos ist ohne Einschränkungen möglich.
-Die optionale Einstellbarkeit der Parameter kann hingegen nicht umgesetzt werden.
+Ohne Nutzung nativer \acp{API} können mit Xamarin nur die Anforderungen zur Aufzeichnung und Speicherung sowie zur Wiedergabe von Videos erfüllt werden.
+Die optionale Einstellbarkeit der Parameter lässt sich mit den vorhandenen Bibliotheken nicht umsetzen.
 
 
 \subsection{Implementierung mit React Native}
 \label{sec:evaluation_reactnative}
 
-Für die Videoaufzeichnung mit React Native konnten zwei geeignete Native Modules beziehungsweise Plugins identifiziert werden.
-Da das Plugin \textit{react-native-vision-camera} \cite{Vision_Camera} bei der Einstellung von Parametern mehr Flexibilität bietet als das Pluguin \textit{expo-camera} \cite{Expo_Camera}, wird für die prototypische Implementierung dieses Plugin verwendet.
-Für Speicherung und Wiedergabe der Videos müssen zusätzlich \textit{react-native-fs} \cite{ReactNative_FileSystem} respektive \textit{react-native-video} \cite{ReactNative_Video} eingebunden werden.
-Das Plugin \textit{react-native-vision-camera} ist auf die neue Architektur von React Native ausgelegt, welche bei neuen Projekten standardmäßig aktiviert ist.
-Ebenfalls standardmäßig aktiviert ist die Verwendung der JavaScript Engine Hermes.
+Für React Native existiert keine eigenständige Quelle für Plugins.
+Stattdessen wird der JavaScript-Paketmanager \textit{npm} und die Registry unter \url{https://npmjs.com} verwendet, um Plugins zu verwalten.
+Für die Videoaufzeichnung mit React Native konnten zwei geeignete Plugins identifiziert werden.
+Da das Plugin \textit{react-native-vision-camera} \cite{Vision_Camera} bei der Einstellung von Parametern mehr Flexibilität bietet als das Plugin \textit{expo-camera} \cite{Expo_Camera}, wurde dieses für die prototypische Implementierung ausgewählt.
+Zur Speicherung und Wiedergabe der Videos müssen zusätzlich \textit{react-native-fs} \cite{ReactNative_FileSystem} respektive \textit{react-native-video} \cite{ReactNative_Video} eingebunden werden.
+
+Das Plugin \textit{react-native-vision-camera} verwendet die neue Architektur von React Native, wie in \autoref{sec:frameorks_reactnative} beschrieben.
+Die neue Architektur ist bei neuen Projekten standardmäßig aktiviert und verwendet ohne weitere Konfiguration die JavaScript Engine Hermes.
 Diese Einstellungen werden für die Implementierung beibehalten.
 
 Die erforderlichen Anforderungen und die Wiedergabe von Videos können mit React Native ohne Einschränkungen umgesetzt werden.
 Bei der Einstellbarkeit der Parameter gibt es im Vergleich mit den anderen Frameworks zudem weniger Einschränkungen.
-So ist eine freie Wahl des Sensors möglich, auf Basis derer die weiteren Einstellmöglichkeiten abhängig von den Fähigkeiten des Sensors eingeschränkt werden.
-Verschiedene Sensoren unterstützen dabei unterschiedliche Kombinationen von Einstellungen, welche als sogenannte Formate abgerufen werden können.
-Das Format definiert insbesondere die Auflösung und den Farbraum.
-Abhängig vom Format kann die Bildrate für Videoaufnahmen in einem, im Format angegebenen, Bereich eingestellt werden.
+So lässt sich beispielsweise der Sensor ohne Einschränkungen frei wählen.
+Abhängig von den Fähigkeiten des Sensors werden die verfügbaren Einstellungen durch das Framework eingeschränkt.
+Allgemein lassen sich die möglichen Einstellungen nach der Wahl des Sensors über das Plugin abfragen und können dem Nutzer angezeigt werden.
+Verschiedene Sensoren unterstützen dabei unterschiedliche Kombinationen von Einstellungen, welche als Format bezeichnet werden.
+Ein Format definiert dabei insbesondere das Bildformat und den verwendeten Farbraum.
+Abhängig vom Format ist auch der Bereich, in welchem die Bildrate eingestellt werden kann.
 Bei den Testgeräten war die Einstellung jeweils im Bereich von einem bis 60 Bildern pro Sekunde möglich.
 Weiterhin kann der Fokus in ähnlicher Art und Weise wie bei Flutter gesetzt werden.
-Unter iOS ist zudem die Wahl eines der unterstützten Videocodecs möglich.
+Im Vergleich zu Flutter kann jedoch die Belichtung nicht eingestellt werden.
+Das Plugin erlaubt unter iOS zudem die Wahl des Videocodecs.
 Dabei sind verschiedene Einschränkungen aufgefallen.
-Beim Testgerät waren nur die Codecs \textit{H.264} und \textit{HEVC} und \textit{JPEG} verfügbar.
+Beim Testgerät waren nur die Codecs H.264 und \ac{HEVC} und JPEG verfügbar.
+Weiterhin war die Auswahl nur bei Auflösungen unter 3840x2160 möglich.
+Diese und alle höheren Auflösungen unterstützen nur den Codec \ac{HEVC}.
 Laut Dokumentation unterstützt das Plugin auch den Apple-eigenen Codec \textit{ProRes}, der aktuell allerdings nur auf den jeweiligen Pro-Modellen der iPhones 13 und 14 verfügbar ist \cite{Prores_iPhone13}.
 Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtungszeit einzustellen.
+
+\subsection{Zusammenfassung Evaluation Grundfunktionalität}
+%TODO: Bis auf Wiedergabe bei Ionic + Cordova alle geforderten Grundfunktionalitäten überall umsetzbar
+% zwei verschiedene Ansätze bei der Umsetzung der Videoaufzeichnung: Nutzung vom Betriebssystem bereitgestellte Standard-Anwendung und Integration in App
+%   - Standard-Anwendung: keine Einstellmöglichkeiten der Parameter
+%   - Integration in App: Parameter einstellbar, abhängig vom Plugin
+% Tabelle mit einstellbaren Parametern für Flutter + React Native
+
 
 
 \section{Vergleich allgemeiner Kriterien}
@@ -107,18 +132,18 @@ Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtung
 
 Im Folgenden werden die Ergebnisse der Evaluierung der Frameworks hinsichtlich der allgemeinen Kriterien zusammengefasst.
 Dabei werden die Größe eines Release-Builds, die Zeit von Start der App bis zur vollständigen Funktionsfähigkeit und die zusätzlich benötigte Zeit für die Aufzeichnung und Speicherung eines Videos mit zehn Sekunden Länge betrachtet.
-Die Ergebnisse zur Startzeit und zur Aufzeichnung und Speicherung des Videos wurden auf einem Google Pixel 4a 5G mit Android 13 und einem iPhone XR mit iOS 16.1.1 ermittelt. 
 
-Die Hardware der Testgeräte ist sehr unterschiedlich.
+Da die Hardware der Testgeräte sehr unterschiedlich ist, sind die Ergebnisse nur eingeschränkt Plattformübergreifend vergleichbar.
 Zum Beispiel ist das Android-Testgerät mit der doppelten Menge Arbeitsspeicher ausgestattet, verwendet jedoch einen, in synthetischen Benchmarks, langsameren Prozessor \cite{Comparison_Phones}.
-Deshalb ist es notwendig zusätzlich zu den absoluten Werten, auch die, auf die jeweilige Hardware normalisierten Werte zu betrachten.
+Deshalb werden zusätzlich die auf die Mittelwerte der jeweiligen Plattformen normalisierten Werte betrachtet.
+Da kein Android-Gerät mit der gleichen Hardware wie ein iOS-Gerät existiert, ist ein direkter Vergleich ohne Hardwareunterschiede nicht möglich.
 
 
 \subsection{Größe eines Release-Builds}
 
 Die jeweiligen Größen der Release-Builds in Mega-Byte sind in \autoref{fig:app_size} dargestellt.
 Wie erwartet gibt es große Unterschiede abhängig vom verwendeten Framework.
-Weiterhin fällt auf, dass eine App für iOS durchschnittlich größer ist als dieselbe App für Android.
+Weiterhin fällt auf, dass iOS-Apps durchschnittlich größer sind als Android-Apps.
 \begin{figure}[ht]
   \centering 
   \includegraphics[trim=1.5cm 4.5cm 1.5cm 4.5cm, clip, width=0.9\textwidth]{app_size.pdf}
@@ -126,22 +151,22 @@ Weiterhin fällt auf, dass eine App für iOS durchschnittlich größer ist als d
   \label{fig:app_size}
 \end{figure}
 
-Unter Android sind die mit Ionic und Cordova und Xamarin erstellten Apps mit 5,9 MB und 10,9 MB die kleinsten.
+Unter Android sind die Release-Builds, welche mit Ionic und Cordova beziehungsweise Xamarin erstellt wurden, mit 5,9 MB und 10,9 MB vergleichsweise klein.
 Dies kann auf die Verwendung der vom Betriebssystem bereitgestellten Videoaufzeichnungsanwendung zurückgeführt werden.
 Die Größe der App lässt sich reduzieren, indem die vom Betriebssystem bereitgestellte Anwendung aufgerufen wird, anstatt eine eigene Implementierung zu verwenden.
 Die gleiche Argumentation lässt sich auch auf die jeweiligen Implementierungen für iOS übertragen.
-Auch unter iOS ist die mit Ionic und Cordova erstellte App die kleinste.
-Die Xamarin-Anwendung ist jedoch, wie durch die \ac{AOT}-Kompilation erwartet, unter iOS deutlich größer als unter Android.
+Auch unter iOS ist die mit Ionic und Cordova erstellte App kleiner als die Apps der anderen Frameworks.
+Die \ac{IPA}-Datei von Xamarin-Anwendungen ist jedoch, wie durch die \ac{AOT}-Kompilation erwartet, deutlich größer als die entsprechende \ac{AAB}-Datei
+
 
 Die mit Flutter und React Native erstellten Apps sind unter Android mit 18,1 MB und 21,7 MB deutlich größer als die mit Ionic und Cordova und Xamarin implementierten Anwendungen.
-Dies lässt sich vermutlich auf die größere Menge der mitgelieferten Abhängigkeiten zurückführen.
+Da diese nicht auf die Standardanwendung des Betriebssystems zurückgreifen, muss die Funktionalität der Videoaufzeichnung in der App enthalten sein.
+Weiterhin liefern sowohl React Native als auch Flutter verschiedene sonstige Abhängigkeiten mit, welche die Größe der App erhöhen.
 Wie bei der Erläuterung der Frameworks in \autoref{sec:frameworks_flutter} beschrieben wird mit jeder Flutter-Anwendung eine Version der Skia Engine mitgeliefert.
 Bei React Native muss jeweils eine JavaScript Engine mitgeliefert werden, in diesem Fall wird die für React Native optimierte Engine Hermes verwendet.
-Beides führt zu im Vergleich zu anderen Frameworks größeren App-Bundles.
-Jedoch ist die Flutter-Anwendung unter iOS nur minimal größer als unter Android und damit sehr konsistent über die Betriebssysteme hinweg.
 
-Die mit React Native erstellte App ist unter iOS mit 157,6 MB deutlich größer ist als alle anderen Anwendungen unabhängig vom Betriebssystem.
-Zwar ist die App unter Android ebenfalls größer als die anderen Anwendungen, jedoch ist der Unterschied deutlich geringer.
+Unter iOS ist die mit React Native erstellte App mit 157,6 MB deutlich größer als alle anderen Anwendungen unabhängig vom Betriebssystem.
+Zwar ist die App unter Android ebenfalls vergleichsweise groß, jedoch fällt der Unterschied weniger stark aus.
 Sehr große \ac{IPA}-Dateien wurden bei der Verwendung der Hermes Engine bereits mehrfach beobachtet \cite{Hermes_appsize,Hermes_appsize_2}.
 Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet reduziert sich die App-Größe deutlich auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
 Unter Android trägt die Hermes Engine stattdessen zu einer kleineren App-Größe bei.
@@ -162,11 +187,14 @@ Da jedoch keine Methode bekannt ist, mit der die finale App-Größe bestimmt wer
 \subsection{Dauer bis zur vollständigen Funktionsfähigkeit}
 
 Wie lange die jeweiligen Apps zwischen Start und vollständiger Funktionsfähigkeit benötigen, ist in \autoref{fig:launch_time} dargestellt.
-Die Startzeiten wurden dabei fünfmal gemessen und ein Mittelwert gebildet.
+Jeder Wert ist dabei als Mittelwert aus fünf Messungen angegeben.
+Nach jeder Messung wurde die App komplett beendet, damit Kaltstartzeiten gemessen werden können.
 
 Unter Android sind alle Startzeiten konsistent zwischen 50 und 64 \% schneller als unter iOS.
+Dies kann vermutlich auf Hardwareunterschiede und Unterschiede im Betriebssystem zurückgeführt werden.
+Insbesondere die große Differenz der verfügbaren Arbeitsspeichermenge könnte hier eine Rolle spielen.
 Die auf die durchschnittliche Startzeit auf dem jeweiligen Testgerät normalisierten Zeiten sind in \autoref{fig:launch_time_normalized} dargestellt.
-Hier fallen kaum Unterschiede zwischen den Plattformen auf.
+Hier fallen kaum Unterschiede zwischen den Plattformen auf, was die Vermutung bekräftigt, dass die Unterschiede auf grundsätzliche Unterschiede der Hardware und der Betriebssysteme zurückzuführen sind.
 \begin{figure}[ht]
   \centering 
   \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{launch_time.pdf}
@@ -175,13 +203,16 @@ Hier fallen kaum Unterschiede zwischen den Plattformen auf.
 \end{figure}
 
 
-Für die Messung der Startzeit kann bei Flutter und Xamarin auf die \ac{TTID} zurückgegriffen werden, die bei diesen Frameworks der Zeit bis zur vollständigen Funktionsfähigkeit entspricht.
-Andererseits kann die \ac{TTID} bei React Native und Ionic mit Cordova nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gerendert wird.
-Bei Ionic mit Cordova wird stattdessen die Zeit bis zum Event \texttt{Platform.ready} gemessen, welches ausgelöst wird, sobald die Plattform bereit, also initialisiert ist.
-Bei React Native wird die Zeit hingegen bis zum ersten Aufruf der Benutzerdefinierten \texttt{render}-Methode gemessen, da ab diesem Zeitpunkt beliebiger Code ausgeführt werden kann.
-Von allen untersuchten Frameworks starten Flutter und React-Native Anwendungen am schnellsten.
+Für die Messung der Startzeit kann bei Flutter und Xamarin auf die \ac{TTFD} zurückgegriffen werden, die bei diesen Frameworks der Zeit bis zur vollständigen Funktionsfähigkeit entspricht.
+Andererseits kann die \ac{TTFD} bei React Native und Ionic mit Cordova nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gerendert wird.
+Bei Ionic mit Cordova kann die \ac{TTFD} nur bis zur Anzeige der Wrapper-Anwendung gemessen werden.
+Die folgende Initialisierung der WebView mit der eigentlichen Anwendung in JavaScript kann nicht berücksichtigt werden.
+Deshalb wird stattdessen die Zeit bis zum Event \texttt{Platform.ready} verwendet, welches ausgelöst wird, wenn die Anwendung komplett bereit ist.
+Auch bei React Native ist die \ac{TTFD} nicht aussagekräftig, da auch hier die Initialisierung des Frameworks nicht mit der Initialisierung des nativen Teils abgeschlossen ist.
+Ab dem ersten Aufruf der \texttt{render}-Methode kann beliebiger Code ausgeführt werden, weshalb dieser Zeitpunkt als Messzeitpunkt verwendet wird.
+
+Von allen untersuchten Frameworks starten Flutter und React Native Anwendungen am schnellsten.
 Unter Android ist Flutter dabei etwas schneller als React Native, unter iOS ist es umgekehrt.
-Trotz große konzeptueller Unterschiede zwischen den Frameworks ist eine ähnliche Startzeit erreichbar.
 
 \begin{figure}[ht]
   \centering 
@@ -191,17 +222,16 @@ Trotz große konzeptueller Unterschiede zwischen den Frameworks ist eine ähnlic
 \end{figure}
 Die Xamarin-Anwendung und die Anwendung, welche mit Ionic und Cordova implementiert ist, benötigen deutlich länger, bis die vollständige Funktionsfähigkeit erreicht ist.
 Obwohl sowohl bei Ionic mit Cordova als auch bei React Native die Logik in JavaScript implementiert ist, ist die Startzeit der React Native-Anwendung mehr als viermal kürzer.
-Daraus lässt sich schließen, dass der Ansatz von React Native, die nativen Steuerelemente der Plattform zu nutzen, anstatt eine WebView einzusetzen, beim Starten der Anwendung einen deutlichen Vorteil bietet.
+Daraus lässt sich schließen, dass der Ansatz von React Native, die nativen Steuerelemente der Plattform anstelle einer WebView einzusetzen, beim Starten der Anwendung einen deutlichen Vorteil bietet.
 Allerdings nutzt React Native auch eine für das Framework optimierte JavaScript Engine, was vermutlich ebenfalls einen positiven Einfluss auf die Startzeit hat.
 
 Für Xamarin-Anwendungen wurde aufgrund der \ac{JIT}-Kompilation unter Android eine deutlich längere Startzeit als unter iOS erwartet.
 Mit 166 \% der durchschnittlichen Startzeit unter iOS und 152 \% der durchschnittlichen Startzeit unter Android fällt der Unterschied zwischen den beiden Plattformen jedoch weniger stark aus als angenommen.
 Ein Grund dafür konnte nicht identifiziert werden.
-Zur besseren Vergleichbarkeit wäre es notwendig, die Startzeit auf beiden Plattformen mit der gleichen Hardware zu messen, was jedoch nicht möglich ist.
 
 \subsection{Automatisierte Aufzeichnung und Speicherung eines zehnsekündigen Videos}
 
-Die automatisierte Aufzeichnung und Speicherung von Videos ist nur bei Flutter- und React Native-Anwendungen möglich.
+Die automatisierte Aufzeichnung und Speicherung eines Videos ist nur bei Flutter- und React Native-Anwendungen möglich.
 Sowohl bei Ionic mit Cordova als auch bei Xamarin kann die Aufzeichnung von Videos aufgrund der Verwendung der Standard-Videoaufzeichnungsanwendung nicht automatisiert werden.
 Die in \autoref{fig:testcase} aufgeführten Zeiten, stellen jeweils einen Mittelwert aus fünf Messungen dar.
 Für die Messung wurden dabei die von den Frameworks bereitgestellten Funktionen zur Zeitmessung verwendet.
@@ -215,22 +245,36 @@ Vom gemessenen Wert wird zusätzlich die Dauer des aufgezeichneten Videos abgezo
 \end{figure}
 
 Direkt auffällig ist, dass die zusätzlich benötigte Zeit unter iOS deutlich geringer ausfällt als unter Android.
-Dies lässt sich vermutlich darauf zurückführen, dass Aufzeichnung von Videos und Zugriff auf den Gerätespeicher unter iOS einen geringeren Overhead erzeugen als unter Android.
-Allerdings müssen auch die Hardwareunterschiede betrachtet werden, sodass der direkte Vergleich nur bedingt aussagekräftig ist.
+Dies lässt sich vermutlich auf Unterschiede der verwendeten Hardware und grundsätzliche Unterschiede zwischen den Betriebssystemen zurückführen.
+Es wird angenommen, dass der Overhead für den Zugriff auf Kamerafunktionen und den Gerätespeicher unter iOS geringer ist als unter Android.
+Außerdem kann der performantere Prozessor des iOS-Testgeräts, insbesondere bei der aufwändigen Codierung des Videos, zu einer schnelleren Ausführung beitragen.
 
-Die normalisierten Werte in \autoref{fig:testcase_normalized} zeigen, dass der Unterschied zwischen den Frameworks unter Android und iOS nahezu identisch ausfällt.
-In beiden Fällen ist der automatisierte Testfall in der React Native-Anwendung mehr als viermal schneller als in der mit Flutter implementierten Anwendung.
-Vermutlich ist die unterschiedliche Realisierung des Zugriffs auf nativen Code in den Frameworks verantwortlich für die beobachteten Performanceunterschiede.
 \begin{figure}[ht]
   \centering 
   \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{testcase_normalized.pdf}
   \caption{Vergleich der für die Aufzeichnung und Speicherung von zehn Sekunden Video zusätzlich benötigten Zeit, normalisiert auf die durchschnittliche Zeit.}
   \label{fig:testcase_normalized}
 \end{figure}
+Die normalisierten Werte in \autoref{fig:testcase_normalized} zeigen, dass der Unterschied zwischen den Frameworks unter Android und iOS nahezu identisch ausfällt.
+In beiden Fällen ist der automatisierte Testfall in der React Native-Anwendung mehr als viermal schneller als in der mit Flutter implementierten Anwendung.
+Dies lässt sich mit fundamentalen Unterschiede zwischen den Frameworks erklären.
+Beide Frameworks wählen zum Zugriff auf native Funktionen einen unterschiedlichen Ansatz.
 
 Das eingesetzte React Native Plugin verwendet die neue, in \autoref{sec:frameorks_reactnative} beschriebene, Architektur.
-Damit können plattformspezifische Host-Objects direkt aus JavaScript aufgerufen werden, ohne dass eine Nachricht serialisiert und an eine native Implementierung übertragen werden muss.
+Damit können plattformspezifische Host-Objects direkt aus JavaScript aufgerufen werden.
+Dadurch entfällt insbesondere der Aufwand für Serialisierung und Deserialisierung von Nachrichten, welche zwischen dem nativen Teil und dem plattformübergreifenden Teil der Anwendung ausgetauscht werden müssen.
 Im Vergleich verwenden sowohl die alte Architektur von React Native als auch die Architektur von Flutter eine Nachrichtenbasierte Kommunikation.
-Da das für React Native eingesetzte Plugin auf die neue Architektur angewiesen ist, ist kein direkter Vergleich zwischen neuer und alter Architektur möglich.
-Es wird angenommen, dass die verwendete Architektur und das Kommunikationsmodell beim Zugriff auf native Funktionen die Unterschiede zwischen Flutter und React Native erklären.
-Damit erlaubt React Native einen effizienteren Zugriff auf native Funktionalität, was nicht nur für Videoaufzeichnung, sondern auch für andere Funktionen gelten dürfte.
+Somit erfordert jeder Funktionsaufruf zwei zusätzliche Nachrichten, welche jeweils eine Serialisierung und Deserialisierung erfordern.
+Weiterhin verbergen die Plugins die nativen Aufrufe, sodass aus der Anwendung heraus nicht ersichtlich ist, wie viele native Funktionsaufrufe durch den Aufruf einer Plugin-Funktion ausgelöst werden.
+
+Durch den grundsätzlich unterschiedlichen Ansatz beim Zugriff auf native Funktionen ist der effizientere Zugriff auf native Funktionen durch React Native vermutlich nicht auf die hier getesteten Funktionen beschränkt.
+
+
+\subsection{Zusammenfassung Evaluation allgemeine Kriterien}
+% TODO: 
+% App-Größen: Flutter sehr gleichmäßig, React Native unter iOS durch Bug stark erhöht
+%   Xamarin wie erwartet durch AOT größer für iOS
+% Startzeit: allgemein unter Android deutlich kürzer, und besser messbar, Messung unter iOS nur mit großem Aufwand und höherer Subjektivität (wann ist App vollständig Funktionsfähig)
+%   Xamarin und Ionic mit Cordova deutlich langsamer als fast gleich schnelle Flutter und React Native
+% Videoaufzeichnung: React Native deutlich schneller als Flutter, vermutlich durch unterschiede beim Zugriff auf nativen Code -> React-Native für Anwendungen mit Zugriff auf native APIs besser geeignet 
+% -> allgemein scheint React Native sehr gut geeignet zu sein, einziges Problem ist der Speicherbedarf, der jedoch durch Verwendung von JavaScriptCore unter iOS deutlich reduziert werden kann (Android und iOS können auch verschiedene Engines nutzen!)
