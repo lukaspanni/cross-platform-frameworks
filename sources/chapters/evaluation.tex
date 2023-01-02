@@ -165,15 +165,15 @@ Da Flutter und React Native die Standardanwendung nicht nutzen, sondern direkt d
 Im Folgenden werden die Ergebnisse der Evaluierung der Frameworks hinsichtlich der allgemeinen Kriterien zusammengefasst.
 Dabei werden die Größe eines Release-Builds, die Zeit von Start der App bis zur vollständigen Funktionsfähigkeit und die zusätzlich benötigte Zeit für den definierten Ende-zu-Ende-Test betrachtet.
 
-Da die Hardware der Testgeräte sehr unterschiedlich ist, sind die Ergebnisse nur eingeschränkt Plattformübergreifend vergleichbar.
+Die Hardware der Testgeräte ist sehr unterschiedlich.
 Zum Beispiel ist das Android-Testgerät mit der doppelten Menge Arbeitsspeicher ausgestattet, verwendet jedoch einen, in synthetischen Benchmarks, langsameren Prozessor \cite{Comparison_Phones}.
-Deshalb werden zusätzlich die auf die Mittelwerte der jeweiligen Plattformen normalisierten Werte betrachtet.
-Da kein Android-Gerät mit der gleichen Hardware wie ein iOS-Gerät existiert, ist ein direkter Vergleich ohne Hardwareunterschiede nicht möglich.
+Deshalb sind die Ergebnisse nur eingeschränkt Plattformübergreifend vergleichbar.
+Zur besseren Vergleichbarkeit werden zusätzlich die auf die Mittelwerte der jeweiligen Plattformen normalisierten Werte betrachtet.
 
 
 \subsection{Größe eines Release-Builds}
 
-Die jeweiligen Größen der Release-Builds in Mega-Byte sind in \autoref{fig:app_size} dargestellt.
+Die jeweilige Größe eines Release-Builds der Prototypen in Mega-Byte sind in \autoref{fig:app_size} dargestellt.
 Wie erwartet gibt es große Unterschiede abhängig vom verwendeten Framework.
 Weiterhin fällt auf, dass iOS-Apps durchschnittlich größer sind als Android-Apps.
 \begin{figure}[ht]
@@ -185,19 +185,20 @@ Weiterhin fällt auf, dass iOS-Apps durchschnittlich größer sind als Android-A
 
 Unter Android sind die Release-Builds, welche mit Ionic und Cordova beziehungsweise Xamarin erstellt wurden, mit 5,9 MB und 10,9 MB vergleichsweise klein.
 Dies kann auf die Verwendung der vom Betriebssystem bereitgestellten Videoaufzeichnungsanwendung zurückgeführt werden.
-Die Größe der App lässt sich reduzieren, indem die vom Betriebssystem bereitgestellte Anwendung aufgerufen wird, anstatt eine eigene Implementierung zu verwenden.
-Die gleiche Argumentation lässt sich auch auf die jeweiligen Implementierungen für iOS übertragen.
+Die Größe der App lässt sich reduzieren, indem die vom Betriebssystem bereitgestellte Anwendung aufgerufen wird, anstatt eine eigene Implementierung mitzuliefern.
+Die gleiche Argumentation gilt für die Varianten für iOS.
 Auch unter iOS ist die mit Ionic und Cordova erstellte App kleiner als die Apps der anderen Frameworks.
 Die \ac{IPA}-Datei von Xamarin-Anwendungen ist jedoch, wie durch die \ac{AOT}-Kompilation erwartet, deutlich größer als die entsprechende \ac{AAB}-Datei
 
 
 Die mit Flutter und React Native erstellten Apps sind unter Android mit 18,1 MB und 21,7 MB deutlich größer als die mit Ionic und Cordova und Xamarin implementierten Anwendungen.
-Da diese nicht auf die Standardanwendung des Betriebssystems zurückgreifen, muss die Funktionalität der Videoaufzeichnung in der App enthalten sein.
-Weiterhin liefern sowohl React Native als auch Flutter verschiedene sonstige Abhängigkeiten mit, welche die Größe der App erhöhen.
+Da diese nicht auf die Standardanwendung des Betriebssystems zurückgreifen, muss die Funktionalität der Videoaufzeichnung mitgeliefert werden.
+Weiterhin liefern sowohl React Native als auch Flutter standardmäßig verschiedene sonstige Abhängigkeiten mit, welche die Größe der App erhöhen.
 Wie bei der Erläuterung der Frameworks in \autoref{sec:frameworks_flutter} beschrieben wird mit jeder Flutter-Anwendung eine Version der Skia Engine mitgeliefert.
-Bei React Native muss jeweils eine JavaScript Engine mitgeliefert werden, in diesem Fall wird die für React Native optimierte Engine Hermes verwendet.
+Bei React Native muss jeweils eine JavaScript Engine mitgeliefert werden, für den Prototyp wird die Standardeinstellung nicht verändert, wodurch die für React Native optimierte Hermes Engine verwendet wird.
 
-Unter iOS ist die mit React Native erstellte App mit 157,6 MB deutlich größer als alle anderen Anwendungen unabhängig vom Betriebssystem.
+Der größte Ausreißer bei der Größe der Release-Builds ist die mit React Native erstellte App für iOS.
+Diese ist mit 157,6 MB deutlich größer als alle anderen Implementierungen.
 Zwar ist die App unter Android ebenfalls vergleichsweise groß, jedoch fällt der Unterschied weniger stark aus.
 Sehr große \ac{IPA}-Dateien wurden bei der Verwendung der Hermes Engine bereits mehrfach beobachtet \cite{Hermes_appsize,Hermes_appsize_2}.
 Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet reduziert sich die App-Größe deutlich auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
@@ -207,26 +208,29 @@ Da die Hermes Engine bei neuen React Native Projekten standardmäßig aktiviert 
 Außerdem ist anzumerken, dass die \ac{IPA}-Größe nicht repräsentativ für die Größe der App ist, welche über den App-Store verteilt wird.
 Dies liegt daran, dass die \ac{IPA}-Datei verschiedene Varianten des Codes für verschiedene Geräte enthält und die finale, optimierte Version der App erst beim Upload zum App-Store erstellt wird \cite{IPA_Size}.
 Da jedoch keine Methode bekannt ist, mit der die finale App-Größe bestimmt werden kann, ohne ein kostenpflichtiges Entwicklerkonto bei Apple zu besitzen, muss die \ac{IPA}-Größe zur Bewertung verwendet werden.
+Im realen Einsatz, könnten Entwickler entscheiden, unter Android und iOS verschiedene Engines einzusetzen, um die App-Größe jeweils zu minimieren.
 
 \begin{figure}[ht]
   \centering 
   \includegraphics[clip, width=0.9\textwidth]{reactnative_appsize_ios}
-   \caption{Vergleich der App-Größe einer React Native Anwendung für iOS mit und ohne Verwendung der Hermes Engine.}
+   \caption{Vergleich der App-Größe einer React Native-Anwendung für iOS mit und ohne Verwendung der Hermes Engine.}
   \label{fig:reactnative_appsize_ios}
 \end{figure}
 
 
 \subsection{Dauer bis zur vollständigen Funktionsfähigkeit}
 
-Wie lange die jeweiligen Apps zwischen Start und vollständiger Funktionsfähigkeit benötigen, ist in \autoref{fig:launch_time} dargestellt.
+Wie lange die jeweiligen Prototypen zwischen Start und vollständiger Funktionsfähigkeit benötigen, ist in \autoref{fig:launch_time} dargestellt.
 Jeder Wert ist dabei als Mittelwert aus fünf Messungen angegeben.
-Nach jeder Messung wurde die App komplett beendet, damit Kaltstartzeiten gemessen werden können.
+Zur Messung der Kaltstartzeiten wird sichergestellt, dass nach jeder Messung die App komplett beendet wird.
 
 Unter Android sind alle Startzeiten konsistent zwischen 50 und 64 \% schneller als unter iOS.
 Dies kann vermutlich auf Hardwareunterschiede und Unterschiede im Betriebssystem zurückgeführt werden.
 Insbesondere die große Differenz der verfügbaren Arbeitsspeichermenge könnte hier eine Rolle spielen.
+Welcher Anteil der Unterschiede auf die Hardware und welcher auf das Betriebssystem zurückzuführen ist, kann jedoch mangels identischer Hardware nicht eindeutig bestimmt werden.
+
 Die auf die durchschnittliche Startzeit auf dem jeweiligen Testgerät normalisierten Zeiten sind in \autoref{fig:launch_time_normalized} dargestellt.
-Hier fallen kaum Unterschiede zwischen den Plattformen auf, was die Vermutung bekräftigt, dass die Unterschiede auf grundsätzliche Unterschiede der Hardware und der Betriebssysteme zurückzuführen sind.
+Hier fallen kaum Unterschiede zwischen den Plattformen auf, was die Vermutung verstärkt, dass die Unterschiede auf grundsätzliche Unterschiede der Hardware und der Betriebssysteme zurückzuführen sind.
 \begin{figure}[ht]
   \centering 
   \includegraphics[trim=1.8cm 4.5cm 1.8cm 4.5cm, clip, width=0.9\textwidth]{launch_time.pdf}
@@ -237,14 +241,16 @@ Hier fallen kaum Unterschiede zwischen den Plattformen auf, was die Vermutung be
 
 Für die Messung der Startzeit kann bei Flutter und Xamarin auf die \ac{TTFD} zurückgegriffen werden, die bei diesen Frameworks der Zeit bis zur vollständigen Funktionsfähigkeit entspricht.
 Andererseits kann die \ac{TTFD} bei React Native und Ionic mit Cordova nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gerendert wird.
-Bei Ionic mit Cordova kann die \ac{TTFD} nur bis zur Anzeige der Wrapper-Anwendung gemessen werden.
-Die folgende Initialisierung der WebView mit der eigentlichen Anwendung in JavaScript kann nicht berücksichtigt werden.
-Deshalb wird stattdessen die Zeit bis zum Event \texttt{Platform.ready} verwendet, welches ausgelöst wird, wenn die Anwendung komplett bereit ist.
-Auch bei React Native ist die \ac{TTFD} nicht aussagekräftig, da auch hier die Initialisierung des Frameworks nicht mit der Initialisierung des nativen Teils abgeschlossen ist.
-Ab dem ersten Aufruf der \texttt{render}-Methode kann beliebiger Code ausgeführt werden, weshalb dieser Zeitpunkt als Messzeitpunkt verwendet wird.
+Bei Ionic mit Cordova misst die \ac{TTFD} nur die Zeit bis zur Anzeige der Wrapper-Anwendung.
+Die folgende Initialisierung der WebView mit der eigentlichen Anwendung in JavaScript wird nicht berücksichtigt.
+Deshalb wird stattdessen die Zeit bis zum Event \texttt{Platform.ready} zur Messung verwendet.
+Das Event wird vom Framework ausgelöst, sobald die Anwendung komplett bereit ist und der Benutzer mit den Steuerelementen interagieren kann.
+Auch bei React Native ist die \ac{TTFD} nicht aussagekräftig, da auch hier die Initialisierung der Anwendung nicht mit der Initialisierung des nativen Codes abgeschlossen ist.
+Ab dem ersten Aufruf der \texttt{render}-Methode kann beliebiger Code ausgeführt werden, weshalb dieser Zeitpunkt zur Messung herangezogen wird.
 
-Von allen untersuchten Frameworks starten Flutter und React Native Anwendungen am schnellsten.
+Von allen untersuchten Frameworks starten die Prototypen mit Flutter und React Native am schnellsten.
 Unter Android ist Flutter dabei etwas schneller als React Native, unter iOS ist es umgekehrt.
+Der absolute Unterschied ist jedoch mit 22 ms respektive 21 ms sehr gering.
 
 \begin{figure}[ht]
   \centering 
@@ -253,13 +259,14 @@ Unter Android ist Flutter dabei etwas schneller als React Native, unter iOS ist 
   \label{fig:launch_time_normalized}
 \end{figure}
 Die Xamarin-Anwendung und die Anwendung, welche mit Ionic und Cordova implementiert ist, benötigen deutlich länger, bis die vollständige Funktionsfähigkeit erreicht ist.
-Obwohl sowohl bei Ionic mit Cordova als auch bei React Native die Logik in JavaScript implementiert ist, ist die Startzeit der React Native-Anwendung mehr als viermal kürzer.
+Obwohl sowohl bei Ionic mit Cordova als auch bei React Native die Logik in JavaScript implementiert ist, ist die Startzeit der Cordova-Anwendung mehr als viermal länger.
 Daraus lässt sich schließen, dass der Ansatz von React Native, die nativen Steuerelemente der Plattform anstelle einer WebView einzusetzen, beim Starten der Anwendung einen deutlichen Vorteil bietet.
 Allerdings nutzt React Native auch eine für das Framework optimierte JavaScript Engine, was vermutlich ebenfalls einen positiven Einfluss auf die Startzeit hat.
 
 Für Xamarin-Anwendungen wurde aufgrund der \ac{JIT}-Kompilation unter Android eine deutlich längere Startzeit als unter iOS erwartet.
 Mit 166 \% der durchschnittlichen Startzeit unter iOS und 152 \% der durchschnittlichen Startzeit unter Android fällt der Unterschied zwischen den beiden Plattformen jedoch weniger stark aus als angenommen.
 Ein Grund dafür konnte nicht identifiziert werden.
+Vermutlich ist der Einfluss der \ac{JIT}-Kompilation bei Anwendungen mit wenig Code, wie es bei dem Prototyp für ein einzelnes Feature der Fall ist, nur gering.
 
 \subsection{Ende-zu-Ende-Test}
 
@@ -279,7 +286,7 @@ Vom gemessenen Wert wird zusätzlich die Dauer des aufgezeichneten Videos abgezo
 Direkt auffällig ist, dass die zusätzlich benötigte Zeit unter iOS deutlich geringer ausfällt als unter Android.
 Dies lässt sich vermutlich auf Unterschiede der verwendeten Hardware und grundsätzliche Unterschiede zwischen den Betriebssystemen zurückführen.
 Es wird angenommen, dass der Overhead für den Zugriff auf Kamerafunktionen und den Gerätespeicher unter iOS geringer ist als unter Android.
-Außerdem kann der performantere Prozessor des iOS-Testgeräts, insbesondere bei der aufwändigen Codierung des Videos, zu einer schnelleren Ausführung beitragen.
+Außerdem kann der performantere Prozessor des iOS-Testgeräts, insbesondere bei rechenintensiver Codierung des Videos, zu einer schnelleren Ausführung beitragen.
 
 \begin{figure}[ht]
   \centering 
@@ -287,19 +294,21 @@ Außerdem kann der performantere Prozessor des iOS-Testgeräts, insbesondere bei
   \caption{Vergleich der für die Aufzeichnung und Speicherung von zehn Sekunden Video zusätzlich benötigten Zeit, normalisiert auf die durchschnittliche Zeit.}
   \label{fig:testcase_normalized}
 \end{figure}
-Die normalisierten Werte in \autoref{fig:testcase_normalized} zeigen, dass der Unterschied zwischen den Frameworks unter Android und iOS nahezu identisch ausfällt.
-In beiden Fällen ist der automatisierte Testfall in der React Native-Anwendung mehr als viermal schneller als in der mit Flutter implementierten Anwendung.
-Dies lässt sich mit fundamentalen Unterschiede zwischen den Frameworks erklären.
-Beide Frameworks wählen zum Zugriff auf native Funktionen einen unterschiedlichen Ansatz.
+Die normalisierten Werte in \autoref{fig:testcase_normalized} zeigen, dass der Unterschied zwischen den Frameworks plattformunabhängig nahezu identisch ausfällt.
+In beiden Fällen ist der automatisierte Testfall in der Flutter-Anwendung mehr als viermal langsamer als in der mit React Native implementierten Anwendung.
+Dies lässt sich mit fundamentalen Unterschieden zwischen den Frameworks erklären.
+Beide Frameworks wählen zum Zugriff auf native Funktionen einen unterschiedlichen Ansatz, der nach den hier vorgestellten Ergebnissen große Auswirkungen auf den Overhead beim Zugriff auf Kamerafunktionen und den Gerätespeicher hat.
 
 Das eingesetzte React Native Plugin verwendet die neue, in \autoref{sec:frameorks_reactnative} beschriebene, Architektur.
 Damit können plattformspezifische Host-Objects direkt aus JavaScript aufgerufen werden.
-Dadurch entfällt insbesondere der Aufwand für Serialisierung und Deserialisierung von Nachrichten, welche zwischen dem nativen Teil und dem plattformübergreifenden Teil der Anwendung ausgetauscht werden müssen.
-Im Vergleich verwenden sowohl die alte Architektur von React Native als auch die Architektur von Flutter eine Nachrichtenbasierte Kommunikation.
+Dadurch entfällt insbesondere der Aufwand für Serialisierung und Deserialisierung von Nachrichten, welche zwischen dem nativen Teil und dem plattformübergreifenden Teil der Anwendung ausgetauscht werden.
+Im Vergleich verwenden sowohl die alte Architektur von React Native als auch Flutter eine Nachrichtenbasierte Kommunikation.
 Somit erfordert jeder Funktionsaufruf zwei zusätzliche Nachrichten, welche jeweils eine Serialisierung und Deserialisierung erfordern.
-Weiterhin verbergen die Plugins die nativen Aufrufe, sodass aus der Anwendung heraus nicht ersichtlich ist, wie viele native Funktionsaufrufe durch den Aufruf einer Plugin-Funktion ausgelöst werden.
+Damit ist die Kommunikation zwischen plattformunabhängigem Anteil und plattformspezifischem Anteil der jeweiligen App mit React Native deutliche effizienter als bei Flutter.
+Da die Plugins die tatsächlich getätigten nativen Aufrufe und deren Anzahl verbergen, ist aus der Anwendung heraus nicht ersichtlich, wie viele native Funktionsaufrufe durch den Aufruf einer Plugin-Funktion ausgelöst werden.
+Somit können auch Unterschiede in den Plugins Grund für die unterschiedlichen Ergebnisse sein.
+Bei den beobachteten sehr großen Unterschieden ist jedoch davon auszugehen, dass die Effizienz der Kommunikation die Hauptursache für die Abweichungen ist.
 
-Durch den grundsätzlich unterschiedlichen Ansatz beim Zugriff auf native Funktionen ist der effizientere Zugriff auf native Funktionen durch React Native vermutlich nicht auf die hier getesteten Funktionen beschränkt.
 
 
 \subsection{Zusammenfassung Evaluation allgemeine Kriterien}
@@ -309,14 +318,46 @@ Zudem lässt sich das Problem der App-Größe unter iOS durch die Nutzung der Ja
 Nur Flutter ist ebenfalls als empfehlenswert zu bewerten.
 Startzeiten sind sehr ähnlich zu React Native, allerdings fällt die Performance im Ende-zu-Ende-Test deutlich schlechter aus und weniger Parameter können eingestellt werden.
 Weiterhin ist die App-Größe unter iOS deutlich und unter Android geringfügig kleiner.
-Jedoch muss beachtet werden, dass die stark gestiegene App-Größe für React Native unter iOS als Fehler im Zusammenspiel mit der Hermes Engine zu betrachten ist.
-Dennoch kommt die Flutter-Anwendung mit weniger Plugins aus, da der Zugriff auf das Dateisystem bereits in Flutter integriert ist.
-Ionic mit Cordova und Xamarin eignen sich hingegen nur schlecht für die Umsetzung von Videoaufzeichnung.
-Nicht nur die komplett fehlende Einstellbarkeit der Parameter, sondern auch mehr als viermal langsamere Startzeiten, schränken die Eignung stark ein. 
+Jedoch muss beachtet werden, dass die stark gestiegene App-Größe für React Native unter iOS auf einen Fehler im Zusammenspiel mit der Hermes Engine zurückzuführen ist.
 
-Diese Ergebnisse können als Begründung für die hohe Beliebtheit von Flutter und React Native im Vergleich zu Ionic mit Cordova und Xamarin dienen.
-Jedoch können die Ergebnisse umgekehrt auch in der hohen Beliebtheit begründet sein.
-Für den Zugriff auf die Kamerafunktionalität wurden jeweils zusätzliche Open-Source Plugins verwendet.
-Bei einer größeren Beliebtheit unter Entwicklern ist davon auszugehen, dass sich mehr Entwickler an der Entwicklung von Open-Source Plugins beteiligen.
-Damit steigt die Wahrscheinlichkeit, dass ein Plugin für die benötigte Funktionalität bereits existiert und die Qualität der Plugins sollte ebenfalls höher sein.
-Andererseits sorgt eine geringe Beliebtheit, wie bei Ionic mit Cordova oder Xamarin dafür, dass sich wahrscheinlich weniger Entwickler an der Entwicklung von Open-Source Plugins beteiligen, wodurch weniger gute Plugins zur Verfügung stehen.
+Ionic mit Cordova und Xamarin eignen sich hingegen nur schlecht für die Umsetzung von Videoaufzeichnung.
+Nicht nur die komplett fehlende Einstellbarkeit der Parameter und die fehlende nahtlose Integration der Videoaufzeichnung, sondern auch mehr als viermal langsamere Startzeiten, schränken die Nutzbarkeit stark ein.
+Soll die Videoaufzeichnung ein zentrales Merkmal einer App darstellen, ist die Nutzung von Xamarin oder Cordova mit Ionic nicht zu empfehlen.
+In anderen Fällen ist die Nutzung nach einer genauen Analyse der Anforderungen und der möglichen Einschränkungen durch die Frameworks denkbar.
+Xamarin ist jeweils die besser Alternative, da native Funktionen mit geringerem Aufwand aufgerufen werden können, sodass eine geringere Abhängigkeit von Plugins besteht.
+
+
+\subsubsection{Gründe für die schlechten Ergebnisse von Ionic mit Cordova und Xamarin}
+Die Cross-Plattform Frameworks Cordova und Xamarin sind seit 2011 verfügbar und damit einige Jahre älter als die Frameworks Flutter und React Native, welche erst 2015 und 2017 veröffentlicht wurden \cite{Steyer_Cordova,Sharma_Flutter,Xamarin_EOL,ReactNative_Release}.
+Demnach wäre es zu erwarten, dass beide Frameworks in einem ausgereiften Zustand sind und bessere oder zumindest vergleichbare Ergebnisse liefern.
+Insbesondere sollten bessere Plugins installieren, da Entwickler schon länger mit den Frameworks arbeiten und somit auch schon länger Plugins entwickeln können.
+
+Die Ergebnisse der Evaluierung zeigen jedoch, dass die Frameworks Flutter und React Native deutlich bessere Ergebnisse liefern.
+Weiterhin wurde im Laufe der Arbeit klar, dass die Architektur der Frameworks zwar einen Einfluss auf die zu erwartende Performance hat.
+Jedoch ist die Fähigkeit auf native Funktionen zuzugreifen in allen Frameworks gegeben, sodass kein technischer Grund für die fehlende Verfügbarkeit passender Plugins vorliegen kann.
+Technisch sind Plugins in allen untersuchten Frameworks außer Xamarin prinzipiell gleich aufgebaut: Eine native Implementierung der Funktionalität wird über ein Interface in einer anderen Programmiersprache aufgerufen, wobei das Framework die Kommunikation zwischen nativem und plattformunabhängigem Anteil der Anwendung transparent gestaltet.
+Damit wäre auch die Anpassung der nativen Implementierung eines Plugins möglich, um es für ein anderes Framework nutzbar zu machen.
+Die Open-Source-Lizenzen der verwendeten Plugins erlauben diese Nutzung ebenfalls.
+
+Xamarin bildet jedoch eine Ausnahme, da keine Plugins für den Zugriff auf native Funktionen benötigt werden.
+Stattdessen lassen sich alle \acp{API} aus C\# heraus direkt verwenden.
+Dabei kann jeweils der volle Funktionsumfang genutzt werden und Einschränkungen durch Plugins werden vermieden.
+Außerdem kann so eine zusätzliche Abhängigkeit zu einem Plugin vermieden werden.
+Dennoch existieren für Xamarin Plugins in Form von Bibliotheken, welche die nativen Funktionen abstrahiert über eine plattformunabhängige Schnittstelle bereitstellen.
+
+
+Da keine technischen Gründe für die fehlende Verfügbarkeit geeigneter Plugins vorliegen liegen die Gründe vielmehr in der geringen Beliebtheit und Verbreitung der Frameworks.
+In der letzten Stack Overflow Developer Survey \cite{Stackoverflow_2022} nutzten 12,64 \% der Befragen Flutter und 12,57 \% React Native.
+Gleichzeitig nutzten nur 4,15 \% Cordova und 5,21 \% Xamarin.
+Die Angaben zu Ionic sind hier nicht sinnvoll, da die Nutzung von Ionic als UI-Toolkit keine Auswirkungen auf die Verfügbarkeit von Plugins für Cordova hat.
+Eine weitere Umfrage zu den genutzten Cross-Plattform Frameworks von Statista \cite{Statista_UsedCrossPlatformFrameworks} zeigt, dass Flutter und React Native 2021 von 42 \% und 38 \% der Befragten genutzt wurden, während Cordova und Xamarin nur von 16 \% beziehungsweise 11 \% aller Befragten eingesetzt wurden.
+Weiterhin gewinnt Flutter in den letzten Jahren an Marktanteil, Cordova und Xamarin hingegen haben seit 2019 große Teile ihres Marktanteils verloren.
+
+Unter Entwicklern beliebte und verbreitete Frameworks haben den großen Vorteil, dass mehr Entwickler daran interessiert sind zur Entwicklung beizutragen.
+Durch mehr direkte Beiträge zum Framework werden Fehler schneller behoben und neue Funktionen schneller fertiggestellt.
+Somit können neue Betriebssystemversionen oder Gerätetypen schneller unterstützt werden, was wiederum die Verbreitung und Beliebtheit des Frameworks positiv beeinflusst.
+Gleichzeitig ist durch die größere Zahl der Nutzer die Wahrscheinlichkeit höher, dass andere Nutzer ähnliche Funktionen benötigen und entsprechende Plugins entwickeln.
+Damit können Entwickler auf eine größere Zahl von geeigneten Plugins zurückgreifen, was ihnen die Entwicklung erleichtert und vermutlich positiv zur Beliebtheit beiträgt.
+Gleichzeitig sorgt ein wachsender Marktanteil für mehr Aufmerksamkeit, wodurch die Verbreitung weiter steigt und das Interesse an der Entwicklung neuer Plugins steigt.
+Andererseits führt ein sinkender Marktanteil zu geringerem Interesse an der Entwicklung neuer Plugins, was wiederum die Beliebtheit des Frameworks weiter sinken lässt.
+
