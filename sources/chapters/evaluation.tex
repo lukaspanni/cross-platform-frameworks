@@ -2,7 +2,7 @@
 \label{ch:evaluation}
 
 Zunächst beschreibt \autoref{sec:implementierung} die Implementierung des Prototyps zur Videoaufzeichnung mit den entsprechenden Frameworks und die Bewertung der Grundfunktionalität des jeweiligen Prototyps.
-Alle Prototypen stehen unter \url{https://github.com/lukaspanni/cross-platform-evaluation} unter der MIT-Lizenz zur Verfügung.
+Alle Prototypen stehen unter \url{https://github.com/lukaspanni/cross-platform-evaluation} zur Verfügung.
 Dabei wird erläutert, wie die einzelnen Komponenten des Prototyps implementiert werden und welche zusätzlichen Komponenten eingesetzt werden müssen, um die geforderte Funktionalität umzusetzen.
 Die Frameworks verwenden verschiedene Bezeichnungen für eingebundene Komponenten von Drittanbietern.
 Zur einheitlichen Beschreibung werden diese in den folgenden Abschnitten jeweils als Plugins bezeichnet.
@@ -30,14 +30,15 @@ Welche Komponenten verwendet wurden, welche Probleme aufgetreten sind und welche
 Flutter bringt verschiedene Abstraktionen für den Zugriff auf native Funktionen standardmäßig mit.
 Für den Zugriff auf Kamerafunktionen muss jedoch ein Plugin genutzt werden.
 Plugins für Flutter und Dart werden in einem öffentlichen Repository unter \url{https://pub.dev} zur Verfügung gestellt.
-Mit dem Plugin \textit{camera} \cite{Dart_Camera} ist ein vom Flutter-Team gepflegtes offizielles Plugin verfügbar. 
-Über dieses Plugin ist die Aufzeichnung von Videos unter Android und iOS möglich und einige Parameter können angepasst werden.
+Mit dem Plugin \textit{camera} \cite{Dart_Camera} ist ein, vom Flutter-Team gepflegtes, offizielles Plugin verfügbar. 
+Über dieses Plugin ist die Aufzeichnung von Videos unter Android und iOS möglich.
+Außerdem können verschiedene Parameter eingestellt werden.
 Für die Speicherung ist kein zusätzliches Plugin notwendig, der Zugriff auf Gerätespeicher ist in Flutter bereits integriert.
 Zur Wiedergabe der Videos wird das offizielle Video-Player-Plugin verwendet \cite{Dart_Video}.
 
-Die erforderlichen Anforderungen, sowie die Wiedergabe von Videos, können somit mit Flutter vollständig umgesetzt werden.
+Die erforderlichen Anforderungen sowie die Wiedergabe von Videos können somit mit Flutter vollständig umgesetzt werden.
 Allerdings gibt es einige Einschränkungen bei den einstellbaren Parametern.
-So sind weder Belichtungszeit noch ISO-Wert einstellbar, für die Belichtung kann nur ein Offset für die automatische Belichtungssteuerung gesetzt werden.
+So sind weder Belichtungszeit noch ISO-Wert einstellbar, für die Belichtung kann nur ein Offset für die automatische Belichtungssteuerung vorgegeben werden.
 Zudem kann die Aktualisierung der automatischen Belichtungssteuerung gestoppt werden, die letzte automatische Einstellung bleibt dabei erhalten.
 Diese Funktion ist auch als \ac{AEL} bekannt.
 Der Fokus kann ebenfalls nicht komplett manuell gewählt werden, stattdessen lässt sich ein Punkt des Videos wählen, welcher vom Autofokussystem als Ausgangspunkt verwendet wird.
@@ -77,7 +78,7 @@ Standardmäßig werden Open-Source Komponenten für .NET-Anwendungen über den P
 Dort sind auch die offiziellen Xamarin-Bibliotheken verfügbar.
 Die offizielle Bibliothek \textit{Xamarin.Essentials} ermöglicht neben der Nutzung weiterer nativer Funktionen auch den Zugriff auf verschiedene Kamerafunktionen.
 Die Kamera kann über eine stark vereinfachte \ac{API} der statischen Klasse \textit{MediaPicker} genutzt werden \cite{Xamarin_MediaPicker}.
-Wie das, in der Implementierung mit Cordova eingesetzte Plugin, wird auch hier die Aufzeichnung von Videos über die vom Betriebssystem bereitgestellte Aufzeichnungsfunktion realisiert.
+Wie in der Implementierung mit Cordvoa, wird auch hier die Aufzeichnung von Videos über die vom Betriebssystem bereitgestellte Aufzeichnungsfunktion realisiert.
 Deshalb ist auch bei Xamarin-Anwendungen die Aufzeichnung von Videos zwar möglich, jedoch können keine Parameter aus der Anwendung heraus angepasst werden.
 Der Zugriff auf den Gerätespeicher ist wie bei Flutter ohne zusätzliche Abhängigkeiten möglich.
 Die Wiedergabe der Videos ist über ein entsprechendes \ac{UI}-Element der offiziellen Bibliothek \textit{XamarinCommunityToolkit} \cite{Xamarin_CommunityToolkit} ohne Einschränkungen möglich.
@@ -112,10 +113,10 @@ Weiterhin kann der Fokus in ähnlicher Art und Weise wie bei Flutter gesetzt wer
 Im Vergleich zu Flutter kann jedoch die Belichtung nicht eingestellt werden.
 Das Plugin erlaubt unter iOS zudem die Wahl des Videocodecs.
 Dabei sind verschiedene Einschränkungen aufgefallen.
-Beim Testgerät waren nur die Codecs H.264 und \ac{HEVC} und JPEG verfügbar.
+Beim Testgerät waren nur die Codecs H.264, \ac{HEVC} (H.265) und JPEG verfügbar.
 Weiterhin war die Auswahl nur bei Auflösungen unter 3840x2160 möglich.
 Diese und alle höheren Auflösungen unterstützen nur den Codec \ac{HEVC}.
-Laut Dokumentation unterstützt das Plugin auch den Apple-eigenen Codec \textit{ProRes}, der aktuell allerdings nur auf den jeweiligen Pro-Modellen der iPhones 13 und 14 verfügbar ist \cite{Prores_iPhone13}.
+Laut Dokumentation kann das Plugin auch den Apple-eigenen Codec \textit{ProRes} verwenden, der allerdings nur auf den jeweiligen Pro-Modellen der iPhones 13 und 14 verfügbar ist \cite{Prores_iPhone13}.
 Das Plugin bietet keine Möglichkeit die Belichtungsparameter ISO und Belichtungszeit einzustellen.
 
 \subsection{Zusammenfassung Evaluation Grundfunktionalität}
@@ -124,7 +125,7 @@ Die geforderten Grundfunktionalitäten der Aufzeichnung und Speicherung können 
 Die Wiedergabe ist mit Ausnahme von Ionic mit Cordova ebenfalls möglich.
 Bei der Einstellbarkeit der Parameter gibt es jedoch Unterschiede zwischen den Frameworks.
 Insbesondere sind bei Xamarin und Ionic mit Cordova aufgrund der Nutzung der Standardanwendung zur Videoaufzeichnung keine Einstellungen der Parameter möglich.
-Da Flutter und React Native die Standardanwendung nicht nutzen, sondern direkt die \acp{API} des Betriebssystems nutzen sind hier mehr Einstellungen möglich.
+Da Flutter und React Native nicht auf die Standardanwendung angewiesen sind, sondern direkt \acp{API} des Betriebssystems nutzen sind hier mehr Einstellungen möglich.
 \autoref{tab:parameter_support_evaluation} fasst die Einstellbarkeit der Parameter für Flutter und React Native zusammen.
 \begin{table}[H]
   \begin{tabularx}{\textwidth}{ |l|X|X| }
@@ -197,11 +198,11 @@ Weiterhin liefern sowohl React Native als auch Flutter standardmäßig verschied
 Wie bei der Erläuterung der Frameworks in \autoref{sec:frameworks_flutter} beschrieben wird mit jeder Flutter-Anwendung eine Version der Skia Engine mitgeliefert.
 Bei React Native muss jeweils eine JavaScript Engine mitgeliefert werden, für den Prototyp wird die Standardeinstellung nicht verändert, wodurch die für React Native optimierte Hermes Engine verwendet wird.
 
-Der größte Ausreißer bei der Größe der Release-Builds ist die mit React Native erstellte App für iOS.
-Diese ist mit 157,6 MB deutlich größer als alle anderen Implementierungen.
-Zwar ist die App unter Android ebenfalls vergleichsweise groß, jedoch fällt der Unterschied weniger stark aus.
+Die mit React Native erstellte App für iOS ist ein Ausreißer.
+Mit 157,6 MB fällt die App deutlich größer aus als alle anderen Implementierungen.
+Zwar ist die App unter Android ebenfalls vergleichsweise groß, jedoch fällt die Abweichung zu den anderen Frameworks weniger stark aus.
 Sehr große \ac{IPA}-Dateien wurden bei der Verwendung der Hermes Engine bereits mehrfach beobachtet \cite{Hermes_appsize,Hermes_appsize_2}.
-Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet reduziert sich die App-Größe deutlich auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
+Wird anstatt Hermes, die von iOS bereitgestellte JavaScript Core Engine verwendet, reduziert sich die App-Größe deutlich auf 3,1 MB, wie in \autoref{fig:reactnative_appsize_ios} zu sehen ist.
 Unter Android trägt die Hermes Engine stattdessen zu einer kleineren App-Größe bei.
 Ein Build mit der JavaScript Core Engine ist unter Android mit 51,9 MB deutlich größer als der Build mit der Hermes Engine mit 21,7 MB.
 Da die Hermes Engine bei neuen React Native Projekten standardmäßig aktiviert ist, wird diese Variante für die Evaluation verwendet.
@@ -239,8 +240,9 @@ Hier fallen kaum Unterschiede zwischen den Plattformen auf, was die Vermutung ve
 \end{figure}
 
 
-Für die Messung der Startzeit kann bei Flutter und Xamarin auf die \ac{TTFD} zurückgegriffen werden, die bei diesen Frameworks der Zeit bis zur vollständigen Funktionsfähigkeit entspricht.
-Andererseits kann die \ac{TTFD} bei React Native und Ionic mit Cordova nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gerendert wird.
+Für die Messung der Startzeit kann bei Flutter und Xamarin auf die \ac{TTFD} zurückgegriffen werden.
+Bei beiden Frameworks ist die vollständige Funktionsfähigkeit der App zu diesem Zeitpunkt bereits erreicht.
+Andererseits kann die \ac{TTFD} bei React Native und Ionic mit Cordova nicht herangezogen werden, da diese Frameworks die Initialisierung nicht komplett abgeschlossen haben, wenn das erste Frame gezeichnet wird.
 Bei Ionic mit Cordova misst die \ac{TTFD} nur die Zeit bis zur Anzeige der Wrapper-Anwendung.
 Die folgende Initialisierung der WebView mit der eigentlichen Anwendung in JavaScript wird nicht berücksichtigt.
 Deshalb wird stattdessen die Zeit bis zum Event \texttt{Platform.ready} zur Messung verwendet.
@@ -260,7 +262,7 @@ Der absolute Unterschied ist jedoch mit 22 ms respektive 21 ms sehr gering.
 \end{figure}
 Die Xamarin-Anwendung und die Anwendung, welche mit Ionic und Cordova implementiert ist, benötigen deutlich länger, bis die vollständige Funktionsfähigkeit erreicht ist.
 Obwohl sowohl bei Ionic mit Cordova als auch bei React Native die Logik in JavaScript implementiert ist, ist die Startzeit der Cordova-Anwendung mehr als viermal länger.
-Daraus lässt sich schließen, dass der Ansatz von React Native, die nativen Steuerelemente der Plattform anstelle einer WebView einzusetzen, beim Starten der Anwendung einen deutlichen Vorteil bietet.
+Daraus lässt sich schließen, dass die Verwendung von nativen Steuerelementen anstelle einer WebView einen positiven Einfluss auf die Startzeit hat.
 Allerdings nutzt React Native auch eine für das Framework optimierte JavaScript Engine, was vermutlich ebenfalls einen positiven Einfluss auf die Startzeit hat.
 
 Für Xamarin-Anwendungen wurde aufgrund der \ac{JIT}-Kompilation unter Android eine deutlich längere Startzeit als unter iOS erwartet.
@@ -299,13 +301,13 @@ In beiden Fällen ist der automatisierte Testfall in der Flutter-Anwendung mehr 
 Dies lässt sich mit fundamentalen Unterschieden zwischen den Frameworks erklären.
 Beide Frameworks wählen zum Zugriff auf native Funktionen einen unterschiedlichen Ansatz, der nach den hier vorgestellten Ergebnissen große Auswirkungen auf den Overhead beim Zugriff auf Kamerafunktionen und den Gerätespeicher hat.
 
-Das eingesetzte React Native Plugin verwendet die neue, in \autoref{sec:frameorks_reactnative} beschriebene, Architektur.
+Das eingesetzte React Native Plugin verwendet die neue, in \autoref{sec:frameorks_reactnative} beschriebene Architektur.
 Damit können plattformspezifische Host-Objects direkt aus JavaScript aufgerufen werden.
 Dadurch entfällt insbesondere der Aufwand für Serialisierung und Deserialisierung von Nachrichten, welche zwischen dem nativen Teil und dem plattformübergreifenden Teil der Anwendung ausgetauscht werden.
 Im Vergleich verwenden sowohl die alte Architektur von React Native als auch Flutter eine Nachrichtenbasierte Kommunikation.
 Somit erfordert jeder Funktionsaufruf zwei zusätzliche Nachrichten, welche jeweils eine Serialisierung und Deserialisierung erfordern.
 Damit ist die Kommunikation zwischen plattformunabhängigem Anteil und plattformspezifischem Anteil der jeweiligen App mit React Native deutliche effizienter als bei Flutter.
-Da die Plugins die tatsächlich getätigten nativen Aufrufe und deren Anzahl verbergen, ist aus der Anwendung heraus nicht ersichtlich, wie viele native Funktionsaufrufe durch den Aufruf einer Plugin-Funktion ausgelöst werden.
+Da die Plugins tatsächlich getätigte native Aufrufe und deren Anzahl verbergen, ist aus der Anwendung heraus nicht ersichtlich, wie viele native Funktionsaufrufe durch den Aufruf einer Plugin-Funktion ausgelöst werden.
 Somit können auch Unterschiede in den Plugins Grund für die unterschiedlichen Ergebnisse sein.
 Bei den beobachteten sehr großen Unterschieden ist jedoch davon auszugehen, dass die Effizienz der Kommunikation die Hauptursache für die Abweichungen ist.
 
@@ -315,8 +317,8 @@ Bei den beobachteten sehr großen Unterschieden ist jedoch davon auszugehen, das
 
 Mit einer kurzen Startzeit, der besten Performance beim Ende-zu-Ende-Test und der größten Freiheit bei der Einstellung der Video-Parameter ist React Native als am besten geeignetes Framework für die Entwicklung einer Videoaufzeichnungsanwendung für Android und iOS zu bewerten.
 Zudem lässt sich das Problem der App-Größe unter iOS durch die Nutzung der JavaScriptCore Engine umgehen.
-Nur Flutter ist ebenfalls als empfehlenswert zu bewerten.
-Startzeiten sind sehr ähnlich zu React Native, allerdings fällt die Performance im Ende-zu-Ende-Test deutlich schlechter aus und weniger Parameter können eingestellt werden.
+Einzig Flutter kann ebenfalls für die Umsetzung von Videoaufzeichnung mit Cross-Plattform Frameworks empfohlen werden.
+Die Startzeiten sind sehr ähnlich zu React Native, allerdings fällt die Performance im Ende-zu-Ende-Test deutlich schlechter aus und weniger Parameter können eingestellt werden.
 Weiterhin ist die App-Größe unter iOS deutlich und unter Android geringfügig kleiner.
 Jedoch muss beachtet werden, dass die stark gestiegene App-Größe für React Native unter iOS auf einen Fehler im Zusammenspiel mit der Hermes Engine zurückzuführen ist.
 
@@ -330,7 +332,7 @@ Xamarin ist jeweils die besser Alternative, da native Funktionen mit geringerem 
 \subsubsection{Gründe für die schlechten Ergebnisse von Ionic mit Cordova und Xamarin}
 Die Cross-Plattform Frameworks Cordova und Xamarin sind seit 2011 verfügbar und damit einige Jahre älter als die Frameworks Flutter und React Native, welche erst 2015 und 2017 veröffentlicht wurden \cite{Steyer_Cordova,Sharma_Flutter,Xamarin_EOL,ReactNative_Release}.
 Demnach wäre es zu erwarten, dass beide Frameworks in einem ausgereiften Zustand sind und bessere oder zumindest vergleichbare Ergebnisse liefern.
-Insbesondere sollten bessere Plugins installieren, da Entwickler schon länger mit den Frameworks arbeiten und somit auch schon länger Plugins entwickeln können.
+Insbesondere sollten geeignete Plugins vorhanden sein, da Entwickler schon länger mit den Frameworks arbeiten und somit auch schon länger Plugins entwickeln können.
 
 Die Ergebnisse der Evaluierung zeigen jedoch, dass die Frameworks Flutter und React Native deutlich bessere Ergebnisse liefern.
 Weiterhin wurde im Laufe der Arbeit klar, dass die Architektur der Frameworks zwar einen Einfluss auf die zu erwartende Performance hat.
@@ -343,21 +345,21 @@ Xamarin bildet jedoch eine Ausnahme, da keine Plugins für den Zugriff auf nativ
 Stattdessen lassen sich alle \acp{API} aus C\# heraus direkt verwenden.
 Dabei kann jeweils der volle Funktionsumfang genutzt werden und Einschränkungen durch Plugins werden vermieden.
 Außerdem kann so eine zusätzliche Abhängigkeit zu einem Plugin vermieden werden.
-Dennoch existieren für Xamarin Plugins in Form von Bibliotheken, welche die nativen Funktionen abstrahiert über eine plattformunabhängige Schnittstelle bereitstellen.
+Dennoch existieren für Xamarin Plugins in Form von Bibliotheken, welche die nativen \acp{API} in einfach wiederverwendbarer Form abstrahieren.
 
 
-Da keine technischen Gründe für die fehlende Verfügbarkeit geeigneter Plugins vorliegen liegen die Gründe vielmehr in der geringen Beliebtheit und Verbreitung der Frameworks.
+Da keine technischen Gründe für die fehlende Verfügbarkeit geeigneter Plugins vorliegen, liegen die Gründe vielmehr in der geringen Beliebtheit und Verbreitung der Frameworks.
 In der letzten Stack Overflow Developer Survey \cite{Stackoverflow_2022} nutzten 12,64 \% der Befragen Flutter und 12,57 \% React Native.
 Gleichzeitig nutzten nur 4,15 \% Cordova und 5,21 \% Xamarin.
 Die Angaben zu Ionic sind hier nicht sinnvoll, da die Nutzung von Ionic als UI-Toolkit keine Auswirkungen auf die Verfügbarkeit von Plugins für Cordova hat.
 Eine weitere Umfrage zu den genutzten Cross-Plattform Frameworks von Statista \cite{Statista_UsedCrossPlatformFrameworks} zeigt, dass Flutter und React Native 2021 von 42 \% und 38 \% der Befragten genutzt wurden, während Cordova und Xamarin nur von 16 \% beziehungsweise 11 \% aller Befragten eingesetzt wurden.
 Weiterhin gewinnt Flutter in den letzten Jahren an Marktanteil, Cordova und Xamarin hingegen haben seit 2019 große Teile ihres Marktanteils verloren.
 
-Unter Entwicklern beliebte und verbreitete Frameworks haben den großen Vorteil, dass mehr Entwickler daran interessiert sind zur Entwicklung beizutragen.
-Durch mehr direkte Beiträge zum Framework werden Fehler schneller behoben und neue Funktionen schneller fertiggestellt.
+Unter Entwicklern beliebte und verbreitete Frameworks haben Vorteile bei der Gewinnung von mitwirkenden Entwicklern.
+Durch mehr direkte Beiträge zum Framework werden Fehler zeitnah behoben und neue Funktionen schneller fertiggestellt.
 Somit können neue Betriebssystemversionen oder Gerätetypen schneller unterstützt werden, was wiederum die Verbreitung und Beliebtheit des Frameworks positiv beeinflusst.
 Gleichzeitig ist durch die größere Zahl der Nutzer die Wahrscheinlichkeit höher, dass andere Nutzer ähnliche Funktionen benötigen und entsprechende Plugins entwickeln.
 Damit können Entwickler auf eine größere Zahl von geeigneten Plugins zurückgreifen, was ihnen die Entwicklung erleichtert und vermutlich positiv zur Beliebtheit beiträgt.
-Gleichzeitig sorgt ein wachsender Marktanteil für mehr Aufmerksamkeit, wodurch die Verbreitung weiter steigt und das Interesse an der Entwicklung neuer Plugins steigt.
+Gleichzeitig sorgt ein wachsender Marktanteil für mehr Aufmerksamkeit, wodurch die Verbreitung weiter steigt und das Interesse an der Entwicklung neuer Plugins wächst.
 Andererseits führt ein sinkender Marktanteil zu geringerem Interesse an der Entwicklung neuer Plugins, was wiederum die Beliebtheit des Frameworks weiter sinken lässt.
 
