@@ -8,10 +8,11 @@ Dazu werden häufig verwendete Funktionen über abstrahierte Schnittstellen bere
 Außerdem können native Bibliotheken eingebunden werden, sodass beliebiger Code in der jeweiligen plattformspezifischen Sprache integriert werden kann \cite{Xamarin_Android}.
 
 
-Zur Ausführung von .NET-Code auf den mobilen Plattformen, wird die Mono Ausführungsumgebung verwendet, eine Open-Source Runtime für .NET.
+Zur Ausführung von .NET-Code auf den mobilen Plattformen, wird die Mono-Ausführungsumgebung verwendet, eine Open-Source Runtime für .NET.
 Parallel kommt jeweils eine native Ausführungsumgebung zum Einsatz, welche den Aufruf von Plattform-\acp{API} und die Interoperabilität mit nativem Code ermöglicht.
 Unter Android wird hierfür die \ac{ART} verwendet, unter iOS die Objective-C Ausführungsumgebung \cite{Xamarin_iOS,Xamarin_Android}.
 Die sich ergebende Architektur ist in \autoref{fig:xamarin_architecture} dargestellt.
+Die in C\# bereitgestellten Bindings zu nativen Funktionen werden von der Ausführungsumgebung in die passenden nativen Aufrufe übersetzt.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.95\textwidth]{xamarin_architecture.png}
@@ -45,7 +46,6 @@ Der Namen verdeutlicht einen starken Fokus auf plattformübergreifende Entwicklu
 Allerdings übernimmt das Framework auch die Abstraktion der verschiedenen .NET Implementierungen auf den einzelnen Zielplattformen und wird von Microsoft explizit als Cross-Plattform Framework beworben \cite{NET_MAUI}.
 Technisch kann .NET \ac{MAUI} daher als Weiterentwicklung von Xamarin insgesamt betrachtet werden und beide Bezeichnungen werden aktuell teilweise noch synonym verwendet.
 Da die erste Version von .NET \ac{MAUI} erst im Mai 2022 veröffentlicht wurde \cite{NET_MAUI_Release}, wird in dieser Arbeit weiterhin von Xamarin gesprochen.
-% TODO: wird später MAUI verwendet oder nicht, eventuelle Unterschiede
 
 
 Xamarin-Anwendungen weisen allgemein eine durchschnittliche Performance im Vergleich zu anderen Frameworks auf \cite{Nawrocki_Comparison_Hybrid_Native_Frameworks, Bakker_Xamarin_XamarinForms_Native, Xamarin_Homepage}.

@@ -1,0 +1,37 @@
+\chapter{Auswahl eines Cross-Plattform Frameworks}
+\label{ch:auswahl}
+
+In diesem Kapitel soll auf Basis der Erkenntnisse eine Empfehlung zur Auswahl eines Cross-Plattform Frameworks gegeben werden.
+Grundsätzlich ist die Auswahl eines Frameworks vom konkreten Anwendungsfall abhängig.
+Wie bereits gezeigt, ist React Native für die Videoaufzeichnung von allen untersuchten Frameworks am besten geeignet.
+Außerdem lässt sich diese Anwendung auch mit Flutter gut umsetzen.
+Bei der Videoaufzeichnung handelt es sich um einen Anwendungsfall mit vergleichsweise hohen Anforderungen an den Zugriff auf Funktionen des Betriebssystems.
+Zusätzlich zu den Funktionen des Kamerasystems ist ein Zugriff auf das Dateisystem der Plattform notwendig.
+Der Zugriff auf native Funktionen ist bei React Native effizienter umgesetzt als bei Flutter oder Cordova.
+Grundlage dafür ist die neue Architektur und der damit einhergehende Verzicht auf Nachrichtenbasierte Kommunikation, wie in \autoref{sec:frameorks_reactnative} bereits erläutert.
+Plugins können somit effizienter auf native Funktionen zugreifen, was sich positiv auf die Performance auswirkt.
+Die Ergebnisse des Ende-zu-Ende-Tests in \autoref{sec:evaluation_allgemein} zeigen die höhere Performance von React Native im Vergleich zu Flutter.
+
+Xamarin stellt einen ähnlich effizienten Zugriff auf native Funktionen bereit und erlaubt darüber hinaus auch die Verwendung nativer \acp{API} direkt in C\#.
+Allerdings sind deshalb kaum Plugins vorhanden, weshalb mehr Code selbst entwickelt werden muss.
+Außerdem ist die allgemeine Performance der Mono-Ausführungsumgebung für C\# schlechter als die von React Native eingesetzten JavaScript Ausführungsumgebungen.
+Deshalb wird React Native für Anwendungsfälle mit vielen Zugriffen auf native \acp{API} empfohlen, solange die Zugriffe über Plugins abgedeckt sind.
+Dies ist bei gängigen Anwendungsfällen zu erwarten.
+Werden jedoch sehr spezielle \acp{API} benötigt, ist Xamarin trotz schlechterer Performance die bessere Wahl, da der Aufwand der Entwicklung eigener entfällt.
+Allerdings wird dabei auch der größte Vorteil der Cross-Plattform Entwicklung abgeschwächt, sodass in diesem Fall die native Entwicklung in Betracht gezogen werden kann.
+Insbesondere, wenn ein großer Teil der Anwendung aus nativen Zugriffen besteht, ist native Entwicklung vorzuziehen.
+
+Bei Anwendungsfällen mit wenig Zugriffen auf native \acp{API} und damit geringerem Bedarf für Plugins sind die Unterschiede zwischen den Frameworks kleiner.
+Apps, welche im wesentlichen Daten aus dem Internet laden und anzeigen, sind uneingeschränkt mit jedem Framework umsetzbar.
+Zum Beispiel Nachrichten-Apps oder einfache Apps für Online-Shopping benötigen nicht zwingend Zugriff auf native \acp{API}, um funktionsfähig zu sein.
+
+Die untersuchten allgemeinen Kriterien, wie Startzeit und App-Größe, können herangezogen werden, um in so einem Fall eine Empfehlung aussprechen zu können.
+Die Startzeit kann vor allem die Nutzbarkeit einer App und den subjektiven Eindruck der Performance beeinflussen.
+App-Größe hingegen bestimmt die Downloadzeit und damit die Wartezeit bis zur ersten Nutzung der App und den Speicherbedarf auf dem Smartphone.
+Bei weiter steigenden Internetgeschwindigkeiten und immer mehr Speicherplatz auf Smartphones verliert die App-Größe jedoch zunehmend an Bedeutung.
+Die geringste Größe im Durchschnitt der Plattformen wird von Ionic mit Cordova erreicht, gefolgt von Flutter, Xamarin und React Native.
+Flutter erzielt die im Durchschnitt geringste Startzeit, wobei React Native sehr ähnliche Zeiten erreicht.
+Xamarin und Ionic mit Cordova sind hingegen deutlich langsamer.
+
+Werden nur App-Größe und Startzeit berücksichtigt, ist Flutter damit für Apps mit wenigen nativen Aufrufen zu empfehlen.
+Außerdem stehen für Flutter, wie für React Native, viele Plugins zur Verfügung, sodass auch bei Bedarf auf nativen Code zurückgegriffen werden kann.
