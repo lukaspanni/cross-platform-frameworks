@@ -4,7 +4,7 @@
 
 Cross-Plattform Frameworks können die Entwicklung von Apps für die beiden mobilen Plattformen Android und iOS deutlich erleichtern.
 Während der klassische Ansatz die Entwicklung mit der, vom Betriebssystem vorgegebenen Programmiersprache vorsieht, ermöglichen Cross-Plattform Frameworks die überwiegende Verwendung einer gemeinsamen Programmiersprache.
-So lässt sich ein großer Anteil des Codes für beide Plattformen wiederverwenden, was die Entwicklungszeit und Entwicklungskosten deutlich reduziert.
+So lässt sich ein großer Anteil des Codes für beide Plattformen wiederverwenden, was benötigte Zeit und Kosten für die Entwicklung deutlich reduziert.
 Allerdings müssen Apps für viele Funktionen auf die \acp{API} des Betriebssystems zurückgreifen.
 Da sich die \acp{API} der beiden Betriebssysteme teilweise stark unterscheiden ist plattformspezifischer Code notwendig.
 Für häufig verwendete Funktionen existieren Abstraktionen der Frameworks oder entsprechende Plugins von Drittanbietern, sodass auch hier die Wiederverwendung von Code möglich ist.
@@ -13,32 +13,30 @@ Im Rahmen der vorliegenden Arbeit wurde untersucht, inwiefern der Anwendungsfall
 Durch die verschiedenen Ansätze der Frameworks und die unterschiedliche Verfügbarkeit von Plugins konnten große Unterschiede in der Eignung der Frameworks festgestellt werden.
 
 
-Die Frameworks Flutter, Ionic beziehungsweise Ionic mit Cordova, Xamarin und React Native wurden als populärste Cross-Plattform Frameworks identifiziert.
+Die Frameworks Flutter, Cordova mit Ionic als UI-Toolkit, Xamarin und React Native wurden als populärste Cross-Plattform Frameworks identifiziert.
 Bei Untersuchung der Funktionsweise in \autoref{ch:frameworks} wird klar, dass die Frameworks unterschiedliche Ansätze zur Umsetzung der plattformübergreifenden Entwicklung verfolgen.
 Unterschiede bestehen nicht nur in der verwendeten Programmiersprache, sondern auch in der grundlegenden Architektur und der Art des Zugriffs auf native Funktionen.
 Alle Frameworks ermöglichen jedoch prinzipiell den Zugriff auf alle \acp{API} der mobilen Betriebssysteme.
 Nur mit Xamarin ist eine direkte Nutzung der Schnittstellen möglich, ohne für die jeweilige Plattform nativen Code entwickeln zu müssen.
 Die anderen Frameworks setzen auf Plugin-Systeme.
-Dabei steht eine Vielzahl von Plugins von den Frameworkentwicklern und von Drittanbietern Open-Source zur Verfügung, sodass viele Anwendungsfälle umsetzbar sein sollten.
+Dabei steht eine Vielzahl von Plugins von den Frameworkentwicklern und von Drittanbietern als Open-Source-Software zur Verfügung, sodass viele Anwendungsfälle umsetzbar sein sollten.
 Damit ist es mit jedem der untersuchten Frameworks grundsätzlich möglich, eine App zur Videoaufzeichnung zu entwickeln.
 
 
 Für die Implementierung von prototypischen Apps wurde jeweils nur auf verfügbare Plugins oder Bibliotheken zurückgegriffen.
 Keine Funktion wurde direkt in nativen Code umgesetzt.
-Durch die Implementierung von speziellen Plugins in nativem Code, ginge der Vorteil der Cross-Plattform Frameworks verloren.
+Durch die Implementierung von speziellen Plugins in nativem Code ginge der Vorteil der Cross-Plattform Frameworks verloren.
 Die essenziellen, funktionalen Anforderungen, definiert in \autoref{ch:bewertungskriterien}, konnten mit allen Frameworks umgesetzt werden.
 Bei der Umsetzung der optionalen Anforderungen und der Untersuchung von Startzeit, App-Größe und Performance in einem Ende-zu-Ende-Test, wurden jedoch deutliche Unterschiede zwischen den Frameworks festgestellt.
 
-React Native hat sich als am besten geeignetes Framework für die Entwicklung einer App zur Videoaufzeichnung herausgestellt.
+React Native hat sich als am besten geeignetes Framework für die Entwicklung einer App zur Videoaufzeichnung beziehungsweise für Apps mit vielen nativen Zugriffen herausgestellt.
 Mit keinem anderen Framework konnten mehr Parameter der Videoaufzeichnung auf die eigenen Bedürfnisse angepasst werden.
 Dennoch sind nicht alle wünschenswerten Parameter verfügbar.
 Außerdem ist die Performance des React Native Prototyps im Ende-zu-Ende-Test am besten.
 Als Grund wurde die effiziente Kommunikation zwischen plattformübergreifenden und nativen Komponenten identifiziert.
 Einziges Problem ist die sehr große App-Größe unter iOS, welche jedoch vermutlich auf einen Fehler im Zusammenspiel mit der JavaScript Engine Hermes zurückzuführen ist.
 Nur Flutter wird als weiters Framework für die Entwicklung einer App zur Videoaufzeichnung empfohlen.
-In vielen Aspekten sind die Ergebnisse von Flutter und React Native vergleichbar.
 Die Einstellbarkeit der Parameter für die Videoaufzeichnung ist jedoch bei dem für Flutter verwendeten Plugin nicht so umfangreich wie bei React Native.
-Weiterhin ist die Performance von Flutter im Ende-zu-Ende-Test schlechter.
 
 Die Verfügbarkeit von Plugins, welche für den konkreten Anwendungsfall gut geeignet sind, konnte allgemein als entscheidendes Kriterium für die Eignung eines Frameworks identifiziert werden.
 Da für Cordova und Xamarin keine Plugins existieren, welche den Anwendungsfall der Videoaufzeichnung gut unterstützen, werden diese Frameworks nicht empfohlen.
@@ -57,13 +55,12 @@ Sofern nicht alle der Parameter benötigt werden, kann die Nutzung der Cross-Pla
 \section{Ausblick}
 
 Die Ergebnisse dieser Arbeit können als Grundlage für die Untersuchung weiterer Anwendungsfälle dienen.
-Insbesondere könnten die Unterschiede zwischen den Frameworks bei Anwendungsfällen, die weniger native Funktionen nutzen, deutlich kleiner ausfallen.
-Allgemein wird jedoch davon ausgegangen, dass React Native und Flutter auch für alternative Anwendungsfälle besser geeignet sind als Ionic mit Cordova und Xamarin.
-Durch die höhere Verbreitung und Beliebtheit können die Plugins für Flutter und React Native mehr Entwickler für die Weiterentwicklung und Verbesserung gewinnen.
-Dadurch ist für alle Anwendungsfälle die Wahrscheinlichkeit höher, geeignete Plugins zu finden.
-Da bessere Plugins vermutlich wiederum einen positiven Einfluss auf die Verbreitung und Beliebtheit der Frameworks haben, ist mit einem Selbstverstärkungseffekt zu rechnen.
-Dies führt mutmaßlich dazu, dass ihre Popularität weiter steigt und mehr Entwickler sich an Weiterentwicklung und Verbesserung der Frameworks und Plugins beteiligen.
-Somit werden die Frameworks in Zukunft noch besser für verschiedene Anwendungsfälle geeignet sein.
+Wie in \autoref{ch:auswahl} beschrieben, wird davon ausgegangen, dass die Unterschiede zwischen den Frameworks bei Anwendungsfällen, die weniger native Funktionen nutzen, deutlich kleiner ausfallen.
+Auf Basis der Untersuchung der App-Größe und der Startzeit wird für solche Anwendungsfälle Flutter empfohlen.
+Diese Annahmen sollten in weiteren Untersuchungen überprüft werden.
+
+Allgemein kann jedoch davon ausgegangen werden, dass sowohl Flutter als auch React Native für die meisten Anwendungsfälle geeignet sind.
+Insbesondere die gute Verfügbarkeit von Plugins, die auf die Popularität der Frameworks zurückzuführen ist, sorgt dafür, dass für viele Anwendungen alle nativen Zugriffe über vorhandene Plugins abgedeckt werden können.
 
 Weitere Untersuchungen könnten sich auch auf die Einbettung von Cross-Plattform Anteilen in nativ entwickelten Apps konzentrieren.
 Vor allem React Native eignet sich nach eigenen Angaben sehr gut dazu, Cross-Plattform Anteile in bestehende nativ entwickelte Apps zu integrieren.
